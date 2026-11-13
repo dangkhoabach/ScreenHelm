@@ -1,0 +1,4257 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "": {},
+    "%@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        }
+      }
+    },
+    "%@ is running. Two apps changing the same display undo each other: use one at a time.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ đang chạy. Hai ứng dụng cùng chỉnh một màn hình sẽ ghi đè lẫn nhau: mỗi lúc chỉ nên dùng một ứng dụng."
+          }
+        }
+      }
+    },
+    "%@ is switched off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ đã bị tắt"
+          }
+        }
+      }
+    },
+    "%@ is the main display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ là màn hình chính"
+          }
+        }
+      }
+    },
+    "%@ mirrors %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ mirrors %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ phản chiếu %2$@"
+          }
+        }
+      }
+    },
+    "%@ no longer mirrors": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ thôi phản chiếu"
+          }
+        }
+      }
+    },
+    "%lld sizes, from %@ to %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld sizes, from %2$@ to %3$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld kích thước, từ %2$@ tới %3$@"
+          }
+        }
+      }
+    },
+    "A change you make in System Settings counts as macOS's and is undone too: after one, choose Keep the Current One.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay đổi bạn tự làm trong Cài đặt Hệ thống cũng bị coi là của macOS và bị hoàn tác: sau khi đổi, hãy chọn Giữ bố cục hiện tại."
+          }
+        }
+      }
+    },
+    "A control the display doesn't have stays hidden.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Điều khiển nào màn hình không có thì vẫn ẩn."
+          }
+        }
+      }
+    },
+    "A dark overlay": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lớp phủ tối"
+          }
+        }
+      }
+    },
+    "A display connects": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một màn hình được kết nối"
+          }
+        }
+      }
+    },
+    "A display disconnects": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một màn hình bị ngắt"
+          }
+        }
+      }
+    },
+    "A display gets its dimming and picture settings back when it is connected again.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi được kết nối lại, màn hình nhận lại mức làm tối và các điều chỉnh hình ảnh của nó."
+          }
+        }
+      }
+    },
+    "A display is switched off from its own page. Everything ScreenHelm switched off comes back when ScreenHelm quits.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt một màn hình ở trang của chính nó. Mọi màn hình ScreenHelm đã tắt sẽ bật lại khi ScreenHelm thoát."
+          }
+        }
+      }
+    },
+    "A display not connected now": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một màn hình hiện không kết nối"
+          }
+        }
+      }
+    },
+    "A display's name, or \"all\". The main display when empty.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên một màn hình, hoặc \"all\". Để trống là màn hình chính."
+          }
+        }
+      }
+    },
+    "A floating window": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cửa sổ nổi"
+          }
+        }
+      }
+    },
+    "A link can come from a web page or a document, which is why links are off until you turn them on. A change that could leave a display unusable still asks to be kept.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liên kết có thể đến từ một trang web hay một tài liệu, nên liên kết bị tắt cho tới khi bạn bật. Thay đổi có thể làm màn hình không dùng được vẫn hỏi có giữ hay không."
+          }
+        }
+      }
+    },
+    "A live copy of a display or a window: in a small window that floats over everything, or across another display. Turned, mirrored, cropped or filtered on the way if you like. The picture is never saved.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bản sao trực tiếp của một màn hình hay một cửa sổ: trong một cửa sổ nhỏ nổi trên mọi thứ, hoặc phủ kín một màn hình khác. Có thể xoay, lật, cắt hay lọc màu nếu muốn. Hình ảnh không bao giờ được lưu lại."
+          }
+        }
+      }
+    },
+    "A slider that does nothing means the monitor doesn't have that setting. Values are remembered here, since monitors are slow and unreliable at reporting them.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thanh trượt không có tác dụng nghĩa là màn hình không có cài đặt đó. Các giá trị được ghi nhớ tại đây, vì màn hình báo lại chậm và không đáng tin."
+          }
+        }
+      }
+    },
+    "A virtual screen is a display with nothing plugged in: somewhere to mirror to, to share in a call, or to show in a picture-in-picture window. It lasts while ScreenHelm runs. Protected video doesn't play on one.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình ảo là một màn hình không cần cắm gì: nơi để phản chiếu sang, để chia sẻ trong cuộc gọi, hoặc để hiện trong cửa sổ hình trong hình. Nó tồn tại trong lúc ScreenHelm chạy. Video có bảo vệ bản quyền không phát trên màn hình ảo."
+          }
+        }
+      }
+    },
+    "Accept answers whose checksum is wrong": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chấp nhận trả lời có checksum sai"
+          }
+        }
+      }
+    },
+    "Accessibility": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trợ năng (Accessibility)"
+          }
+        }
+      }
+    },
+    "Action": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hành động"
+          }
+        }
+      }
+    },
+    "Add": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm"
+          }
+        }
+      }
+    },
+    "Add a Group": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm nhóm"
+          }
+        }
+      }
+    },
+    "Add an Action": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm hành động"
+          }
+        }
+      }
+    },
+    "After sleep, or when a display is plugged in, macOS sometimes moves displays around or picks another resolution. ScreenHelm keeps one arrangement for each set of displays and returns to it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sau khi máy ngủ, hoặc khi cắm thêm màn hình, macOS đôi khi tự xếp lại màn hình hay chọn độ phân giải khác. ScreenHelm giữ một bố cục cho mỗi bộ màn hình và đưa về đúng bố cục đó."
+          }
+        }
+      }
+    },
+    "AirPlay display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình AirPlay"
+          }
+        }
+      }
+    },
+    "All": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tất cả"
+          }
+        }
+      }
+    },
+    "All of %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toàn bộ %@"
+          }
+        }
+      }
+    },
+    "Allow dimming all the way to black": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho phép làm tối tới đen hẳn"
+          }
+        }
+      }
+    },
+    "Allowed": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã cho phép"
+          }
+        }
+      }
+    },
+    "Allow…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho phép…"
+          }
+        }
+      }
+    },
+    "Also add": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm cả"
+          }
+        }
+      }
+    },
+    "An EDID file holds the display's serial number.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tệp EDID có chứa số sê-ri của màn hình."
+          }
+        }
+      }
+    },
+    "An arrangement is kept for these displays.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã có bố cục được giữ cho các màn hình này."
+          }
+        }
+      }
+    },
+    "An input's name as shown in ScreenHelm, such as \"HDMI 1\", or its DDC number.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên cổng vào như hiện trong ScreenHelm, ví dụ \"HDMI 1\", hoặc số DDC của nó."
+          }
+        }
+      }
+    },
+    "Another app already uses this shortcut, so it does nothing here. Choose a different one.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App khác đã dùng phím tắt này nên ở đây nó không có tác dụng. Hãy chọn phím tắt khác."
+          }
+        }
+      }
+    },
+    "Another app changed a display's colors after ScreenHelm did. ScreenHelm doesn't change them back over it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một ứng dụng khác đã đổi màu của màn hình sau ScreenHelm. ScreenHelm không giành lại."
+          }
+        }
+      }
+    },
+    "Another tool's file is installed for this display. ScreenHelm adds to it and can put it back.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã có tệp của công cụ khác cài cho màn hình này. ScreenHelm thêm vào tệp đó và trả lại được tệp cũ."
+          }
+        }
+      }
+    },
+    "Any display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình bất kỳ"
+          }
+        }
+      }
+    },
+    "Appearance": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giao diện"
+          }
+        }
+      }
+    },
+    "Applied by ScreenHelm while it runs, and dropped by the shortcut under Safety. Screenshots don't show them.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Được ScreenHelm áp trong lúc đang chạy, và bị bỏ khi bấm phím tắt ở mục An toàn. Ảnh chụp màn hình không thể hiện các điều chỉnh này."
+          }
+        }
+      }
+    },
+    "Apply Them From Now On": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Áp dụng từ bây giờ"
+          }
+        }
+      }
+    },
+    "Area Beside the Camera Housing": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vùng hai bên camera"
+          }
+        }
+      }
+    },
+    "Arrangement": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bố cục"
+          }
+        }
+      }
+    },
+    "Ask again up to": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi lại tối đa"
+          }
+        }
+      }
+    },
+    "Automatic": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tự động"
+          }
+        }
+      }
+    },
+    "Automation": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tự động hoá"
+          }
+        }
+      }
+    },
+    "Black and white": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đen trắng"
+          }
+        }
+      }
+    },
+    "Blue": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lam"
+          }
+        }
+      }
+    },
+    "Blur": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Làm mờ"
+          }
+        }
+      }
+    },
+    "Brighter or darker than the source": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sáng hơn hoặc tối hơn nguồn"
+          }
+        }
+      }
+    },
+    "Brightest": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sáng nhất"
+          }
+        }
+      }
+    },
+    "Brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ sáng"
+          }
+        }
+      }
+    },
+    "Brightness Sync": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồng bộ độ sáng"
+          }
+        }
+      }
+    },
+    "Brightness is changed through": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ sáng được chỉnh qua"
+          }
+        }
+      }
+    },
+    "Built-in display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình tích hợp"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hủy"
+          }
+        }
+      }
+    },
+    "Change it through": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉnh qua"
+          }
+        }
+      }
+    },
+    "Check Now": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểm tra ngay"
+          }
+        }
+      }
+    },
+    "Check for Updates…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểm tra cập nhật…"
+          }
+        }
+      }
+    },
+    "Check for updates automatically": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tự động kiểm tra cập nhật"
+          }
+        }
+      }
+    },
+    "Checks updates.dangkhoabach.vn once a day. Turning this off means updates only happen when you ask for them.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiểm tra updates.dangkhoabach.vn mỗi ngày một lần. Tắt đi thì chỉ cập nhật khi bạn yêu cầu."
+          }
+        }
+      }
+    },
+    "Choose…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chọn…"
+          }
+        }
+      }
+    },
+    "Clear": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ"
+          }
+        }
+      }
+    },
+    "Clicks go through the picture": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bấm chuột xuyên qua hình"
+          }
+        }
+      }
+    },
+    "Close Every Picture": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đóng mọi hình"
+          }
+        }
+      }
+    },
+    "Code": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mã"
+          }
+        }
+      }
+    },
+    "Color": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màu"
+          }
+        }
+      }
+    },
+    "Color lookup table": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảng tra màu (LUT)"
+          }
+        }
+      }
+    },
+    "Color profile": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hồ sơ màu"
+          }
+        }
+      }
+    },
+    "Color steps": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số mức màu"
+          }
+        }
+      }
+    },
+    "Color temperature": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhiệt độ màu"
+          }
+        }
+      }
+    },
+    "Commands: get, set, toggle, perform. A display is chosen with display=main, pointer, builtin or all, with name=…, or with group=….": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lệnh: get, set, toggle, perform. Chọn màn hình bằng display=main, pointer, builtin hoặc all, bằng name=…, hoặc bằng group=…."
+          }
+        }
+      }
+    },
+    "Connect": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết nối"
+          }
+        }
+      }
+    },
+    "Connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã kết nối"
+          }
+        }
+      }
+    },
+    "Connected as display %@. Its resolution and place are set like any other display's.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã kết nối thành màn hình %@. Độ phân giải và vị trí của nó được đặt như mọi màn hình khác."
+          }
+        }
+      }
+    },
+    "Connection": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết nối"
+          }
+        }
+      }
+    },
+    "Continue Anyway": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vẫn tiếp tục"
+          }
+        }
+      }
+    },
+    "Contrast": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ tương phản"
+          }
+        }
+      }
+    },
+    "Copy": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy"
+          }
+        }
+      }
+    },
+    "Cut from the bottom": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cắt từ dưới"
+          }
+        }
+      }
+    },
+    "Cut from the left": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cắt từ trái"
+          }
+        }
+      }
+    },
+    "Cut from the right": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cắt từ phải"
+          }
+        }
+      }
+    },
+    "Cut from the top": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cắt từ trên"
+          }
+        }
+      }
+    },
+    "Dark": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tối"
+          }
+        }
+      }
+    },
+    "Dark Mode": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giao diện Tối"
+          }
+        }
+      }
+    },
+    "Decrease Brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giảm độ sáng"
+          }
+        }
+      }
+    },
+    "Decrease Display Volume": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giảm âm lượng màn hình"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá"
+          }
+        }
+      }
+    },
+    "Delete this picture?": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá hình này?"
+          }
+        }
+      }
+    },
+    "Delete this virtual screen?": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá màn hình ảo này?"
+          }
+        }
+      }
+    },
+    "Delete…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá…"
+          }
+        }
+      }
+    },
+    "Dim with an overlay instead of the color table": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Làm tối bằng lớp phủ thay cho bảng màu"
+          }
+        }
+      }
+    },
+    "Disconnect": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngắt kết nối"
+          }
+        }
+      }
+    },
+    "Display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình"
+          }
+        }
+      }
+    },
+    "Display Action": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hành động màn hình"
+          }
+        }
+      }
+    },
+    "Display Groups": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhóm màn hình"
+          }
+        }
+      }
+    },
+    "Display Setting": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt màn hình"
+          }
+        }
+      }
+    },
+    "Displays": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình"
+          }
+        }
+      }
+    },
+    "Displays to change together: one slider here, and group=… in a command.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các màn hình được chỉnh cùng nhau: một thanh trượt ở đây, và group=… trong lệnh."
+          }
+        }
+      }
+    },
+    "Dithering": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dithering"
+          }
+        }
+      }
+    },
+    "Do": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Làm"
+          }
+        }
+      }
+    },
+    "Does one of ScreenHelm's display actions.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thực hiện một hành động màn hình của ScreenHelm."
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xong"
+          }
+        }
+      }
+    },
+    "Drag a display to where it stands on your desk. The one with the white strip is the main display.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kéo màn hình tới đúng vị trí của nó trên bàn. Màn hình có dải trắng là màn hình chính."
+          }
+        }
+      }
+    },
+    "Every display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi màn hình"
+          }
+        }
+      }
+    },
+    "Everything else works without them. After you allow one in System Settings, macOS may ask to quit and reopen ScreenHelm.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi thứ khác chạy được mà không cần các quyền này. Sau khi bạn cho phép trong Cài đặt Hệ thống, macOS có thể yêu cầu thoát và mở lại ScreenHelm."
+          }
+        }
+      }
+    },
+    "Experimental: macOS is told the screen is HDR, with no way here to check that it took it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử nghiệm: macOS được báo đây là màn hình HDR, nhưng ở đây không có cách kiểm xem macOS có nhận hay không."
+          }
+        }
+      }
+    },
+    "Experimental: not yet tried on a real monitor.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử nghiệm: chưa thử trên màn hình thật."
+          }
+        }
+      }
+    },
+    "Experimental: not yet tried with an iPad.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử nghiệm: chưa thử với iPad."
+          }
+        }
+      }
+    },
+    "Experimental: the file follows Apple's own for this Mac's display, but installing it has not been tried yet.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử nghiệm: tệp theo đúng tệp của chính Apple cho màn hình máy Mac này, nhưng việc cài tệp chưa được thử."
+          }
+        }
+      }
+    },
+    "Experimental: written from how other open-source tools talk to monitors, and not yet tried on a real one.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử nghiệm: viết theo cách các công cụ mã nguồn mở khác giao tiếp với màn hình, chưa thử trên màn hình thật."
+          }
+        }
+      }
+    },
+    "Export Display Settings…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xuất cài đặt màn hình…"
+          }
+        }
+      }
+    },
+    "Export EDID…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xuất EDID…"
+          }
+        }
+      }
+    },
+    "Exported.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xuất."
+          }
+        }
+      }
+    },
+    "External display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình ngoài"
+          }
+        }
+      }
+    },
+    "Favorite": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ưa thích"
+          }
+        }
+      }
+    },
+    "Favorite Resolution %lld": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ phân giải ưa thích %lld"
+          }
+        }
+      }
+    },
+    "Fill, cutting the edges": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lấp đầy, cắt mép"
+          }
+        }
+      }
+    },
+    "Find a resolution, such as 1920": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm độ phân giải, ví dụ 1920"
+          }
+        }
+      }
+    },
+    "Fit": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Căn"
+          }
+        }
+      }
+    },
+    "Flip upside down": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lật ngược trên dưới"
+          }
+        }
+      }
+    },
+    "For a Mac used without a monitor: screen sharing then has a desktop of a proper size.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dành cho máy Mac dùng không có màn hình: khi đó chia sẻ màn hình có một desktop với kích thước tử tế."
+          }
+        }
+      }
+    },
+    "For a Mac where software dimming has no visible effect. An overlay also shows in screenshots and recordings.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dành cho máy Mac mà làm tối bằng phần mềm không thấy tác dụng. Lớp phủ cũng hiện trong ảnh chụp và bản ghi màn hình."
+          }
+        }
+      }
+    },
+    "For picture in picture only. Nothing is recorded or saved.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ dùng cho hình trong hình. Không ghi lại hay lưu gì cả."
+          }
+        }
+      }
+    },
+    "For settings ScreenHelm doesn't list, by their VCP code from the monitor's documentation. A wrong code can change something you can't easily change back; nothing is written to a code until you move its slider.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dành cho các cài đặt ScreenHelm không liệt kê, theo mã VCP trong tài liệu của màn hình. Mã sai có thể đổi thứ khó đổi lại; không gì được ghi vào một mã cho tới khi bạn kéo thanh trượt của nó."
+          }
+        }
+      }
+    },
+    "For the keyboard's brightness and volume keys, and to find the display of the window in front.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho phím độ sáng và âm lượng trên bàn phím, và để biết cửa sổ ở trước nằm trên màn hình nào."
+          }
+        }
+      }
+    },
+    "Forget": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quên"
+          }
+        }
+      }
+    },
+    "Frames per second": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khung hình mỗi giây"
+          }
+        }
+      }
+    },
+    "GRDB.swift": {
+      "shouldTranslate": false
+    },
+    "Gamma": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gamma"
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chung"
+          }
+        }
+      }
+    },
+    "Get Displays": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lấy danh sách màn hình"
+          }
+        }
+      }
+    },
+    "Go Back": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quay lại"
+          }
+        }
+      }
+    },
+    "Go on dimming below the monitor's lowest brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Làm tối tiếp dưới mức sáng thấp nhất của màn hình"
+          }
+        }
+      }
+    },
+    "Going back in %lld seconds": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quay lại sau %lld giây"
+          }
+        }
+      }
+    },
+    "Green": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lục"
+          }
+        }
+      }
+    },
+    "Group %lld": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhóm %lld"
+          }
+        }
+      }
+    },
+    "HDR": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HDR"
+          }
+        }
+      }
+    },
+    "Height": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cao"
+          }
+        }
+      }
+    },
+    "HiDPI": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HiDPI"
+          }
+        }
+      }
+    },
+    "Hide": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ẩn"
+          }
+        }
+      }
+    },
+    "Hue": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sắc độ"
+          }
+        }
+      }
+    },
+    "Imported. Quit and reopen ScreenHelm to use everything in it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã nhập. Thoát rồi mở lại ScreenHelm để dùng mọi thứ trong tệp."
+          }
+        }
+      }
+    },
+    "Import…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập…"
+          }
+        }
+      }
+    },
+    "In": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trong"
+          }
+        }
+      }
+    },
+    "In percent.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tính bằng phần trăm."
+          }
+        }
+      }
+    },
+    "In the Menu Bar Panel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trong bảng trên thanh menu"
+          }
+        }
+      }
+    },
+    "In the Shape of %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo hình dạng của %@"
+          }
+        }
+      }
+    },
+    "Increase Brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tăng độ sáng"
+          }
+        }
+      }
+    },
+    "Increase Display Volume": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tăng âm lượng màn hình"
+          }
+        }
+      }
+    },
+    "Information": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thông tin"
+          }
+        }
+      }
+    },
+    "Input": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cổng vào"
+          }
+        }
+      }
+    },
+    "Install Again…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài lại…"
+          }
+        }
+      }
+    },
+    "Installed. Restart the Mac to see the new resolutions.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã cài. Khởi động lại máy Mac để thấy các độ phân giải mới."
+          }
+        }
+      }
+    },
+    "Installed. Unplug the display and plug it back in, or restart the Mac, to see the new resolutions.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã cài. Rút rồi cắm lại màn hình, hoặc khởi động lại máy Mac, để thấy các độ phân giải mới."
+          }
+        }
+      }
+    },
+    "Installed: %lld sizes in the file.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã cài: %lld kích thước trong tệp."
+          }
+        }
+      }
+    },
+    "Install…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài…"
+          }
+        }
+      }
+    },
+    "Invert Colors": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đảo màu"
+          }
+        }
+      }
+    },
+    "Invert colors": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đảo màu"
+          }
+        }
+      }
+    },
+    "Inverted Colors": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đảo màu"
+          }
+        }
+      }
+    },
+    "Its brightest": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mức sáng nhất của nó"
+          }
+        }
+      }
+    },
+    "Keep": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ"
+          }
+        }
+      }
+    },
+    "Keep the Current Arrangement": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ bố cục hiện tại"
+          }
+        }
+      }
+    },
+    "Keep the Current One": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ bố cục hiện tại"
+          }
+        }
+      }
+    },
+    "Keep the Mac awake while %@ is connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ máy Mac thức khi %@ đang kết nối"
+          }
+        }
+      }
+    },
+    "Keep this display setting?": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ cài đặt màn hình này?"
+          }
+        }
+      }
+    },
+    "Keyboard brightness and volume keys control other displays": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phím độ sáng và âm lượng trên bàn phím điều khiển cả các màn hình khác"
+          }
+        }
+      }
+    },
+    "Kind": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loại"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngôn ngữ"
+          }
+        }
+      }
+    },
+    "Larger Text": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chữ to hơn"
+          }
+        }
+      }
+    },
+    "Launch at Login": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khởi động cùng hệ thống"
+          }
+        }
+      }
+    },
+    "Let the brightness slider go past 100%": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho thanh độ sáng vượt quá 100%"
+          }
+        }
+      }
+    },
+    "Light": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sáng"
+          }
+        }
+      }
+    },
+    "Like %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giống %@"
+          }
+        }
+      }
+    },
+    "Lists the connected displays with their resolution, brightness and other settings, as JSON.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liệt kê các màn hình đang kết nối kèm độ phân giải, độ sáng và các cài đặt khác, dạng JSON."
+          }
+        }
+      }
+    },
+    "Made": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sản xuất"
+          }
+        }
+      }
+    },
+    "Main": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chính"
+          }
+        }
+      }
+    },
+    "Main display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình chính"
+          }
+        }
+      }
+    },
+    "Make It the Main Display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt làm màn hình chính"
+          }
+        }
+      }
+    },
+    "Make Things as Big as on %@: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Make Things as Big as on %1$@: %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho mọi thứ to như trên %1$@: %2$@"
+          }
+        }
+      }
+    },
+    "Make This the Main Display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt làm màn hình chính"
+          }
+        }
+      }
+    },
+    "Make one when no display is connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tạo một màn hình ảo khi không có màn hình nào kết nối"
+          }
+        }
+      }
+    },
+    "Maker and model": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãng và mẫu"
+          }
+        }
+      }
+    },
+    "Many monitors stop listening once they are off and have to be turned on with their own button.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhiều màn hình không còn nhận lệnh khi đã tắt và phải bật lại bằng nút của chính nó."
+          }
+        }
+      }
+    },
+    "Match the light they give, in nits": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khớp theo lượng sáng phát ra, tính bằng nits"
+          }
+        }
+      }
+    },
+    "Menu Bar Panel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảng trên thanh menu"
+          }
+        }
+      }
+    },
+    "Mirror": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phản chiếu"
+          }
+        }
+      }
+    },
+    "Mirror left to right": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lật trái phải"
+          }
+        }
+      }
+    },
+    "Mirror or Stop Mirroring": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phản chiếu hoặc thôi phản chiếu"
+          }
+        }
+      }
+    },
+    "Mirroring": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phản chiếu"
+          }
+        }
+      }
+    },
+    "Monitor Controls (DDC)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Điều khiển màn hình (DDC)"
+          }
+        }
+      }
+    },
+    "More Resolutions": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm độ phân giải"
+          }
+        }
+      }
+    },
+    "More Space": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm không gian"
+          }
+        }
+      }
+    },
+    "More settings for this display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm cài đặt cho màn hình này"
+          }
+        }
+      }
+    },
+    "Most": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tối đa"
+          }
+        }
+      }
+    },
+    "Most monitors work with these as they are. Some need 50 ms before each command.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đa số màn hình chạy tốt với các giá trị này. Một số cần 50 ms trước mỗi lệnh."
+          }
+        }
+      }
+    },
+    "Mute": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt tiếng"
+          }
+        }
+      }
+    },
+    "Mute or Unmute the Display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt hoặc bật tiếng màn hình"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên"
+          }
+        }
+      }
+    },
+    "Native": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gốc"
+          }
+        }
+      }
+    },
+    "Needs each monitor's brightest value, set under that display. Off, they are set to the same percentage.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cần mức sáng nhất của từng màn hình, đặt trong phần của màn hình đó. Khi tắt, các màn hình được đặt cùng một tỷ lệ phần trăm."
+          }
+        }
+      }
+    },
+    "Never": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không bao giờ"
+          }
+        }
+      }
+    },
+    "New": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mới"
+          }
+        }
+      }
+    },
+    "New Picture": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hình mới"
+          }
+        }
+      }
+    },
+    "New Virtual Screen": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình ảo mới"
+          }
+        }
+      }
+    },
+    "Next Reference Preset": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preset tham chiếu kế tiếp"
+          }
+        }
+      }
+    },
+    "Night Shift": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Night Shift"
+          }
+        }
+      }
+    },
+    "No DDC connection was found for this display. Docks, adapters and TVs often don't pass it on.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không tìm thấy kết nối DDC cho màn hình này. Dock, đầu chuyển và TV thường không truyền DDC."
+          }
+        }
+      }
+    },
+    "None": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có"
+          }
+        }
+      }
+    },
+    "None of the shortcuts has keys until you record some. The ones below act on the display the pointer is on.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa phím tắt nào có phím cho tới khi bạn ghi. Các phím tắt bên dưới tác động lên màn hình đang có con trỏ."
+          }
+        }
+      }
+    },
+    "Nothing is kept for these displays yet.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có gì được giữ cho các màn hình này."
+          }
+        }
+      }
+    },
+    "Nothing was changed.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có gì thay đổi."
+          }
+        }
+      }
+    },
+    "Nothing was installed.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa cài gì."
+          }
+        }
+      }
+    },
+    "Now": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện tại"
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt"
+          }
+        }
+      }
+    },
+    "Off, software dimming stops at 15%. A display is never brought back darker than that after sleep or when ScreenHelm opens.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi tắt, làm tối bằng phần mềm dừng ở 15%. Sau khi máy thức hay khi ScreenHelm mở, màn hình không bao giờ được đưa về mức tối hơn thế."
+          }
+        }
+      }
+    },
+    "One display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một màn hình"
+          }
+        }
+      }
+    },
+    "Only programs on this Mac can reach it, and each request needs the token. The token is kept in the Keychain.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ chương trình trên máy Mac này mới truy cập được, và mỗi yêu cầu đều cần token. Token được lưu trong Keychain."
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở"
+          }
+        }
+      }
+    },
+    "Open the menu bar panel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở bảng trên thanh menu"
+          }
+        }
+      }
+    },
+    "Other displays follow": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các màn hình khác đi theo"
+          }
+        }
+      }
+    },
+    "Overview": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tổng quan"
+          }
+        }
+      }
+    },
+    "Panel": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tấm nền"
+          }
+        }
+      }
+    },
+    "Peak brightness it reports": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ sáng đỉnh do màn hình báo"
+          }
+        }
+      }
+    },
+    "Perform Display Action": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thực hiện hành động màn hình"
+          }
+        }
+      }
+    },
+    "Permissions": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quyền"
+          }
+        }
+      }
+    },
+    "Picture": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hình ảnh"
+          }
+        }
+      }
+    },
+    "Picture and Sound": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hình ảnh và âm thanh"
+          }
+        }
+      }
+    },
+    "Picture in Picture": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hình trong hình"
+          }
+        }
+      }
+    },
+    "Port": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cổng"
+          }
+        }
+      }
+    },
+    "Position and main display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vị trí và màn hình chính"
+          }
+        }
+      }
+    },
+    "Power": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nguồn"
+          }
+        }
+      }
+    },
+    "Preset": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preset"
+          }
+        }
+      }
+    },
+    "Press keys…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhấn phím…"
+          }
+        }
+      }
+    },
+    "Protection": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảo vệ"
+          }
+        }
+      }
+    },
+    "Put It Back Now": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đưa về ngay"
+          }
+        }
+      }
+    },
+    "Put the Kept Arrangement Back": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đưa về bố cục đã giữ"
+          }
+        }
+      }
+    },
+    "Put the arrangement back when macOS changes it": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đưa bố cục về như cũ khi macOS tự đổi"
+          }
+        }
+      }
+    },
+    "Quit ScreenHelm": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thoát ScreenHelm"
+          }
+        }
+      }
+    },
+    "Red": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đỏ"
+          }
+        }
+      }
+    },
+    "Reference preset": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preset tham chiếu"
+          }
+        }
+      }
+    },
+    "Refresh rate": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tần số quét"
+          }
+        }
+      }
+    },
+    "Refresh rates": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tần số quét"
+          }
+        }
+      }
+    },
+    "Remember settings for each display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhớ cài đặt theo từng màn hình"
+          }
+        }
+      }
+    },
+    "Remove the shortcut": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ phím tắt"
+          }
+        }
+      }
+    },
+    "Removed. The resolutions go after a restart.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã gỡ. Các độ phân giải sẽ mất sau khi khởi động lại."
+          }
+        }
+      }
+    },
+    "Remove…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gỡ…"
+          }
+        }
+      }
+    },
+    "Rename Input": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đổi tên cổng vào"
+          }
+        }
+      }
+    },
+    "Rename…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đổi tên…"
+          }
+        }
+      }
+    },
+    "Reported name": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên do màn hình báo"
+          }
+        }
+      }
+    },
+    "Reset to Default": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt lại mặc định"
+          }
+        }
+      }
+    },
+    "Resolution": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ phân giải"
+          }
+        }
+      }
+    },
+    "Resolution and refresh rate": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ phân giải và tần số quét"
+          }
+        }
+      }
+    },
+    "Right-click the menu bar icon for a short menu. Esc closes the panel.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bấm chuột phải vào biểu tượng trên thanh menu để mở menu ngắn. Esc đóng bảng."
+          }
+        }
+      }
+    },
+    "Rotate to 0°": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoay về 0°"
+          }
+        }
+      }
+    },
+    "Rotate to 180°": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoay về 180°"
+          }
+        }
+      }
+    },
+    "Rotate to 270°": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoay về 270°"
+          }
+        }
+      }
+    },
+    "Rotate to 90°": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoay về 90°"
+          }
+        }
+      }
+    },
+    "Rotating the built-in display, for one. Each change still has to be kept within 15 seconds or it is undone.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ví dụ như xoay màn hình tích hợp. Mỗi thay đổi vẫn phải được giữ trong vòng 15 giây, không thì bị hoàn tác."
+          }
+        }
+      }
+    },
+    "Rotation": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoay"
+          }
+        }
+      }
+    },
+    "Run the Shortcut": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chạy Phím tắt"
+          }
+        }
+      }
+    },
+    "Runs a Shortcut from the Shortcuts app, or opens an app or a file. Nothing else can be started from here.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chạy một Phím tắt trong ứng dụng Phím tắt, hoặc mở một ứng dụng hay một tệp. Không thứ gì khác được khởi chạy từ đây."
+          }
+        }
+      }
+    },
+    "Safety": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An toàn"
+          }
+        }
+      }
+    },
+    "Same brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cùng độ sáng"
+          }
+        }
+      }
+    },
+    "Saturation": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ bão hoà"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lưu"
+          }
+        }
+      }
+    },
+    "Save a Report…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lưu báo cáo…"
+          }
+        }
+      }
+    },
+    "Saved.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã lưu."
+          }
+        }
+      }
+    },
+    "Screen Recording": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi màn hình (Screen Recording)"
+          }
+        }
+      }
+    },
+    "ScreenHelm can't open its database": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ScreenHelm không mở được cơ sở dữ liệu"
+          }
+        }
+      }
+    },
+    "ScreenHelm ended while applying display settings last time, so the saved ones were not applied now.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lần trước ScreenHelm đã dừng khi đang áp dụng cài đặt màn hình, nên lần này các cài đặt đã lưu không được áp dụng."
+          }
+        }
+      }
+    },
+    "ScreenHelm was opened with Shift held, so saved display settings were not applied.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ScreenHelm được mở khi đang giữ Shift, nên các cài đặt màn hình đã lưu không được áp dụng."
+          }
+        }
+      }
+    },
+    "Search": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm kiếm"
+          }
+        }
+      }
+    },
+    "Send each command": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gửi mỗi lệnh"
+          }
+        }
+      }
+    },
+    "Serial number": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số sê-ri"
+          }
+        }
+      }
+    },
+    "Set Display Brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt độ sáng màn hình"
+          }
+        }
+      }
+    },
+    "Set Display Resolution": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt độ phân giải màn hình"
+          }
+        }
+      }
+    },
+    "Sets the brightness of a display through ScreenHelm.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đặt độ sáng của một màn hình qua ScreenHelm."
+          }
+        }
+      }
+    },
+    "Setting": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt"
+          }
+        }
+      }
+    },
+    "Settings and Diagnostics": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt và chẩn đoán"
+          }
+        }
+      }
+    },
+    "Settings can't be saved until this is fixed.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không lưu được cài đặt cho tới khi lỗi này được khắc phục."
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt…"
+          }
+        }
+      }
+    },
+    "Sharpen": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Làm nét"
+          }
+        }
+      }
+    },
+    "Shortcut name": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên Phím tắt"
+          }
+        }
+      }
+    },
+    "Shortcuts": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phím tắt"
+          }
+        }
+      }
+    },
+    "Show": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện"
+          }
+        }
+      }
+    },
+    "Show %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện %@"
+          }
+        }
+      }
+    },
+    "Show All %lld Resolutions": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện cả %lld độ phân giải"
+          }
+        }
+      }
+    },
+    "Show Favorites Only": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ hiện mục ưa thích"
+          }
+        }
+      }
+    },
+    "Show Licenses…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem giấy phép…"
+          }
+        }
+      }
+    },
+    "Show ScreenHelm": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện ScreenHelm"
+          }
+        }
+      }
+    },
+    "Show This Display in a Floating Window": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện màn hình này trong cửa sổ nổi"
+          }
+        }
+      }
+    },
+    "Show a Window of %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện một cửa sổ của %@"
+          }
+        }
+      }
+    },
+    "Show brightness and volume changes on screen": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện thay đổi độ sáng và âm lượng trên màn hình"
+          }
+        }
+      }
+    },
+    "Show in Finder": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện trong Finder"
+          }
+        }
+      }
+    },
+    "Show or Hide the Camera Housing Area": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện hoặc ẩn vùng cạnh camera"
+          }
+        }
+      }
+    },
+    "Show settings that can leave a display unusable": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện các cài đặt có thể làm màn hình không dùng được"
+          }
+        }
+      }
+    },
+    "Show the pointer": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện con trỏ"
+          }
+        }
+      }
+    },
+    "Show this display in a floating window": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện màn hình này trong cửa sổ nổi"
+          }
+        }
+      }
+    },
+    "Showing": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang hiện"
+          }
+        }
+      }
+    },
+    "Shows": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện"
+          }
+        }
+      }
+    },
+    "Sidecar": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sidecar"
+          }
+        }
+      }
+    },
+    "Size": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kích thước"
+          }
+        }
+      }
+    },
+    "Size in pixels": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kích thước (pixel)"
+          }
+        }
+      }
+    },
+    "Sizes": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kích thước"
+          }
+        }
+      }
+    },
+    "Sparkle": {
+      "shouldTranslate": false
+    },
+    "Standby": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chờ"
+          }
+        }
+      }
+    },
+    "Stretch": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kéo giãn"
+          }
+        }
+      }
+    },
+    "Swap %@ and %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Swap %1$@ and %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đổi chỗ %1$@ và %2$@"
+          }
+        }
+      }
+    },
+    "Switch": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển"
+          }
+        }
+      }
+    },
+    "Switch Between Light and Dark": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển giữa Sáng và Tối"
+          }
+        }
+      }
+    },
+    "Switch Display Input": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển cổng vào của màn hình"
+          }
+        }
+      }
+    },
+    "Switch Display Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt màn hình"
+          }
+        }
+      }
+    },
+    "Switch Every Display Back On": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật lại mọi màn hình"
+          }
+        }
+      }
+    },
+    "Switch Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt"
+          }
+        }
+      }
+    },
+    "Switch On": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật"
+          }
+        }
+      }
+    },
+    "Switch a display off again after the Mac wakes": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt lại màn hình sau khi máy Mac thức"
+          }
+        }
+      }
+    },
+    "Switch the Display Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt màn hình"
+          }
+        }
+      }
+    },
+    "Switch the built-in display off while another is connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt màn hình tích hợp khi có màn hình khác đang kết nối"
+          }
+        }
+      }
+    },
+    "Switch this display off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt màn hình này"
+          }
+        }
+      }
+    },
+    "Switches a display off without unplugging it. \"Perform Display Action\" switches every display back on.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt một màn hình mà không rút cáp. \"Thực hiện hành động màn hình\" bật lại mọi màn hình."
+          }
+        }
+      }
+    },
+    "Switches a display to a resolution it has. The change has to be kept in ScreenHelm's prompt the first time.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển một màn hình sang độ phân giải nó có. Lần đầu, thay đổi phải được giữ trong hộp hỏi của ScreenHelm."
+          }
+        }
+      }
+    },
+    "Switches a monitor to another input over DDC.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển màn hình sang cổng vào khác qua DDC."
+          }
+        }
+      }
+    },
+    "Switching the built-in display off is a risky setting: on some Macs it only comes back after a restart. Turn on the risky settings under Safety to allow it.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt màn hình tích hợp là cài đặt có rủi ro: trên một số máy Mac, phải khởi động lại nó mới bật lại. Hãy bật các cài đặt có rủi ro ở mục An toàn để cho phép."
+          }
+        }
+      }
+    },
+    "Switching to an input with nothing connected leaves the monitor without a picture until you switch back with its own buttons.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển sang cổng vào không có gì kết nối sẽ làm màn hình mất hình cho tới khi bạn chuyển lại bằng nút của chính nó."
+          }
+        }
+      }
+    },
+    "System": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hệ thống"
+          }
+        }
+      }
+    },
+    "TV": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TV"
+          }
+        }
+      }
+    },
+    "Take display commands from the command line and from links": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhận lệnh màn hình từ dòng lệnh và từ liên kết"
+          }
+        }
+      }
+    },
+    "Take them over HTTP on this Mac": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhận lệnh qua HTTP trên máy Mac này"
+          }
+        }
+      }
+    },
+    "That file isn't an ScreenHelm display export.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tệp đó không phải tệp xuất cài đặt màn hình của ScreenHelm."
+          }
+        }
+      }
+    },
+    "The Mac's light sensor is read once a second while this is on. The built-in display follows the room by itself.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi bật, cảm biến ánh sáng của máy Mac được đọc mỗi giây một lần. Màn hình tích hợp tự đi theo ánh sáng trong phòng."
+          }
+        }
+      }
+    },
+    "The Shortcut's name": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên của Phím tắt"
+          }
+        }
+      }
+    },
+    "The Shortcuts app has ScreenHelm's display actions under “ScreenHelm”: brightness, resolution, switching settings on and off, inputs, and more. They need nothing turned on here.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ứng dụng Phím tắt có các hành động màn hình của ScreenHelm trong mục “ScreenHelm”: độ sáng, độ phân giải, bật tắt cài đặt, cổng vào, và nhiều thứ khác. Không cần bật gì ở đây."
+          }
+        }
+      }
+    },
+    "The built-in display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình tích hợp"
+          }
+        }
+      }
+    },
+    "The color table": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảng màu"
+          }
+        }
+      }
+    },
+    "The database is at:": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ sở dữ liệu nằm ở:"
+          }
+        }
+      }
+    },
+    "The display mixes neighbouring colors over time to show shades it hasn't got. Off, gradients band a little more; some eyes find it calmer.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình trộn các màu lân cận theo thời gian để hiện những sắc độ nó không có. Khi tắt, dải chuyển màu lộ vệt hơn một chút; có người thấy dịu mắt hơn."
+          }
+        }
+      }
+    },
+    "The display the pointer is on": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình đang có con trỏ"
+          }
+        }
+      }
+    },
+    "The display to show isn't connected.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình cần hiện đang không kết nối."
+          }
+        }
+      }
+    },
+    "The display with the window in front": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình có cửa sổ đang ở trước"
+          }
+        }
+      }
+    },
+    "The display's backlight": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đèn nền của màn hình"
+          }
+        }
+      }
+    },
+    "The display's own": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hồ sơ của chính màn hình"
+          }
+        }
+      }
+    },
+    "The displays sleep": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các màn hình ngủ"
+          }
+        }
+      }
+    },
+    "The displays wake": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các màn hình thức"
+          }
+        }
+      }
+    },
+    "The displays were rearranged": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các màn hình đã được xếp lại"
+          }
+        }
+      }
+    },
+    "The export holds what is set for each display, the kept arrangements, virtual screens and pictures. The report describes the displays and what they answered, for when something doesn't work; serial numbers are left out.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tệp xuất chứa cài đặt của từng màn hình, các bố cục đã giữ, màn hình ảo và các hình. Báo cáo mô tả các màn hình và những gì chúng trả lời, dùng khi có gì đó không chạy; số sê-ri được bỏ ra ngoài."
+          }
+        }
+      }
+    },
+    "The file could not be written.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không ghi được tệp."
+          }
+        }
+      }
+    },
+    "The keys change": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các phím điều khiển"
+          }
+        }
+      }
+    },
+    "The last display stays on.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình cuối cùng luôn được giữ bật."
+          }
+        }
+      }
+    },
+    "The light in the room": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ánh sáng trong phòng"
+          }
+        }
+      }
+    },
+    "The list has every mode the display reports, including the ones System Settings leaves out. A star keeps one at the top and gives it a shortcut.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danh sách gồm mọi chế độ màn hình báo, kể cả những chế độ Cài đặt Hệ thống không hiện. Đánh sao để giữ một chế độ ở trên cùng và gán được phím tắt cho nó."
+          }
+        }
+      }
+    },
+    "The monitor's own brightness (DDC)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ sáng của chính màn hình (DDC)"
+          }
+        }
+      }
+    },
+    "The panel holds about 1000 nits over the whole screen and reaches 1600 only for a short while.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tấm nền giữ được khoảng 1000 nits trên toàn màn hình và chỉ đạt 1600 trong thời gian ngắn."
+          }
+        }
+      }
+    },
+    "The picture stopped: what it showed is gone.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hình đã dừng: thứ nó hiện không còn nữa."
+          }
+        }
+      }
+    },
+    "The reference preset in use holds the brightness in place.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preset tham chiếu đang dùng giữ cố định độ sáng."
+          }
+        }
+      }
+    },
+    "The screen can't be captured. Check the Screen Recording permission.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không chụp được màn hình. Hãy kiểm tra quyền Ghi màn hình."
+          }
+        }
+      }
+    },
+    "The window to show isn't open.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cửa sổ cần hiện đang không mở."
+          }
+        }
+      }
+    },
+    "Theme": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giao diện"
+          }
+        }
+      }
+    },
+    "These use the color table, which isn't used for this display. See Safety below, and the display's color profile.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các điều chỉnh này dùng bảng màu, mà màn hình này không dùng bảng màu. Xem mục An toàn bên dưới và hồ sơ màu của màn hình."
+          }
+        }
+      }
+    },
+    "Third-Party Software": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phần mềm bên thứ ba"
+          }
+        }
+      }
+    },
+    "This display can show HDR highlights much brighter than its usual white. With this on, the slider's second half uses that range for everything, which helps in sunlight. HDR video loses its highlights meanwhile, and the battery drains faster.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình này hiển thị được vùng sáng HDR sáng hơn nhiều so với màu trắng thông thường. Khi bật, nửa sau của thanh trượt dùng dải sáng đó cho mọi thứ, hữu ích khi làm việc dưới nắng. Trong lúc đó video HDR mất vùng sáng nổi bật, và pin hao nhanh hơn."
+          }
+        }
+      }
+    },
+    "This monitor needs LG's own input command": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình này cần lệnh chuyển cổng riêng của LG"
+          }
+        }
+      }
+    },
+    "This needs the Accessibility permission.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tính năng này cần quyền Trợ năng (Accessibility)."
+          }
+        }
+      }
+    },
+    "This needs the Screen Recording permission.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tính năng này cần quyền Ghi màn hình."
+          }
+        }
+      }
+    },
+    "This version of macOS doesn't offer the call this needs.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phiên bản macOS này không có lời gọi mà tính năng cần."
+          }
+        }
+      }
+    },
+    "Timing": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thời gian"
+          }
+        }
+      }
+    },
+    "To add": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sẽ thêm"
+          }
+        }
+      }
+    },
+    "Toggle Display Setting": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật/tắt cài đặt màn hình"
+          }
+        }
+      }
+    },
+    "Token": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Token"
+          }
+        }
+      }
+    },
+    "True Tone": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "True Tone"
+          }
+        }
+      }
+    },
+    "Try Again": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử lại"
+          }
+        }
+      }
+    },
+    "Turn": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoay"
+          }
+        }
+      }
+    },
+    "Turn HDR On or Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật hoặc tắt HDR"
+          }
+        }
+      }
+    },
+    "Turn HiDPI On or Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật hoặc tắt HiDPI"
+          }
+        }
+      }
+    },
+    "Turn Night Shift On or Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật hoặc tắt Night Shift"
+          }
+        }
+      }
+    },
+    "Turn Night Shift off meanwhile": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt Night Shift trong lúc đó"
+          }
+        }
+      }
+    },
+    "Turn Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt"
+          }
+        }
+      }
+    },
+    "Turn Off…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt…"
+          }
+        }
+      }
+    },
+    "Turn True Tone On or Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật hoặc tắt True Tone"
+          }
+        }
+      }
+    },
+    "Turn XDR Brightness On or Off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật hoặc tắt Độ sáng XDR"
+          }
+        }
+      }
+    },
+    "Turn off on battery at": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt khi dùng pin ở mức"
+          }
+        }
+      }
+    },
+    "Turn this monitor off?": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt màn hình này?"
+          }
+        }
+      }
+    },
+    "Turn this off for a monitor that flickers or loses its signal when it is sent commands.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy tắt mục này với màn hình bị nháy hoặc mất tín hiệu khi nhận lệnh."
+          }
+        }
+      }
+    },
+    "Turned off because macOS took the display's extra range away.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã tắt vì macOS thu lại dải sáng mở rộng của màn hình."
+          }
+        }
+      }
+    },
+    "Turned off because the Mac is running hot.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã tắt vì máy Mac đang nóng."
+          }
+        }
+      }
+    },
+    "Turned off because the battery is low.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã tắt vì pin yếu."
+          }
+        }
+      }
+    },
+    "Turns a display setting on if it is off, and off if it is on.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật một cài đặt màn hình nếu đang tắt, và tắt nếu đang bật."
+          }
+        }
+      }
+    },
+    "Undo Everything on Displays": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tác mọi thứ trên màn hình"
+          }
+        }
+      }
+    },
+    "Undo everything ScreenHelm applied to displays": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tác mọi thứ ScreenHelm đã áp lên màn hình"
+          }
+        }
+      }
+    },
+    "Updates": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cập nhật"
+          }
+        }
+      }
+    },
+    "Use": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dùng"
+          }
+        }
+      }
+    },
+    "Use DDC with this monitor": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dùng DDC với màn hình này"
+          }
+        }
+      }
+    },
+    "Use the area beside the camera housing": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dùng cả vùng hai bên camera"
+          }
+        }
+      }
+    },
+    "Virtual Screen %lld": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình ảo %lld"
+          }
+        }
+      }
+    },
+    "Virtual Screens": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình ảo"
+          }
+        }
+      }
+    },
+    "Virtual display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màn hình ảo"
+          }
+        }
+      }
+    },
+    "Volume": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Âm lượng"
+          }
+        }
+      }
+    },
+    "Wait before each command": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chờ trước mỗi lệnh"
+          }
+        }
+      }
+    },
+    "Wait for an answer": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chờ trả lời"
+          }
+        }
+      }
+    },
+    "Waiting for your approval in System Settings › General › Login Items. Until then ScreenHelm won't start at login.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang chờ bạn duyệt trong System Settings › General › Login Items. Trước khi duyệt, ScreenHelm sẽ không tự khởi động khi đăng nhập."
+          }
+        }
+      }
+    },
+    "Wake": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đánh thức"
+          }
+        }
+      }
+    },
+    "When": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi"
+          }
+        }
+      }
+    },
+    "When Displays Change": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi màn hình thay đổi"
+          }
+        }
+      }
+    },
+    "Whole picture, with bars": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trọn hình, có viền đen"
+          }
+        }
+      }
+    },
+    "Width": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rộng"
+          }
+        }
+      }
+    },
+    "With a profile of your choice, ScreenHelm dims this display with an overlay: changing the color table as well can black the screen out on some Macs.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi dùng hồ sơ màu do bạn chọn, ScreenHelm làm tối màn hình này bằng lớp phủ: đổi thêm cả bảng màu có thể làm đen màn hình trên một số máy Mac."
+          }
+        }
+      }
+    },
+    "Works while something is applied: dimming, picture changes, a setting waiting to be kept. What a monitor stored itself stays.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dùng được khi đang có thứ gì được áp: làm tối, chỉnh hình ảnh, hoặc một cài đặt đang chờ giữ. Những gì màn hình tự lưu thì vẫn còn."
+          }
+        }
+      }
+    },
+    "XDR Brightness": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ sáng XDR"
+          }
+        }
+      }
+    },
+    "Your Own Controls": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Điều khiển của riêng bạn"
+          }
+        }
+      }
+    },
+    "iPad (Sidecar)": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPad (Sidecar)"
+          }
+        }
+      }
+    },
+    "macOS asks again for the Screen Recording permission about once a month; that can't be turned off.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS hỏi lại quyền Ghi màn hình khoảng mỗi tháng một lần; không tắt được việc đó."
+          }
+        }
+      }
+    },
+    "macOS asks for an administrator's password each time. The file applies to every display of this model and every user of this Mac. A resolution can't be larger than the panel itself.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS hỏi mật khẩu quản trị mỗi lần. Tệp áp dụng cho mọi màn hình cùng mẫu và mọi người dùng của máy Mac này. Độ phân giải không thể lớn hơn chính tấm nền."
+          }
+        }
+      }
+    },
+    "macOS offers a handful of sharp resolutions for a display. ScreenHelm can add many more in between, in the display's own shape, for a finer choice between larger text and more space. They are added to a system file for this model of display, so they stay after ScreenHelm is gone, until removed here.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS chỉ đưa ra vài độ phân giải nét cho một màn hình. ScreenHelm có thể thêm nhiều mức ở giữa, đúng hình dạng của màn hình, để chọn mịn hơn giữa chữ to và nhiều không gian. Chúng được thêm vào một tệp hệ thống dành cho mẫu màn hình này, nên vẫn còn sau khi không dùng ScreenHelm nữa, cho tới khi gỡ ở đây."
+          }
+        }
+      }
+    },
+    "macOS only lets these keys change the built-in display and Apple's own monitors. With this on they also change the display you are working on. Presses meant for a display macOS controls itself are left to macOS.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS chỉ cho các phím này chỉnh màn hình tích hợp và màn hình của Apple. Khi bật, chúng chỉnh cả màn hình bạn đang làm việc. Lần bấm dành cho màn hình do macOS tự điều khiển thì vẫn để macOS xử lý."
+          }
+        }
+      }
+    },
+    "macOS stops using it, as if its cable were pulled. Switch it back on from the Arrangement page; it also returns after sleep and when ScreenHelm quits.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS ngừng dùng màn hình này, như thể đã rút cáp. Bật lại ở trang Bố cục; nó cũng tự bật lại sau khi máy ngủ và khi ScreenHelm thoát."
+          }
+        }
+      }
+    },
+    "macOS switches every display back on when it wakes.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS bật lại mọi màn hình khi máy thức."
+          }
+        }
+      }
+    },
+    "macOS undid the arrangement three times in a row, so ScreenHelm stopped putting it back. Keep the current one to start again.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS đã hoàn tác bố cục ba lần liên tiếp nên ScreenHelm ngừng đưa về. Hãy giữ bố cục hiện tại để bắt đầu lại."
+          }
+        }
+      }
+    },
+    "switched off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đã tắt"
+          }
+        }
+      }
+    },
+    "“%@” already uses this shortcut. Choose a different one.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” đã dùng phím tắt này. Hãy chọn phím tắt khác."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

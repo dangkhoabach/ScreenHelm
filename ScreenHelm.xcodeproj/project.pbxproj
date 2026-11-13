@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2F041C0B892FE6167FCA9862 /* ScreenHelmCore in Frameworks */ = {isa = PBXBuildFile; productRef = CBF991F4858D3D9FED3571DE /* ScreenHelmCore */; };
+		1ECFDC096D07FFD2BB429A60 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = C06555F914AE084DDEBD3193 /* Sparkle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D9DB84122740018507B98F22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65EECB229A7281542FE2D30B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 56941D34634C92CCE900B15E;
+			remoteInfo = ScreenHelmApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A24183488EC66FD547F3E99E /* ScreenHelmAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenHelmAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D6782132495D1D1872588E2 /* ScreenHelm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreenHelm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F53C9FB80E6F68D66AC2B0A6 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		611502994900A1A2903A2AAD /* Exceptions for "ScreenHelmApp" folder in "ScreenHelmApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 56941D34634C92CCE900B15E /* ScreenHelmApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		41FF3C001AFC669C747D0EAC /* ScreenHelmApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				611502994900A1A2903A2AAD /* Exceptions for "ScreenHelmApp" folder in "ScreenHelmApp" target */,
+			);
+			path = ScreenHelmApp;
+			sourceTree = "<group>";
+		};
+		D332869920B6C752219ADD46 /* ScreenHelmAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ScreenHelmAppTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BFBCB1F1BCF4389FB304158D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F0CFCBF10CF5F9585FA27BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F041C0B892FE6167FCA9862 /* ScreenHelmCore in Frameworks */,
+				1ECFDC096D07FFD2BB429A60 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FF1C27FE52314636D42440FC = {
+			isa = PBXGroup;
+			children = (
+				F53C9FB80E6F68D66AC2B0A6 /* Local.xcconfig */,
+				41FF3C001AFC669C747D0EAC /* ScreenHelmApp */,
+				D332869920B6C752219ADD46 /* ScreenHelmAppTests */,
+				47A4D721559A56C45326A991 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		47A4D721559A56C45326A991 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D6782132495D1D1872588E2 /* ScreenHelm.app */,
+				A24183488EC66FD547F3E99E /* ScreenHelmAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		629C7FF999FF1E22CB8681F1 /* ScreenHelmAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E119DA7C38AA2D393C413470 /* Build configuration list for PBXNativeTarget "ScreenHelmAppTests" */;
+			buildPhases = (
+				CBA02C356E1938CAF3412D42 /* Sources */,
+				BFBCB1F1BCF4389FB304158D /* Frameworks */,
+				CE6DCDDEE9834CB47F5E73F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71469A4B288A6735060718DE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D332869920B6C752219ADD46 /* ScreenHelmAppTests */,
+			);
+			name = ScreenHelmAppTests;
+			packageProductDependencies = (
+			);
+			productName = ScreenHelmAppTests;
+			productReference = A24183488EC66FD547F3E99E /* ScreenHelmAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		56941D34634C92CCE900B15E /* ScreenHelmApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96292643EA5399FCB8ECC38C /* Build configuration list for PBXNativeTarget "ScreenHelmApp" */;
+			buildPhases = (
+				2BF181FFC51755B23FF2705D /* Sources */,
+				4F0CFCBF10CF5F9585FA27BE /* Frameworks */,
+				ADCAE62147A57818F685BB06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				41FF3C001AFC669C747D0EAC /* ScreenHelmApp */,
+			);
+			name = ScreenHelmApp;
+			packageProductDependencies = (
+				CBF991F4858D3D9FED3571DE /* ScreenHelmCore */,
+				C06555F914AE084DDEBD3193 /* Sparkle */,
+			);
+			productName = ScreenHelmApp;
+			productReference = 8D6782132495D1D1872588E2 /* ScreenHelm.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65EECB229A7281542FE2D30B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 2720;
+				LastUpgradeCheck = 2720;
+			};
+			buildConfigurationList = C470053DEFD80E9479824170 /* Build configuration list for PBXProject "ScreenHelm" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				vi,
+			);
+			mainGroup = FF1C27FE52314636D42440FC;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EA1674A148FB9BA9B7F4BF77 /* XCRemoteSwiftPackageReference "Sparkle" */,
+				191CD95B8CB5480DCC1F08BC /* XCLocalSwiftPackageReference "ScreenHelmCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 47A4D721559A56C45326A991 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				56941D34634C92CCE900B15E /* ScreenHelmApp */,
+				629C7FF999FF1E22CB8681F1 /* ScreenHelmAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE6DCDDEE9834CB47F5E73F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADCAE62147A57818F685BB06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CBA02C356E1938CAF3412D42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BF181FFC51755B23FF2705D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71469A4B288A6735060718DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 56941D34634C92CCE900B15E /* ScreenHelmApp */;
+			targetProxy = D9DB84122740018507B98F22 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		39EE4FFE173BF0C16A0326EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dangkhoabach.screenhelm.tests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScreenHelm.app/Contents/MacOS/ScreenHelm";
+			};
+			name = Release;
+		};
+		4C704C77130CCC63ACA2082C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F53C9FB80E6F68D66AC2B0A6 /* Local.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		B78603ADE5CD6FAF45847392 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F53C9FB80E6F68D66AC2B0A6 /* Local.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		CC45EC20D2401A5AC4C8AACE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dangkhoabach.screenhelm.tests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScreenHelm.app/Contents/MacOS/ScreenHelm";
+			};
+			name = Debug;
+		};
+		BE92D582833DEE7ECF11E553 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ScreenHelmApp/ScreenHelmApp.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ScreenHelmApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dangkhoabach.screenhelm;
+				PRODUCT_NAME = ScreenHelm;
+			};
+			name = Release;
+		};
+		4CC777432DB1848F0D367DDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ScreenHelmApp/ScreenHelmApp.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScreenHelmApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dangkhoabach.screenhelm;
+				PRODUCT_NAME = ScreenHelm;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C470053DEFD80E9479824170 /* Build configuration list for PBXProject "ScreenHelm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C704C77130CCC63ACA2082C /* Debug */,
+				B78603ADE5CD6FAF45847392 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96292643EA5399FCB8ECC38C /* Build configuration list for PBXNativeTarget "ScreenHelmApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CC777432DB1848F0D367DDD /* Debug */,
+				BE92D582833DEE7ECF11E553 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E119DA7C38AA2D393C413470 /* Build configuration list for PBXNativeTarget "ScreenHelmAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC45EC20D2401A5AC4C8AACE /* Debug */,
+				39EE4FFE173BF0C16A0326EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		191CD95B8CB5480DCC1F08BC /* XCLocalSwiftPackageReference "ScreenHelmCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ScreenHelmCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA1674A148FB9BA9B7F4BF77 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CBF991F4858D3D9FED3571DE /* ScreenHelmCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ScreenHelmCore;
+		};
+		C06555F914AE084DDEBD3193 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA1674A148FB9BA9B7F4BF77 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 65EECB229A7281542FE2D30B /* Project object */;
+}
