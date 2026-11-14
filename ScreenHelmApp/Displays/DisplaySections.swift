@@ -480,6 +480,10 @@ extension DisplayPanelControl {
         case .refreshRate: "Refresh rate"
         case .input: "Input"
         case .preset: "Reference preset"
+        case .hiDPI: "HiDPI switch"
+        case .notch: "Notch area switch"
+        case .xdr: "XDR switch"
+        case .more: "Menu with rotation, main display, mirror and switch off"
         }
     }
 }

@@ -378,6 +378,20 @@ struct DDCServiceTests {
         #expect((0...1).contains(value))
         #expect(BrightnessController.shared.availableMethods(for: builtIn).contains(.gamma))
     }
+
+    /// The panel's quick switches: only those chosen, only those the display
+    /// has, always in the same order.
+    @Test func panelQuickSwitchesFollowTheChoiceAndTheDisplay() {
+        let manager = DisplayManager.shared
+        manager.refresh()
+        for display in manager.displays {
+            #expect(DisplayPanelBlock.quickSwitches(for: display, controls: []).isEmpty)
+            let shown = DisplayPanelBlock.quickSwitches(for: display, controls: Set(DisplayPanelControl.allCases))
+            #expect(shown == [.hiDPI, .notch, .xdr].filter(shown.contains))
+            #expect(shown.contains(.xdr) == XDRController.shared.isAvailable(for: display))
+            #expect(DisplayPanelBlock.quickSwitches(for: display, controls: [.xdr, .brightness]) == shown.filter { $0 == .xdr })
+        }
+    }
 }
 
 /// Tests that change real displays: they make a virtual one, dim it, switch
@@ -1373,5 +1387,8 @@ struct DisplaysRenderTests {
                                   bounds: CGRect(x: 0, y: 0, width: 2560, height: 1440), rotation: 0, mirrorOf: nil, hasAppleBrightness: false)
         try render(Form { DDCSection(display: monitor, assumeFound: true) }.formStyle(.grouped).environment(\.locale, Locale(identifier: "vi")),
                    size: NSSize(width: 550, height: 1500), appearance: .aqua, to: folder.appendingPathComponent("ddc-vi.png"))
+        // A monitor's block in the panel, with the menu a single built-in display doesn't get.
+        try render(DisplayPanelBlock(display: monitor).padding(14).environment(\.locale, Locale(identifier: "vi")).background(.background),
+                   size: NSSize(width: MenuBarPanelView.width, height: 120), appearance: .aqua, to: folder.appendingPathComponent("panel-monitor-vi.png"))
     }
 }

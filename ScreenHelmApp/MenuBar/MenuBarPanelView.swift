@@ -47,6 +47,9 @@ private struct MenuBarPanelContent: View {
     private var footer: some View {
         HStack(spacing: 2) {
             footerButton("Show ScreenHelm", systemImage: "macwindow") { WindowPresenter.showMainWindow() }
+            ForEach([SidebarSection.virtualScreens, .pictureInPicture], id: \.self) { page in
+                footerButton(page.title, systemImage: page.systemImage) { WindowPresenter.show(page) }
+            }
             footerButton("Settings…", systemImage: "gearshape") { WindowPresenter.showSettings() }
             footerButton("Check for Updates…", systemImage: "arrow.triangle.2.circlepath") { AppUpdater.checkForUpdates() }
             Spacer()

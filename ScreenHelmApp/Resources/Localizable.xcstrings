@@ -1447,6 +1447,16 @@
         }
       }
     },
+    "HiDPI switch": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ô bật HiDPI"
+          }
+        }
+      }
+    },
     "Hide": {
       "localizations": {
         "vi": {
@@ -1913,6 +1923,16 @@
         }
       }
     },
+    "Menu with rotation, main display, mirror and switch off": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu xoay, màn hình chính, phản chiếu và tắt"
+          }
+        }
+      }
+    },
     "Mirror": {
       "localizations": {
         "vi": {
@@ -1979,6 +1999,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Thêm không gian"
+          }
+        }
+      }
+    },
+    "More for this display": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm cho màn hình này"
           }
         }
       }
@@ -2149,6 +2179,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chưa phím tắt nào có phím cho tới khi bạn ghi. Các phím tắt bên dưới tác động lên màn hình đang có con trỏ."
+          }
+        }
+      }
+    },
+    "Notch Area": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vùng hai bên camera"
+          }
+        }
+      }
+    },
+    "Notch area switch": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ô bật vùng hai bên camera"
           }
         }
       }
@@ -2679,16 +2729,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "An toàn"
-          }
-        }
-      }
-    },
-    "Same brightness": {
-      "localizations": {
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cùng độ sáng"
           }
         }
       }
@@ -4132,12 +4172,32 @@
         }
       }
     },
+    "XDR": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "XDR"
+          }
+        }
+      }
+    },
     "XDR Brightness": {
       "localizations": {
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "Độ sáng XDR"
+          }
+        }
+      }
+    },
+    "XDR switch": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ô bật XDR"
           }
         }
       }

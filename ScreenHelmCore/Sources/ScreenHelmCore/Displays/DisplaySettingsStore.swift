@@ -116,8 +116,12 @@ public struct CustomDDCControl: Codable, Equatable, Identifiable, Sendable {
 /// The controls a display can have in the menu bar panel.
 public enum DisplayPanelControl: String, Codable, Sendable, CaseIterable {
     case brightness, volume, resolution, refreshRate, input, preset
+    /// Quick switches.
+    case hiDPI, notch, xdr
+    /// A menu with rotation, main display, mirroring and switching off.
+    case more
 
-    public static let defaults: Set<DisplayPanelControl> = [.brightness, .volume, .resolution]
+    public static let defaults: Set<DisplayPanelControl> = [.brightness, .volume, .resolution, .hiDPI, .notch, .xdr, .more]
 }
 
 /// How one monitor is talked to over DDC; the defaults suit most.
