@@ -1,6 +1,6 @@
-// Renders the app icon set from code: on a dark rounded square, a ship's
-// helm drawn as the brightness sun, its handles the rays, so the project
-// needs no design tool to produce
+// Renders the app icon set from code: on the dark rounded square the
+// other apps' icons share, a display with a ship's helm on its screen, in
+// one warm gradient, so the project needs no design tool to produce
 // ScreenHelmApp/Resources/Assets.xcassets/AppIcon.appiconset.
 //
 // Run once (or whenever the look changes):
@@ -33,23 +33,38 @@ func line(from: NSPoint, to: NSPoint, width: CGFloat) -> NSBezierPath {
 /// Drawn on a 1024-point canvas; every size is scaled down from it.
 func drawIcon() {
     // macOS icon grid: the squircle occupies ~80% of the canvas, in the
-    // same dark gradient as the other apps' icons.
+    // same near-black as the other apps' icons.
     let body = NSRect(x: 100, y: 100, width: 824, height: 824)
-    NSGradient(colors: [color(0x222A3D), color(0x0D111F)])!
-        .draw(in: NSBezierPath(roundedRect: body, xRadius: 185, yRadius: 185), angle: -90)
+    color(0x121214).setFill()
+    NSBezierPath(roundedRect: body, xRadius: 185, yRadius: 185).fill()
 
-    // The helm: rim, spokes and hub, with its eight handles standing off
-    // the rim like the rays of the brightness sun.
-    let center = NSPoint(x: 512, y: 512)
-    let rim = NSBezierPath(ovalIn: NSRect(x: center.x - 150, y: center.y - 150, width: 300, height: 300))
-    rim.lineWidth = 44
-    var strokes = [rim]
-    for index in 0..<8 {
-        let degrees = 22.5 + CGFloat(index) * 45
-        strokes.append(line(from: point(center, 70, degrees), to: point(center, 150, degrees), width: 26))
-        strokes.append(line(from: point(center, 210, degrees), to: point(center, 268, degrees), width: 52))
+    // The glyph is drawn a little larger and scaled about the middle, so
+    // it keeps the same margin as the other apps' glyphs.
+    let glyph = NSAffineTransform()
+    glyph.translateX(by: 512, yBy: 512)
+    glyph.scale(by: 0.9)
+    glyph.translateX(by: -512, yBy: -512)
+
+    // The display: screen, neck and foot.
+    let screen = NSBezierPath(roundedRect: NSRect(x: 220, y: 350, width: 584, height: 400), xRadius: 44, yRadius: 44)
+    screen.lineWidth = 44
+    var strokes = [screen,
+                   line(from: NSPoint(x: 512, y: 350), to: NSPoint(x: 512, y: 280), width: 44),
+                   line(from: NSPoint(x: 392, y: 272), to: NSPoint(x: 632, y: 272), width: 44)]
+
+    // The helm on its screen: rim, six spokes and the handles beyond them.
+    let center = NSPoint(x: 512, y: 550)
+    let rim = NSBezierPath(ovalIn: NSRect(x: center.x - 82, y: center.y - 82, width: 164, height: 164))
+    rim.lineWidth = 28
+    strokes.append(rim)
+    for index in 0..<6 {
+        let degrees = 90 + CGFloat(index) * 60
+        strokes.append(line(from: point(center, 25, degrees), to: point(center, 82, degrees), width: 20))
+        strokes.append(line(from: point(center, 82, degrees), to: point(center, 132, degrees), width: 32))
     }
-    let hub = NSBezierPath(ovalIn: NSRect(x: center.x - 70, y: center.y - 70, width: 140, height: 140))
+    let hub = NSBezierPath(ovalIn: NSRect(x: center.x - 32, y: center.y - 32, width: 64, height: 64))
+    strokes.forEach { $0.transform(using: glyph as AffineTransform) }
+    hub.transform(using: glyph as AffineTransform)
 
     // All of it white in a layer, then tinted with one warm gradient.
     NSGraphicsContext.saveGraphicsState()
