@@ -6,10 +6,19 @@ import SwiftUI
 @MainActor
 enum WindowPresenter {
     static let mainWindowID = "main"
+    /// SwiftUI's own way to open the main window, kept by the status item
+    /// (`OpenWindowKeeper`), for when there is no main window to bring forward.
+    static var openWindow: OpenWindowAction?
 
     static func showMainWindow() {
         NSApp.setActivationPolicy(.regular)
         NSApp.unhide(nil)
+        // A window SwiftUI never made at launch, or one that was closed for
+        // good, is opened anew: bringing forward only the windows there are
+        // left the app with a Dock icon and nothing to show.
+        if mainWindows(in: NSApp.windows).isEmpty {
+            openWindow?(id: mainWindowID)
+        }
         for window in mainWindows(in: NSApp.windows) {
             window.makeKeyAndOrderFront(nil)
         }
@@ -39,5 +48,18 @@ enum WindowPresenter {
 
     static func showSettings() {
         show(.settings)
+    }
+}
+
+/// Keeps SwiftUI's `openWindow` for `WindowPresenter`. It sits, with no size,
+/// in the status item, which is there from launch whether or not the main
+/// window ever is.
+struct OpenWindowKeeper: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Color.clear
+            .frame(width: 0, height: 0)
+            .onAppear { WindowPresenter.openWindow = openWindow }
     }
 }

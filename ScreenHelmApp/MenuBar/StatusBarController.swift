@@ -17,6 +17,8 @@ final class StatusBarController: NSObject, NSWindowDelegate {
     /// while the panel is open takes the focus first and only then reaches
     /// `statusItemClicked`, which would open the panel again at once.
     private var lastClosedAt = Date.distantPast
+    /// The content's height when it was measured before the panel was kept.
+    private var pendingHeight: CGFloat?
 
     var isPanelOpen: Bool { panel?.isVisible == true }
 
@@ -27,6 +29,7 @@ final class StatusBarController: NSObject, NSWindowDelegate {
         item.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
         item.button?.image = NSImage(systemSymbolName: "display", accessibilityDescription: "ScreenHelm")
         item.button?.setAccessibilityTitle("ScreenHelm")
+        item.button?.addSubview(NSHostingView(rootView: OpenWindowKeeper()))
         statusItem = item
 
         let hotKeys = HotKeyManager { [weak self] key in
@@ -70,7 +73,10 @@ final class StatusBarController: NSObject, NSWindowDelegate {
     /// The panel as tall as what it shows, up to `MenuBarPanelView`'s
     /// limit, growing and shrinking from its top edge under the menu bar.
     func fitPanel(height: CGFloat) {
-        guard let panel, height > 0, abs(panel.frame.height - height) > 0.5 else { return }
+        // The content is first measured while `makePanel` builds the panel,
+        // before it is kept here; that height is applied once it is.
+        guard let panel else { return pendingHeight = height }
+        guard height > 0, abs(panel.frame.height - height) > 0.5 else { return }
         var frame = panel.frame
         frame.origin.y = frame.maxY - height
         frame.size.height = height
@@ -83,6 +89,10 @@ final class StatusBarController: NSObject, NSWindowDelegate {
         panel.delegate = self
         panel.onClose = { [weak self] in self?.closePanel() }
         self.panel = panel
+        if let pendingHeight {
+            fitPanel(height: pendingHeight)
+            self.pendingHeight = nil
+        }
         return panel
     }
 
@@ -113,6 +123,7 @@ final class StatusBarController: NSObject, NSWindowDelegate {
         add("Show ScreenHelm", #selector(showMainWindow))
         add("Settings…", #selector(showSettings), ",")
         add("Check for Updates…", #selector(checkForUpdates))
+        add("About ScreenHelm", #selector(showAbout))
         menu.addItem(.separator())
         add("Quit ScreenHelm", #selector(quit), "q")
         // A menu set on the item opens on the next click; it's taken off
@@ -125,6 +136,7 @@ final class StatusBarController: NSObject, NSWindowDelegate {
     @objc private func showMainWindow() { WindowPresenter.showMainWindow() }
     @objc private func showSettings() { WindowPresenter.showSettings() }
     @objc private func checkForUpdates() { AppUpdater.checkForUpdates() }
+    @objc private func showAbout() { AboutWindow.show() }
     @objc private func quit() { NSApp.terminate(nil) }
 
     private func localized(_ key: String) -> String {

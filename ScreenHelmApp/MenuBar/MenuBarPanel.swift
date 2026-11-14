@@ -36,15 +36,15 @@ final class MenuBarPanel: NSPanel {
         // and shadow; SwiftUI would otherwise inset the content by its height,
         // leaving an empty band above the header.
         hosting.safeAreaRegions = []
-        hosting.translatesAutoresizingMaskIntoConstraints = false
-        background.addSubview(hosting)
-        NSLayoutConstraint.activate([
-            hosting.leadingAnchor.constraint(equalTo: background.leadingAnchor),
-            hosting.trailingAnchor.constraint(equalTo: background.trailingAnchor),
-            hosting.topAnchor.constraint(equalTo: background.topAnchor),
-            hosting.bottomAnchor.constraint(equalTo: background.bottomAnchor),
-        ])
+        // The panel's height follows the content through
+        // `StatusBarController.fitPanel`; sizing itself, the hosting view held
+        // the window at its first height, so the panel could grow but never
+        // shrink.
+        hosting.sizingOptions = []
         contentView = background
+        hosting.frame = background.bounds
+        hosting.autoresizingMask = [.width, .height]
+        background.addSubview(hosting)
     }
 
     override var canBecomeKey: Bool { true }

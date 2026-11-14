@@ -224,6 +224,16 @@
         }
       }
     },
+    "About ScreenHelm": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giới thiệu ScreenHelm"
+          }
+        }
+      }
+    },
     "Accept answers whose checksum is wrong": {
       "localizations": {
         "vi": {
@@ -1180,6 +1190,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mọi màn hình đã chọn đều được cắm"
+          }
+        }
+      }
+    },
+    "Every display of your Mac, from the menu bar.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi màn hình của máy Mac, ngay trên thanh menu."
           }
         }
       }
@@ -2699,6 +2719,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tần số quét"
+          }
+        }
+      }
+    },
+    "Released %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phát hành %@"
           }
         }
       }
@@ -4262,6 +4292,16 @@
         }
       }
     },
+    "Version %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phiên bản %@"
+          }
+        }
+      }
+    },
     "Virtual Screen %lld": {
       "localizations": {
         "vi": {
@@ -4338,6 +4378,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đánh thức"
+          }
+        }
+      }
+    },
+    "Website": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trang web"
           }
         }
       }

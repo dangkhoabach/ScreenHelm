@@ -18,6 +18,9 @@ struct ScreenHelmApp: App {
                 .environment(\.locale, appLocale.locale)
         }
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About ScreenHelm") { AboutWindow.show() }
+            }
             CommandGroup(after: .appInfo) {
                 Button("Check for Updates…") { AppUpdater.checkForUpdates() }
             }
