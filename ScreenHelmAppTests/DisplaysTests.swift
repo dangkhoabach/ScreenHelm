@@ -1,5 +1,6 @@
 import AppKit
 import Carbon.HIToolbox
+import os
 import ScreenHelmCore
 import SwiftUI
 import Testing
@@ -377,6 +378,40 @@ struct DDCServiceTests {
         let value = BrightnessController.shared.value(for: builtIn)
         #expect((0...1).contains(value))
         #expect(BrightnessController.shared.availableMethods(for: builtIn).contains(.gamma))
+    }
+
+    /// Read only: Night Shift's strength is a fraction where the Mac has Night Shift.
+    @Test func nightShiftStrengthIsAFraction() {
+        guard SystemToggles.nightShift != nil else { return }
+        let strength = SystemToggles.nightShiftStrength
+        #expect(strength.map { (0...1).contains($0) } == true)
+    }
+
+    /// A display matched to itself keeps its own size.
+    @Test func aDisplayMatchedToItselfKeepsItsSize() throws {
+        DisplayManager.shared.refresh()
+        let main = try #require(DisplayManager.shared.displays.first { $0.isMain })
+        guard CGDisplayScreenSize(main.id).width > 0, main.rotation == 0 else { return }
+        let current = try #require(ModeController.shared.current(of: main.id))
+        let match = ModeController.shared.textSizeMatch(on: main, to: main, within: TextSizeMatcher.tolerance)
+        #expect(match?.resolution == current.resolution)
+    }
+
+    /// A group is active by its rule and the displays connected now.
+    @Test func aGroupIsActiveWithItsDisplaysConnected() throws {
+        DisplayManager.shared.refresh()
+        let main = try #require(DisplayManager.shared.displays.first { $0.isMain })
+        #expect(TextSizeMatcher.isActive(DisplayGroup(name: "Here", displays: [main.key])))
+        #expect(!TextSizeMatcher.isActive(DisplayGroup(name: "Gone", displays: [main.key, "not-connected"])))
+        #expect(TextSizeMatcher.isActive(DisplayGroup(name: "Any", displays: [main.key, "not-connected"], activation: .anyConnected)))
+    }
+
+    /// The log window's reader finds a line this process has just written.
+    @Test func theLogReaderFindsThisProcesssLines() async {
+        let marker = UUID().uuidString
+        Logger(subsystem: LogReader.subsystem, category: "test").info("log reader test \(marker, privacy: .public)")
+        let lines = await LogReader().entries(after: Date().addingTimeInterval(-60))
+        #expect(lines.contains { $0.message.contains(marker) && $0.category == "test" })
     }
 
     /// The panel's quick switches: only those chosen, only those the display
@@ -1164,12 +1199,40 @@ struct StreamChangingTests {
         #expect(window.frame == targetScreen.frame)
         #expect(window.ignoresMouseEvents)
         #expect(controller.frameCount(config.id) > 0)
+        // The pointer is hidden only over the display covered, and shown again when the stream stops.
+        config.hidesPointerOnTarget = true
+        controller.update(config)
+        #expect(PointerHider.shared.displays == [made.id])
+        #expect(PointerHider.shared.isHidden == CGDisplayBounds(made.id).contains(CGEvent(source: nil)?.location ?? .zero))
         // A display onto itself with nothing changed would only feed on itself.
         config.target = .display(main.key)
         controller.update(config)
         #expect(controller.configs.first { $0.id == config.id }?.target == .display(target.key))
         controller.stop(config.id)
+        #expect(PointerHider.shared.displays.isEmpty && !PointerHider.shared.isHidden)
         withExtendedLifetime(made.object) {}
+    }
+
+    /// An HDR capture shows frames on macOS 15 and later, on a layer that keeps the range.
+    @Test func anHDRPictureShowsFrames() async throws {
+        guard #available(macOS 15.0, *) else { return }
+        let controller = StreamController.shared
+        DisplayManager.shared.refresh()
+        let main = try #require(DisplayManager.shared.displays.first { $0.isMain })
+        let screen = try #require(NSScreen.screens.first)
+        let mover = animatedWindow(on: screen.frame)
+        defer { mover.close() }
+        var config = controller.add(source: .display(main.key), name: "Test HDR")
+        defer { controller.delete(config.id) }
+        config.hdr = true
+        controller.update(config)
+        controller.start(config.id)
+        try await Task.sleep(for: .milliseconds(2500))
+        #expect(controller.frameCount(config.id) > 0)
+        #expect(controller.failure[config.id] == nil)
+        let window = try #require(NSApp.windows.compactMap { $0 as? StreamWindow }.first { $0.title == "Test HDR" })
+        if #available(macOS 26.0, *) { #expect(window.pictureLayer.preferredDynamicRange == .high) }
+        controller.stop(config.id)
     }
 }
 
@@ -1361,17 +1424,28 @@ struct DisplaysRenderTests {
         defer { navigation.sidebarSelection = before }
         var pages: [(String, SidebarSection, CGFloat)] = SidebarSection.pages.map { page in
             let height: CGFloat = switch page {
-            case .arrangement: 1500
+            case .arrangement: 1700
             case .shortcuts: 2700
-            case .automation: 1100
+            case .automation: 1500
             default: 800
             }
             return ("\(page)", page, height)
         }
         pages += DisplayManager.shared.displays.enumerated().map { ("display\($0.offset + 1)", .display($0.element.key), 3300) }
         pages.append(("settings", .settings, 1500))
+        // A group, so the Automation page shows its rule and text size matching.
+        let viewModel = SettingsViewModel.shared
+        let groupsBefore = viewModel.settings.displayGroups
+        defer { viewModel.settings.displayGroups = groupsBefore }
+        if let main = DisplayManager.shared.displays.first(where: \.isMain) {
+            viewModel.settings.displayGroups = groupsBefore + [DisplayGroup(name: "Desk", displays: [main.key], matchTextSize: true)]
+        }
+        // The menu bar panel and the log window take the in-app language themselves.
+        let languageBefore = UserDefaults.standard.string(forKey: "languagePreference")
+        defer { UserDefaults.standard.set(languageBefore, forKey: "languagePreference") }
         for (language, appearance) in [("en", NSAppearance.Name.aqua), ("vi", .darkAqua)] {
             let locale = Locale(identifier: language)
+            UserDefaults.standard.set(language, forKey: "languagePreference")
             for (name, page, height) in pages {
                 navigation.sidebarSelection = page
                 try render(ContentView().environment(\.locale, locale), size: NSSize(width: 760, height: height), appearance: appearance,
@@ -1380,6 +1454,8 @@ struct DisplaysRenderTests {
             try render(MenuBarPanelView().environment(\.locale, locale).background(.background),
                        size: NSSize(width: MenuBarPanelView.width, height: 360), appearance: appearance,
                        to: folder.appendingPathComponent("panel-\(language).png"))
+            try render(LogView().environment(\.locale, locale).background(.background), size: NSSize(width: 720, height: 300),
+                       appearance: appearance, to: folder.appendingPathComponent("log-\(language).png"))
         }
         // The DDC controls, which this Mac's own display doesn't show.
         let monitor = DisplayInfo(id: 4242, key: "test", identity: DisplayIdentity(vendor: 0x10AC, product: 0xA0F1, serial: 1),

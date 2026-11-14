@@ -157,6 +157,9 @@ enum ConfigurationController {
 enum SystemToggles {
     static var nightShift: Bool? { DisplayPrivateAPIs.nightShiftIsOn }
     static func setNightShift(_ on: Bool) { DisplayPrivateAPIs.setNightShift(on) }
+    /// 0 to 1.
+    static var nightShiftStrength: Double? { DisplayPrivateAPIs.nightShiftStrength }
+    static func setNightShiftStrength(_ strength: Double) { DisplayPrivateAPIs.setNightShiftStrength(strength) }
 
     static var trueTone: Bool? { DisplayPrivateAPIs.trueToneIsOn }
     static func setTrueTone(_ on: Bool) { DisplayPrivateAPIs.setTrueTone(on) }

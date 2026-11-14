@@ -8,6 +8,8 @@ struct DisplaysPanelContent: View {
     @Bindable private var viewModel = SettingsViewModel.shared
     @State private var nightShift = SystemToggles.nightShift
     @State private var trueTone = SystemToggles.trueTone
+    @State private var darkMode = SystemToggles.darkMode
+    @State private var nightShiftStrength = SystemToggles.nightShiftStrength
 
     var body: some View {
         ScrollView {
@@ -29,10 +31,27 @@ struct DisplaysPanelContent: View {
                             self.trueTone = on
                         }))
                     }
+                    Toggle("Dark Mode", isOn: Binding(get: { darkMode }, set: { on in
+                        SystemToggles.setDarkMode(on)
+                        darkMode = on
+                    }))
                     Spacer()
                 }
                 .toggleStyle(.checkbox)
                 .font(.caption)
+                if nightShift == true, let nightShiftStrength {
+                    HStack(spacing: 10) {
+                        Image(systemName: "moon").foregroundStyle(.secondary)
+                        Slider(value: Binding(get: { nightShiftStrength }, set: { value in
+                            SystemToggles.setNightShiftStrength(value)
+                            self.nightShiftStrength = value
+                        }), in: 0...1)
+                        Image(systemName: "moon.fill").foregroundStyle(.secondary)
+                    }
+                    .font(.caption)
+                    .controlSize(.small)
+                    .help(Text("How warm Night Shift makes the screen"))
+                }
                 if manager.displays.count > 1 {
                     Picker("Other displays follow", selection: $viewModel.settings.displaysSyncSource) {
                         Text("Off").tag(BrightnessSyncSource.off)
@@ -52,6 +71,8 @@ struct DisplaysPanelContent: View {
         .onAppear {
             nightShift = SystemToggles.nightShift
             trueTone = SystemToggles.trueTone
+            darkMode = SystemToggles.darkMode
+            nightShiftStrength = SystemToggles.nightShiftStrength
         }
     }
 }

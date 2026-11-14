@@ -254,6 +254,26 @@
         }
       }
     },
+    "Active now": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang hoạt động"
+          }
+        }
+      }
+    },
+    "Active when": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoạt động khi"
+          }
+        }
+      }
+    },
     "Add": {
       "localizations": {
         "vi": {
@@ -434,6 +454,16 @@
         }
       }
     },
+    "Any of them is connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có một màn hình bất kỳ trong nhóm được cắm"
+          }
+        }
+      }
+    },
     "Appearance": {
       "localizations": {
         "vi": {
@@ -494,6 +524,16 @@
         }
       }
     },
+    "At least two of them are connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có ít nhất hai màn hình trong nhóm được cắm"
+          }
+        }
+      }
+    },
     "Automatic": {
       "localizations": {
         "vi": {
@@ -540,6 +580,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Làm mờ"
+          }
+        }
+      }
+    },
+    "Both tint the screen, which changes how HDR pictures look. The ones that were on come back when no display shows HDR, and when ScreenHelm quits.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cả hai đều phủ màu lên màn hình, làm ảnh HDR trông khác đi. Cái nào đang bật sẽ bật lại khi không còn màn hình nào hiển thị HDR, và khi ScreenHelm thoát."
           }
         }
       }
@@ -660,6 +710,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kiểm tra updates.dangkhoabach.vn mỗi ngày một lần. Tắt đi thì chỉ cập nhật khi bạn yêu cầu."
+          }
+        }
+      }
+    },
+    "Choose the Part on Screen…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chọn vùng trên màn hình…"
           }
         }
       }
@@ -1094,12 +1154,32 @@
         }
       }
     },
+    "Drag over the part to show. Escape cancels.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kéo chuột qua vùng muốn hiển thị. Nhấn Escape để huỷ."
+          }
+        }
+      }
+    },
     "Every display": {
       "localizations": {
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "Mọi màn hình"
+          }
+        }
+      }
+    },
+    "Every display chosen is connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi màn hình đã chọn đều được cắm"
           }
         }
       }
@@ -1240,6 +1320,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tìm độ phân giải, ví dụ 1920"
+          }
+        }
+      }
+    },
+    "Find in the log": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tìm trong log"
           }
         }
       }
@@ -1467,6 +1557,26 @@
         }
       }
     },
+    "Hide the pointer while it is over the display this covers": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ẩn con trỏ khi nó nằm trên màn hình được phủ"
+          }
+        }
+      }
+    },
+    "How warm Night Shift makes the screen": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mức ấm Night Shift tạo cho màn hình"
+          }
+        }
+      }
+    },
     "Hue": {
       "localizations": {
         "vi": {
@@ -1673,6 +1783,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Giữ"
+          }
+        }
+      }
+    },
+    "Keep HDR highlights": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ vùng sáng HDR"
+          }
+        }
+      }
+    },
+    "Keep text the same size on them": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ chữ cùng cỡ trên các màn hình này"
           }
         }
       }
@@ -2183,6 +2313,16 @@
         }
       }
     },
+    "Not active now": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không hoạt động"
+          }
+        }
+      }
+    },
     "Notch Area": {
       "localizations": {
         "vi": {
@@ -2209,6 +2349,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chưa có gì được giữ cho các màn hình này."
+          }
+        }
+      }
+    },
+    "Nothing logged yet.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có gì trong log."
           }
         }
       }
@@ -2279,6 +2429,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chỉ chương trình trên máy Mac này mới truy cập được, và mỗi yêu cầu đều cần token. Token được lưu trong Keychain."
+          }
+        }
+      }
+    },
+    "Only while no other display is connected": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ khi không có màn hình nào khác được cắm"
           }
         }
       }
@@ -2439,6 +2599,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nhấn phím…"
+          }
+        }
+      }
+    },
+    "Problems only": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ lỗi"
           }
         }
       }
@@ -2783,6 +2953,16 @@
         }
       }
     },
+    "ScreenHelm Log": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log của ScreenHelm"
+          }
+        }
+      }
+    },
     "ScreenHelm can't open its database": {
       "localizations": {
         "vi": {
@@ -2973,6 +3153,16 @@
         }
       }
     },
+    "Show All": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện toàn bộ"
+          }
+        }
+      }
+    },
     "Show All %lld Resolutions": {
       "localizations": {
         "vi": {
@@ -2999,6 +3189,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xem giấy phép…"
+          }
+        }
+      }
+    },
+    "Show Log…": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem log…"
           }
         }
       }
@@ -3362,6 +3562,16 @@
         }
       }
     },
+    "System Colors": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Màu hệ thống"
+          }
+        }
+      }
+    },
     "TV": {
       "localizations": {
         "vi": {
@@ -3388,6 +3598,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nhận lệnh qua HTTP trên máy Mac này"
+          }
+        }
+      }
+    },
+    "Text as big as on %@: %@": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chữ cùng cỡ như trên %@: %@"
           }
         }
       }
@@ -3852,6 +4072,16 @@
         }
       }
     },
+    "Turn Night Shift and True Tone off while a display shows HDR": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt Night Shift và True Tone khi một màn hình đang hiển thị HDR"
+          }
+        }
+      }
+    },
     "Turn Night Shift off meanwhile": {
       "localizations": {
         "vi": {
@@ -4112,6 +4342,16 @@
         }
       }
     },
+    "What ScreenHelm wrote since it started. Private details show as <private>.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những gì ScreenHelm ghi lại từ lúc mở. Thông tin riêng tư hiện thành <private>."
+          }
+        }
+      }
+    },
     "When": {
       "localizations": {
         "vi": {
@@ -4128,6 +4368,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Khi màn hình thay đổi"
+          }
+        }
+      }
+    },
+    "When one changes resolution, the others take the one at which things look as big, if they have a mode within 10%. You are asked to keep it, as with any change.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi một màn hình đổi độ phân giải, các màn hình còn lại chuyển sang độ phân giải cho mọi thứ trông cùng cỡ, nếu có mode chênh không quá 10%. Như mọi thay đổi khác, bạn sẽ được hỏi có giữ hay không."
           }
         }
       }

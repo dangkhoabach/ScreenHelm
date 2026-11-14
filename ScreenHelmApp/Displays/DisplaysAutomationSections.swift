@@ -80,6 +80,20 @@ struct AutomationSections: View {
                         }
                     }
                     GroupBrightnessSlider(group: group)
+                    Picker("Active when", selection: $group.activation) {
+                        Text("Every display chosen is connected").tag(DisplayGroup.Activation.allConnected)
+                        Text("Any of them is connected").tag(DisplayGroup.Activation.anyConnected)
+                        Text("At least two of them are connected").tag(DisplayGroup.Activation.atLeastTwoConnected)
+                    }
+                    Toggle("Only while no other display is connected", isOn: $group.onlyMembers)
+                    Toggle("Keep text the same size on them", isOn: $group.matchTextSize)
+                    if group.matchTextSize {
+                        Text("When one changes resolution, the others take the one at which things look as big, if they have a mode within 10%. You are asked to keep it, as with any change.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    let active = TextSizeMatcher.isActive(group)
+                    Label(active ? "Active now" : "Not active now", systemImage: active ? "checkmark.circle.fill" : "circle")
+                        .font(.caption).foregroundStyle(.secondary)
                 }
             }
             Button("Add a Group") {
@@ -96,6 +110,7 @@ struct AutomationSections: View {
                 Button("Export Display Settings…") { export() }
                 Button("Import…") { importSettings() }
                 Spacer()
+                Button("Show Log…") { LogWindowController.shared.show() }
                 Button("Save a Report…") { saveReport() }
             }
             if let message { Text(message).font(.callout) }

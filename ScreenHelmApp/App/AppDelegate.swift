@@ -52,6 +52,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// Displays ScreenHelm switched off come back with its quitting.
     func applicationWillTerminate(_ notification: Notification) {
         ConnectionController.shared.reconnectAll()
+        ColorPauseController.shared.restore()
         DisplaySafety.shared.endLaunchGuard()
     }
 

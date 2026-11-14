@@ -72,11 +72,15 @@ public struct StreamConfig: Codable, Equatable, Identifiable, Sendable {
     /// Clicks go through the picture to what is under it.
     public var clickThrough: Bool
     public var filters: StreamFilters
+    /// Captured with its HDR range, on macOS 15 and later.
+    public var hdr: Bool
+    /// Shown across a display: the pointer is hidden while it is over that display.
+    public var hidesPointerOnTarget: Bool
 
     public init(id: UUID = UUID(), name: String, source: Source, target: Target = .floatingWindow,
                 crop: UnitRect = UnitRect(x0: 0, y0: 0, x1: 1, y1: 1), rotation: Int = 0, flipHorizontal: Bool = false,
                 flipVertical: Bool = false, scaling: Scaling = .fit, framesPerSecond: Int = 30, showsCursor: Bool = true,
-                clickThrough: Bool = false, filters: StreamFilters = StreamFilters()) {
+                clickThrough: Bool = false, filters: StreamFilters = StreamFilters(), hdr: Bool = false, hidesPointerOnTarget: Bool = false) {
         self.id = id
         self.name = name
         self.source = source
@@ -90,6 +94,33 @@ public struct StreamConfig: Codable, Equatable, Identifiable, Sendable {
         self.showsCursor = showsCursor
         self.clickThrough = clickThrough
         self.filters = filters
+        self.hdr = hdr
+        self.hidesPointerOnTarget = hidesPointerOnTarget
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, source, target, crop, rotation, flipHorizontal, flipVertical, scaling, framesPerSecond, showsCursor, clickThrough, filters
+        case hdr, hidesPointerOnTarget
+    }
+
+    /// A stream saved before a setting existed reads with that setting's default.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(UUID.self, forKey: .id)
+        name = try c.decode(String.self, forKey: .name)
+        source = try c.decode(Source.self, forKey: .source)
+        target = try c.decode(Target.self, forKey: .target)
+        crop = try c.decode(UnitRect.self, forKey: .crop)
+        rotation = try c.decode(Int.self, forKey: .rotation)
+        flipHorizontal = try c.decode(Bool.self, forKey: .flipHorizontal)
+        flipVertical = try c.decode(Bool.self, forKey: .flipVertical)
+        scaling = try c.decode(Scaling.self, forKey: .scaling)
+        framesPerSecond = try c.decode(Int.self, forKey: .framesPerSecond)
+        showsCursor = try c.decode(Bool.self, forKey: .showsCursor)
+        clickThrough = try c.decode(Bool.self, forKey: .clickThrough)
+        filters = try c.decode(StreamFilters.self, forKey: .filters)
+        hdr = try c.decodeIfPresent(Bool.self, forKey: .hdr) ?? false
+        hidesPointerOnTarget = try c.decodeIfPresent(Bool.self, forKey: .hidesPointerOnTarget) ?? false
     }
 
     public static let allowedFrameRates = [5, 10, 15, 24, 30, 60, 120]

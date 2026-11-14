@@ -88,6 +88,14 @@ struct ArrangementSections: View {
         }
 
         Section {
+            Toggle("Turn Night Shift and True Tone off while a display shows HDR", isOn: $viewModel.settings.displaysPauseColorsInHDR)
+            Text("Both tint the screen, which changes how HDR pictures look. The ones that were on come back when no display shows HDR, and when ScreenHelm quits.")
+                .font(.caption).foregroundStyle(.secondary)
+        } header: {
+            Text("System Colors")
+        }
+
+        Section {
             if !connection.disconnected.isEmpty {
                 ForEach(connection.disconnected) { entry in
                     HStack {

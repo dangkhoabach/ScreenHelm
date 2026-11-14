@@ -98,6 +98,51 @@ final class ModeController {
         return true
     }
 
+    /// Switches several displays at once under one question: kept or undone
+    /// together. Asking once per display wouldn't do, since a second
+    /// question settles the first as kept. `willRevert` runs before they go back.
+    @discardableResult
+    func setTogether(_ changes: [(mode: DisplayModeInfo, display: DisplayInfo)], title: String, willRevert: @escaping () -> Void = {}) -> Bool {
+        var done: [(previous: DisplayModeInfo, mode: DisplayModeInfo, id: CGDirectDisplayID, key: String)] = []
+        for change in changes {
+            guard let previous = current(of: change.display.id), previous.number != change.mode.number else { continue }
+            guard write(change.mode, to: change.display.id, permanently: false) else {
+                log.error("mode \(change.mode.number) not set on \(change.display.id)")
+                continue
+            }
+            done.append((previous, change.mode, change.display.id, change.display.key))
+        }
+        guard !done.isEmpty else { return false }
+        log.info("\(done.count) displays switched together")
+        DisplaySafety.shared.confirm(
+            title: title,
+            signature: "modes:" + done.map { "\($0.key):\($0.mode.width)x\($0.mode.height):\($0.mode.isHiDPI):\($0.mode.roundedRate)" }.sorted().joined(separator: ","),
+            revert: { [weak self] in
+                willRevert()
+                for change in done { _ = self?.write(change.previous, to: change.id, permanently: false) }
+            },
+            onKeep: { [weak self] in
+                for change in done { _ = self?.write(change.mode, to: change.id, permanently: true) }
+            }
+        )
+        return true
+    }
+
+    /// The mode on `display` at which things look as big as on `other` now:
+    /// the same points to the millimetre, within `tolerance`, keeping
+    /// HiDPI and the refresh rate. Nil without physical sizes or a close enough mode.
+    func textSizeMatch(on display: DisplayInfo, to other: DisplayInfo, within tolerance: Double) -> DisplayModeInfo? {
+        let otherWidth = Double(CGDisplayScreenSize(other.id).width), width = Double(CGDisplayScreenSize(display.id).width)
+        let all = modes(of: display.id)
+        // Turned a quarter, the width in points runs along the physical height.
+        guard otherWidth > 0, width > 0, other.bounds.width > 0, other.rotation % 180 == 0, display.rotation % 180 == 0,
+              let current = current(of: display.id),
+              let resolution = DisplayModes.resolution(matching: Double(other.bounds.width) / otherWidth, widthMillimeters: width,
+                                                       like: current, in: all, within: tolerance)
+        else { return nil }
+        return DisplayModes.mode(for: resolution, near: current.refreshRate, in: all)
+    }
+
     // MARK: - What the interface asks for
 
     func setResolution(_ resolution: DisplayResolution, on display: DisplayInfo) {

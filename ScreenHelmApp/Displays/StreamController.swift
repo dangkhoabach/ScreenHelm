@@ -57,11 +57,12 @@ final class StreamController {
         guard let session = sessions[config.id] else { return }
         // What decides the capture or the window it is shown in starts the stream again; the rest is applied to the picture.
         if old.source != config.source || old.target != config.target || old.framesPerSecond != config.framesPerSecond
-            || old.showsCursor != config.showsCursor {
+            || old.showsCursor != config.showsCursor || old.hdr != config.hdr {
             stop(config.id)
             start(config.id)
         } else {
             session.apply(config)
+            updatePointer()
         }
     }
 
@@ -94,19 +95,31 @@ final class StreamController {
             // The source went away, or macOS stopped the capture.
             self?.sessions[id] = nil
             self?.running.remove(id)
+            self?.updatePointer()
             if let reason { self?.failure[id] = reason }
             DisplaySafety.shared.updatePanicHotKey()
         }
         sessions[id] = session
         running.insert(id)
         session.start()
+        updatePointer()
         DisplaySafety.shared.updatePanicHotKey()
     }
 
     func stop(_ id: UUID) {
         sessions.removeValue(forKey: id)?.close()
         running.remove(id)
+        updatePointer()
         DisplaySafety.shared.updatePanicHotKey()
+    }
+
+    /// The displays covered by a running stream that hides the pointer there.
+    private func updatePointer() {
+        let displays = sessions.values.compactMap { session -> CGDirectDisplayID? in
+            guard session.config.hidesPointerOnTarget, case .display(let key) = session.config.target else { return nil }
+            return DisplayManager.shared.display(key: key)?.id
+        }
+        PointerHider.shared.hide(over: Set(displays))
     }
 
     func stopAll() {
@@ -127,6 +140,7 @@ final class StreamController {
             if case .display(let key) = session.config.target { needed.append(key) }
             if !needed.allSatisfy(keys.contains) { stop(id) } else { session.layout() }
         }
+        updatePointer()
     }
 }
 
@@ -223,11 +237,17 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
 
             let size = StreamGeometry.captureSize(shown: window.pictureSize, scale: Double(window.backingScaleFactor), crop: config.crop,
                                                   sourcePixels: sourcePixels)
-            let configuration = SCStreamConfiguration()
+            let configuration: SCStreamConfiguration
+            if config.hdr, #available(macOS 15.0, *) {
+                // Sets the dynamic range, pixel format and color space for showing on this Mac's displays.
+                configuration = SCStreamConfiguration(preset: .captureHDRStreamLocalDisplay)
+            } else {
+                configuration = SCStreamConfiguration()
+                configuration.pixelFormat = kCVPixelFormatType_32BGRA
+            }
             configuration.width = Int(size.width)
             configuration.height = Int(size.height)
             configuration.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(config.framesPerSecond))
-            configuration.pixelFormat = kCVPixelFormatType_32BGRA
             configuration.showsCursor = config.showsCursor
             configuration.queueDepth = 3
             let stream = SCStream(filter: filter, configuration: configuration, delegate: self)
@@ -401,7 +421,58 @@ final class StreamWindow: NSWindow {
                                                                  flipVertical: config.flipVertical))
         pictureLayer.contentsRect = StreamGeometry.contentsRect(for: config.crop)
         pictureLayer.filters = StreamFilterBuilder.filters(for: config.filters)
+        if #available(macOS 26.0, *) {
+            pictureLayer.preferredDynamicRange = config.hdr ? .high : .standard
+        } else {
+            pictureLayer.wantsExtendedDynamicRangeContent = config.hdr
+        }
         CATransaction.commit()
+    }
+}
+
+/// Hides the pointer while it is over one of the given displays: a
+/// display shown across another one doesn't need a second pointer on it.
+@MainActor
+final class PointerHider {
+    static let shared = PointerHider()
+
+    private(set) var displays: Set<CGDirectDisplayID> = []
+    private var monitors: [Any] = []
+    /// Hiding and showing are counted by the window server, so they stay paired.
+    private(set) var isHidden = false
+
+    private init() {}
+
+    func hide(over displays: Set<CGDirectDisplayID>) {
+        guard displays != self.displays else { return }
+        self.displays = displays
+        if displays.isEmpty {
+            monitors.forEach(NSEvent.removeMonitor)
+            monitors = []
+        } else if monitors.isEmpty {
+            DisplayPrivateAPIs.allowPointerHidingInBackground()
+            let events: NSEvent.EventTypeMask = [.mouseMoved, .leftMouseDragged, .rightMouseDragged, .otherMouseDragged]
+            if let global = NSEvent.addGlobalMonitorForEvents(matching: events, handler: { _ in
+                MainActor.assumeIsolated { PointerHider.shared.update() }
+            }) { monitors.append(global) }
+            if let local = NSEvent.addLocalMonitorForEvents(matching: events, handler: { event in
+                MainActor.assumeIsolated { PointerHider.shared.update() }
+                return event
+            }) { monitors.append(local) }
+        }
+        update()
+    }
+
+    private func update() {
+        let wanted = !displays.isEmpty && displays.contains { CGDisplayBounds($0).contains(Self.pointerLocation) }
+        guard wanted != isHidden else { return }
+        isHidden = wanted
+        if wanted { CGDisplayHideCursor(CGMainDisplayID()) } else { CGDisplayShowCursor(CGMainDisplayID()) }
+    }
+
+    /// In global display coordinates, whose origin is the main display's top left.
+    private static var pointerLocation: CGPoint {
+        CGEvent(source: nil)?.location ?? .zero
     }
 }
 

@@ -89,6 +89,18 @@ private struct StreamSection: View {
             }
             Toggle("Mirror left to right", isOn: Binding(get: { config.flipHorizontal }, set: { on in change { $0.flipHorizontal = on } }))
             Toggle("Flip upside down", isOn: Binding(get: { config.flipVertical }, set: { on in change { $0.flipVertical = on } }))
+            if case .display(let key) = config.source, let display = manager.display(key: key) {
+                HStack {
+                    Button("Choose the Part on Screen…") {
+                        AreaPicker.pick(on: display.id) { crop in
+                            if let crop { change { $0.crop = crop } }
+                        }
+                    }
+                    if config.crop != .whole {
+                        Button("Show All") { change { $0.crop = .whole } }
+                    }
+                }
+            }
             crop("Cut from the left", \.x0, inverted: false)
             crop("Cut from the right", \.x1, inverted: true)
             crop("Cut from the top", \.y0, inverted: false)
@@ -97,6 +109,13 @@ private struct StreamSection: View {
                 ForEach(StreamConfig.allowedFrameRates, id: \.self) { Text(verbatim: "\($0)").tag($0) }
             }
             Toggle("Show the pointer", isOn: Binding(get: { config.showsCursor }, set: { on in change { $0.showsCursor = on } }))
+            if config.target != .floatingWindow {
+                Toggle("Hide the pointer while it is over the display this covers", isOn: Binding(
+                    get: { config.hidesPointerOnTarget }, set: { on in change { $0.hidesPointerOnTarget = on } }))
+            }
+            if #available(macOS 15.0, *) {
+                Toggle("Keep HDR highlights", isOn: Binding(get: { config.hdr }, set: { on in change { $0.hdr = on } }))
+            }
             if config.target == .floatingWindow {
                 Toggle("Clicks go through the picture", isOn: Binding(get: { config.clickThrough }, set: { on in change { $0.clickThrough = on } }))
             }

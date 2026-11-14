@@ -10,8 +10,10 @@ for brightness, resolutions, arrangement, virtual screens and picture in picture
 
 - **One page for each display.** The sidebar lists every connected display, then
   Arrangement, Virtual Screens, Picture in Picture, Shortcuts, Automation and Settings. The menu
-  bar panel has the everyday controls for each display: brightness, volume, resolution, refresh
-  rate, input and reference preset, as you choose for each, with Night Shift and True Tone.
+  bar panel has the everyday controls for each display, as you choose for each: brightness,
+  volume, resolution, refresh rate, input, reference preset, switches for HiDPI, the area beside
+  the camera housing and XDR, and a menu to rotate a display, make it the main one, mirror it or
+  switch it off. Below them: Night Shift with its strength, True Tone and Dark Mode.
 - **Brightness on one slider,** whatever is behind it: the backlight of an Apple display, a
   monitor's own setting over DDC, or software dimming for the rest (the color table, or a dark
   overlay). With a switch on, the keyboard's brightness and volume keys and an on-screen display
@@ -23,18 +25,23 @@ for brightness, resolutions, arrangement, virtual screens and picture in picture
   sizes can be added to a display's own override file.
 - **Picture adjustments.** Contrast, gamma, color temperature, gains, inverted colors, the
   number of color steps and dithering. Brightness that follows the built-in display, by
-  percentage or by nits, or the light in the room.
+  percentage or by nits, or the light in the room. Night Shift and True Tone switched off while
+  a display shows HDR, if you like.
 - **Arrangement.** Displays dragged into place with guide lines; an arrangement kept for each
   set of displays and put back when macOS changes it; a display switched off without pulling its
   cable; a Shortcut run or a file opened when displays come and go; the Mac kept awake while a
   chosen display is connected; Sidecar.
 - **Virtual screens and picture in picture.** A display with nothing plugged in, from a template
   or in the shape of a real one. A live copy of a display or a window in a floating window or
-  across another display: turned, mirrored, cropped, filtered, with a `.cube` lookup table.
+  across another display: turned, mirrored, cropped (by dragging over the display, too),
+  filtered, with a `.cube` lookup table, in HDR on macOS 15 and later, and with the pointer
+  hidden over the display it covers.
 - **Shortcuts and automation.** Shortcuts you record (none is set until you do), actions for the
   Shortcuts app, and, once you turn them on, the command line, `screenhelm://` links and HTTP on
-  your own Mac. Display groups, monitor controls of your own over DDC, export and import of the
-  settings, and a diagnostic report without serial numbers.
+  your own Mac. Display groups, active by a rule you choose, that can keep text the same size on
+  their displays when one changes resolution. Monitor controls of your own over DDC, export and
+  import of the settings, ScreenHelm's own log in a window, and a diagnostic report without
+  serial numbers.
 - **A way back.** A change that could leave a display unusable has to be kept within 15 seconds
   or it is undone, and a new mode is written for good only once kept. Control-Option-Command-
   Escape (⌃⌥⌘⎋) drops everything ScreenHelm has applied. Opened with Shift held, or after a start
@@ -104,11 +111,12 @@ instead of crashing.
 | `DisplayServicesGetBrightness`, `DisplayServicesSetBrightness`, `DisplayServicesGetLinearBrightness`, `DisplayServicesCanChangeBrightness`, `DisplayServicesRegisterForBrightnessChangeNotifications` | The backlight of the built-in display and of Apple's monitors, and hearing when it changes |
 | `CoreDisplay_DisplayCreateInfoDictionary` | What a display is: virtual, AirPlay, where it is plugged in |
 | `MPDisplayMgr`, `MPDisplay`, `MPDisplayPreset` (MonitorPanel) | Rotation, HDR and the reference presets, the way System Settings sets them |
-| `CBBlueLightClient`, `CBTrueToneClient` (CoreBrightness) | Night Shift and True Tone |
+| `CBBlueLightClient`, `CBTrueToneClient` (CoreBrightness) | Night Shift and its strength, True Tone |
 | `IOAVServiceCreateWithService`, `IOAVServiceReadI2C`, `IOAVServiceWriteI2C`, `IOAVServiceCopyEDID` | DDC to a monitor on Apple silicon, and reading its EDID |
 | `ALCALSCopyALSServiceClient`, `IOHIDServiceClientCopyEvent`, `IOHIDEventGetFloatValue` | The light sensor, for brightness that follows the room |
 | `SidecarDisplayManager` (SidecarCore) | Connecting an iPad as a display |
 | `CGVirtualDisplay`, `CGVirtualDisplayDescriptor`, `CGVirtualDisplayMode`, `CGVirtualDisplaySettings` | Virtual screens |
+| `SLSMainConnectionID`, `SLSSetConnectionProperty` (`SetsCursorInBackground`) | Hiding the pointer over a display a picture covers while another app is in front |
 
 ScreenHelm also reads two properties of the display's entry in the I/O Registry that have no
 documentation: `IOMFBBrightnessLevel`, for the built-in display's brightness in nits, and

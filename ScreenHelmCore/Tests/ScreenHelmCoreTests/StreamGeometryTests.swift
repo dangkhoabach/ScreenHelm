@@ -83,9 +83,34 @@ import Testing
         var config = StreamConfig(name: "Notes", source: .window(bundleID: "com.apple.Notes", title: ""), target: .display("tv"),
                                   crop: lowerHalf, rotation: 180, flipHorizontal: true, scaling: .fill, framesPerSecond: 60, clickThrough: true)
         config.filters = StreamFilters(monochrome: true, saturation: 0.5, hue: 20, blur: 3, sharpen: 0.4, lutPath: "/tmp/look.cube")
+        config.hdr = true
+        config.hidesPointerOnTarget = true
         let decoded = try JSONDecoder().decode(StreamConfig.self, from: JSONEncoder().encode(config))
         #expect(decoded == config)
         #expect(!config.filters.isNeutral && StreamFilters().isNeutral)
+    }
+
+    /// A rectangle dragged over a display, in AppKit's bottom-left coordinates,
+    /// becomes a crop counted from the top left, kept within the display.
+    @Test func aDraggedRectangleBecomesACrop() {
+        let size = CGSize(width: 1000, height: 500)
+        // The top right quarter.
+        #expect(UnitRect(selection: CGRect(x: 500, y: 250, width: 500, height: 250), in: size) == UnitRect(x0: 0.5, y0: 0, x1: 1, y1: 0.5))
+        // Dragged up and to the left, and past the edge.
+        let crop = UnitRect(selection: CGRect(x: 600, y: 100, width: -500, height: 900), in: size)
+        #expect(crop == UnitRect(x0: 0.1, y0: 0, x1: 0.6, y1: 0.8))
+        #expect(StreamGeometry.isUsable(crop))
+    }
+
+    /// A stream saved before HDR and the hidden pointer existed reads with both off.
+    @Test func olderConfigsTakeDefaultsForNewFields() throws {
+        let config = StreamConfig(name: "Old", source: .display("a"), hdr: true, hidesPointerOnTarget: true)
+        var object = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(config)) as? [String: Any])
+        object["hdr"] = nil
+        object["hidesPointerOnTarget"] = nil
+        let decoded = try JSONDecoder().decode(StreamConfig.self, from: JSONSerialization.data(withJSONObject: object))
+        #expect(!decoded.hdr && !decoded.hidesPointerOnTarget)
+        #expect(decoded.name == "Old" && decoded.source == .display("a"))
     }
 }
 

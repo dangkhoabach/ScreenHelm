@@ -215,6 +215,8 @@ enum Displays {
         AutomationServer.shared.start()
         MediaKeyTap.shared.start()
         DisplayKeepAwake.shared.start()
+        ColorPauseController.shared.start()
+        TextSizeMatcher.shared.start()
 
         safety.activityChecks.append {
             GammaController.shared.isActive || DimOverlay.shared.isActive || XDRController.shared.isActive

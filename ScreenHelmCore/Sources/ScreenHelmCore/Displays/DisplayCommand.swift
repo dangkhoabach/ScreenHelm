@@ -185,16 +185,63 @@ public struct DisplayCommand: Equatable, Sendable {
 }
 
 /// Displays the user put together under a name, to address as one.
+/// Being a member is not the same as the group being active: what the
+/// group does by itself, such as matching text size, waits for its rule.
 public struct DisplayGroup: Codable, Equatable, Identifiable, Sendable {
+    /// When a group is active.
+    public enum Activation: String, Codable, Sendable, CaseIterable {
+        /// Every member chosen is connected.
+        case allConnected
+        case anyConnected
+        case atLeastTwoConnected
+    }
+
     public var id: UUID
     public var name: String
     /// Identity keys.
     public var displays: [String]
+    public var activation: Activation
+    /// Not active while a display outside the group is connected.
+    public var onlyMembers: Bool
+    /// When a member's resolution changes, the others take the one at which
+    /// things look as big.
+    public var matchTextSize: Bool
 
-    public init(id: UUID = UUID(), name: String, displays: [String] = []) {
+    public init(id: UUID = UUID(), name: String, displays: [String] = [], activation: Activation = .allConnected,
+                onlyMembers: Bool = false, matchTextSize: Bool = false) {
         self.id = id
         self.name = name
         self.displays = displays
+        self.activation = activation
+        self.onlyMembers = onlyMembers
+        self.matchTextSize = matchTextSize
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, displays, activation, onlyMembers, matchTextSize
+    }
+
+    /// A group saved before a setting existed reads with that setting's default.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(UUID.self, forKey: .id)
+        name = try c.decode(String.self, forKey: .name)
+        displays = try c.decode([String].self, forKey: .displays)
+        activation = try c.decodeIfPresent(Activation.self, forKey: .activation) ?? .allConnected
+        onlyMembers = try c.decodeIfPresent(Bool.self, forKey: .onlyMembers) ?? false
+        matchTextSize = try c.decodeIfPresent(Bool.self, forKey: .matchTextSize) ?? false
+    }
+
+    /// Whether the group's rule holds for the displays connected now, by identity key.
+    public func isActive(connected: [String]) -> Bool {
+        let members = Set(displays)
+        let present = members.intersection(connected).count
+        let ruleHolds = switch activation {
+        case .allConnected: present > 0 && present == members.count
+        case .anyConnected: present > 0
+        case .atLeastTwoConnected: present >= 2
+        }
+        return ruleHolds && !(onlyMembers && connected.contains { !members.contains($0) })
     }
 
     public static func decode(_ text: String) -> [DisplayGroup] {

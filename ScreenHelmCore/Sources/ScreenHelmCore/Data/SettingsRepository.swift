@@ -21,6 +21,8 @@ public struct AppSettings: Equatable, Sendable {
     public var displaysXDRBatteryMinimum: Int
     /// Night Shift is switched off while XDR boost is on: both change the colour table.
     public var displaysXDRPauseNightShift: Bool
+    /// Night Shift and True Tone are switched off while a display shows HDR, and back on after.
+    public var displaysPauseColorsInHDR: Bool
     public var displaysSyncSource: BrightnessSyncSource
     /// Displays are matched by the light they give, not by their slider.
     public var displaysSyncByNits: Bool
@@ -53,6 +55,7 @@ public struct AppSettings: Equatable, Sendable {
         displaysPreferOverlay: false,
         displaysXDRBatteryMinimum: 20,
         displaysXDRPauseNightShift: false,
+        displaysPauseColorsInHDR: false,
         displaysSyncSource: .off,
         displaysSyncByNits: false,
         displaysProtection: DisplayProtectionSettings(),
@@ -91,6 +94,7 @@ public struct SettingsRepository: Sendable {
                 displaysPreferOverlay: try AppSettingsStore.get(db, key: "displays_prefer_overlay", default: "0") == "1",
                 displaysXDRBatteryMinimum: try int("displays_xdr_battery_minimum", d.displaysXDRBatteryMinimum),
                 displaysXDRPauseNightShift: try AppSettingsStore.get(db, key: "displays_xdr_pause_night_shift", default: "0") == "1",
+                displaysPauseColorsInHDR: try AppSettingsStore.get(db, key: "displays_pause_colors_in_hdr", default: "0") == "1",
                 displaysSyncSource: BrightnessSyncSource(rawValue: try AppSettingsStore.get(db, key: "displays_sync_source", default: d.displaysSyncSource.rawValue)) ?? d.displaysSyncSource,
                 displaysSyncByNits: try AppSettingsStore.get(db, key: "displays_sync_by_nits", default: "0") == "1",
                 displaysProtection: DisplayProtectionSettings.decode(try AppSettingsStore.get(db, key: "displays_protection", default: "")),
@@ -119,6 +123,7 @@ public struct SettingsRepository: Sendable {
             try AppSettingsStore.set(db, key: "displays_prefer_overlay", value: settings.displaysPreferOverlay ? "1" : "0")
             try AppSettingsStore.set(db, key: "displays_xdr_battery_minimum", value: String(settings.displaysXDRBatteryMinimum))
             try AppSettingsStore.set(db, key: "displays_xdr_pause_night_shift", value: settings.displaysXDRPauseNightShift ? "1" : "0")
+            try AppSettingsStore.set(db, key: "displays_pause_colors_in_hdr", value: settings.displaysPauseColorsInHDR ? "1" : "0")
             try AppSettingsStore.set(db, key: "displays_sync_source", value: settings.displaysSyncSource.rawValue)
             try AppSettingsStore.set(db, key: "displays_sync_by_nits", value: settings.displaysSyncByNits ? "1" : "0")
             try AppSettingsStore.set(db, key: "displays_protection", value: settings.displaysProtection.encoded)

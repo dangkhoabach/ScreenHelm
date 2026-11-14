@@ -175,5 +175,9 @@ import Testing
         let match = DisplayModes.resolution(matching: 1800.0 / 302, widthMillimeters: 597, like: modes[0], in: modes)
         #expect(match?.width == 3360)
         #expect(DisplayModes.resolution(matching: 0, widthMillimeters: 597, like: modes[0], in: modes) == nil)
+        // Within 10%, the nearest; past it, none: 3360 is 6% under the 3558 wanted, and on a 802 mm
+        // monitor the widest, 3840, is 20% under the 4780 wanted.
+        #expect(DisplayModes.resolution(matching: 1800.0 / 302, widthMillimeters: 597, like: modes[0], in: modes, within: 0.1)?.width == 3360)
+        #expect(DisplayModes.resolution(matching: 1800.0 / 302, widthMillimeters: 802, like: modes[0], in: modes, within: 0.1) == nil)
     }
 }

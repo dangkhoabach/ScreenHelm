@@ -307,6 +307,23 @@ enum DisplayPrivateAPIs {
         return call(client, selector, on)
     }
 
+    /// How warm Night Shift makes the screen, 0 to 1; nil on a Mac without it.
+    static var nightShiftStrength: Double? {
+        guard let client = client("CBBlueLightClient"),
+              let (call, selector) = method(client, "getStrength:", as: (@convention(c) (AnyObject, Selector, UnsafeMutablePointer<Float>) -> Bool).self)
+        else { return nil }
+        var strength: Float = 0
+        return call(client, selector, &strength) ? Double(strength) : nil
+    }
+
+    @discardableResult
+    static func setNightShiftStrength(_ strength: Double) -> Bool {
+        guard let client = client("CBBlueLightClient"),
+              let (call, selector) = method(client, "setStrength:commit:", as: (@convention(c) (AnyObject, Selector, Float, Bool) -> Bool).self)
+        else { return false }
+        return call(client, selector, Float(min(1, max(0, strength))), true)
+    }
+
     /// Nil on a Mac without True Tone.
     static var trueToneIsOn: Bool? {
         guard let client = client("CBTrueToneClient"), bool(client, "supported") == true, bool(client, "available") == true else { return nil }
@@ -490,5 +507,22 @@ enum DisplayPrivateAPIs {
         guard let (apply, selector) = method(display, "applySettings:", as: ObjectSetter.self), apply(display, selector, settings),
               let id = (display.value(forKey: "displayID") as? NSNumber)?.uint32Value, id != 0 else { return nil }
         return (display, id)
+    }
+
+    // MARK: - Pointer
+
+    private typealias MainConnection = @convention(c) () -> Int32
+    private typealias SetConnectionProperty = @convention(c) (Int32, Int32, CFString, CFTypeRef) -> Int32
+    private static let mainConnection = symbol(skyLight, "SLSMainConnectionID", as: MainConnection.self)
+    private static let setConnectionProperty = symbol(skyLight, "SLSSetConnectionProperty", as: SetConnectionProperty.self)
+
+    /// Lets this app hide the pointer while another app is in front;
+    /// otherwise `CGDisplayHideCursor` only works for the active app. The
+    /// window server shows the pointer again when this app's connection ends.
+    @discardableResult
+    static func allowPointerHidingInBackground() -> Bool {
+        guard let mainConnection, let setConnectionProperty else { return false }
+        let connection = mainConnection()
+        return setConnectionProperty(connection, connection, "SetsCursorInBackground" as CFString, kCFBooleanTrue) == 0
     }
 }

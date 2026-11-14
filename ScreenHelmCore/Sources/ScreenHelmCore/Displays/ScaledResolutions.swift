@@ -122,4 +122,14 @@ extension DisplayModes {
         let wanted = pointsPerMillimeter * widthMillimeters
         return sliderResolutions(like: current, in: modes).min { abs(Double($0.width) - wanted) < abs(Double($1.width) - wanted) }
     }
+
+    /// As above, or nil when the nearest size is more than `tolerance` (a
+    /// fraction) away from the one wanted: the display hasn't a close enough mode.
+    public static func resolution(matching pointsPerMillimeter: Double, widthMillimeters: Double, like current: DisplayModeInfo,
+                                  in modes: [DisplayModeInfo], within tolerance: Double) -> DisplayResolution? {
+        let wanted = pointsPerMillimeter * widthMillimeters
+        guard let match = resolution(matching: pointsPerMillimeter, widthMillimeters: widthMillimeters, like: current, in: modes),
+              abs(Double(match.width) - wanted) <= wanted * tolerance else { return nil }
+        return match
+    }
 }

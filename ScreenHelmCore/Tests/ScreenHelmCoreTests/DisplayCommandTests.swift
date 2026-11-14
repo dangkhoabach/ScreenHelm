@@ -65,9 +65,30 @@ import Testing
     }
 
     @Test func groupsSurviveStorage() {
-        let groups = [DisplayGroup(name: "Desk", displays: ["a", "b"])]
+        let groups = [DisplayGroup(name: "Desk", displays: ["a", "b"]),
+                      DisplayGroup(name: "Studio", displays: ["c"], activation: .atLeastTwoConnected, onlyMembers: true, matchTextSize: true)]
         #expect(DisplayGroup.decode(DisplayGroup.encode(groups)) == groups)
         #expect(DisplayGroup.decode("x").isEmpty)
+        // Saved before the activation rule and text size matching existed.
+        let old = DisplayGroup.decode(#"[{"id":"0A1B2C3D-0000-4000-8000-000000000003","name":"Old","displays":["a"]}]"#)
+        #expect(old.first?.activation == .allConnected && old.first?.onlyMembers == false && old.first?.matchTextSize == false)
+    }
+
+    /// Each rule, and a display from outside when only members may be there.
+    @Test func aGroupIsActiveByItsRule() {
+        var group = DisplayGroup(name: "Desk", displays: ["mac", "dell", "lg"])
+        #expect(group.isActive(connected: ["mac", "dell", "lg"]))
+        #expect(!group.isActive(connected: ["mac", "dell"]))
+        group.activation = .anyConnected
+        #expect(group.isActive(connected: ["lg"]))
+        #expect(!group.isActive(connected: ["tv"]))
+        group.activation = .atLeastTwoConnected
+        #expect(!group.isActive(connected: ["mac", "tv"]))
+        #expect(group.isActive(connected: ["mac", "dell", "tv"]))
+        group.onlyMembers = true
+        #expect(!group.isActive(connected: ["mac", "dell", "tv"]))
+        #expect(group.isActive(connected: ["mac", "dell"]))
+        #expect(!DisplayGroup(name: "Empty").isActive(connected: ["mac"]))
     }
 
     @Test func secretsAreComparedInFull() {

@@ -29,6 +29,7 @@ import Testing
             displaysPreferOverlay: true,
             displaysXDRBatteryMinimum: 35,
             displaysXDRPauseNightShift: true,
+            displaysPauseColorsInHDR: true,
             displaysSyncSource: .ambientLight,
             displaysSyncByNits: true,
             displaysProtection: DisplayProtectionSettings(enabled: true, position: false, hdr: true),
@@ -41,7 +42,8 @@ import Testing
             displaysAutomation: true,
             displaysHTTPEnabled: true,
             displaysHTTPPort: 50123,
-            displayGroups: [DisplayGroup(id: UUID(uuidString: "0A1B2C3D-0000-4000-8000-000000000002")!, name: "Desk", displays: ["a", "b"])]
+            displayGroups: [DisplayGroup(id: UUID(uuidString: "0A1B2C3D-0000-4000-8000-000000000002")!, name: "Desk", displays: ["a", "b"],
+                                       activation: .anyConnected, onlyMembers: true, matchTextSize: true)]
         )
         try repo.update(settings)
         #expect(try repo.load() == settings)
