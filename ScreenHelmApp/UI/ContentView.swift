@@ -37,15 +37,26 @@ struct ContentView: View {
                     Text("Displays")
                 }
                 Section {
-                    ForEach(SidebarSection.pages, id: \.self) { page in
+                    ForEach(SidebarSection.tools, id: \.self) { page in
                         row(Text(page.title), systemImage: page.systemImage, for: page)
                     }
+                } header: {
+                    Text("Tools")
                 }
                 Section {
-                    row(Text(SidebarSection.settings.title), systemImage: SidebarSection.settings.systemImage, for: .settings)
+                    ForEach(SidebarSection.control, id: \.self) { page in
+                        row(Text(page.title), systemImage: page.systemImage, for: page)
+                    }
+                } header: {
+                    Text("Control")
                 }
             }
-            .navigationSplitViewColumnWidth(min: 190, ideal: 210)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                SidebarSettingsRow(isSelected: selection == .settings) {
+                    navigationState.sidebarSelection = .settings
+                }
+            }
+            .navigationSplitViewColumnWidth(min: 200, ideal: 220)
             .focused($sidebarFocused)
         } detail: {
             Form {
