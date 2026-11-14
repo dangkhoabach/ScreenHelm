@@ -3,8 +3,7 @@
 Every display of your Mac, steered from one place. A native macOS menu bar app (Swift, SwiftUI)
 for brightness, resolutions, arrangement, virtual screens and picture in picture.
 
-> **Status:** version 1.0.0 is in its last round of testing and not released yet. Until it is,
-> build it from source as described below.
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/display-dark.webp"><img src="docs/screenshots/display-light.webp" alt="A display page: overview, brightness in nits and XDR brightness"></picture>
 
 ## What it does
 
@@ -50,6 +49,17 @@ for brightness, resolutions, arrangement, virtual screens and picture in picture
 
 It runs in the menu bar, in English and Vietnamese, light and dark.
 
+<table>
+  <tr>
+    <td width="50%" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/arrangement-dark.webp"><img src="docs/screenshots/arrangement-light.webp" alt="Arrangement: the built-in display and a virtual screen dragged into place"></picture></td>
+    <td width="50%" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/virtual-dark.webp"><img src="docs/screenshots/virtual-light.webp" alt="Virtual Screens: a 5K screen with HiDPI and its refresh rates"></picture></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/pip-dark.webp"><img src="docs/screenshots/pip-light.webp" alt="Picture in Picture: a copy of the built-in display, with turning, mirroring and cropping"></picture></td>
+    <td width="50%" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/panel-dark.webp"><img src="docs/screenshots/panel-light.webp" alt="The menu bar panel with the controls for each display"></picture></td>
+  </tr>
+</table>
+
 ## Requirements
 
 macOS 14 Sonoma or later, Apple silicon or Intel. Controlling a monitor over DDC needs Apple
@@ -61,7 +71,7 @@ Changing displays needs no permission. These are asked for only when you use wha
 | :--- | :--- | :--- |
 | Accessibility | The keyboard's brightness and volume keys for other displays, and finding the display of the window in front | The keys keep doing only what macOS does with them |
 | Screen Recording | Picture in picture | No picture in picture; the rest works |
-| Automation (System Events) | Switching between light and dark from a shortcut | Asked the first time; the rest works |
+| Automation (System Events) | Switching between light and dark, from the menu bar panel or a shortcut | Asked the first time; the rest works |
 | An administrator's password | Adding resolutions to a display (its page › More Resolutions), each time the file is installed or removed | Nothing is installed |
 
 ScreenHelm is not sandboxed: the display calls, DDC and the override file installer don't work
@@ -194,8 +204,8 @@ Development certificate also keeps the Keychain from asking for the HTTP token a
 Tests:
 
 ```zsh
-cd ScreenHelmCore && swift test   # 108 tests
-xcodebuild test -project ScreenHelm.xcodeproj -scheme ScreenHelmApp -destination 'platform=macOS'   # 66 tests
+cd ScreenHelmCore && swift test   # 116 tests
+xcodebuild test -project ScreenHelm.xcodeproj -scheme ScreenHelmApp -destination 'platform=macOS'   # 72 tests
 ```
 
 The tests that change real displays (they make virtual screens, move the brightness and put it
