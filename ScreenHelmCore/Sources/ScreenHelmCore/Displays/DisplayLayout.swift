@@ -106,7 +106,7 @@ public struct DisplayLayout: Codable, Equatable, Sendable {
         var waiting = displays.filter { $0.key != main.key && $0.mirrorOf == nil }
         while !waiting.isEmpty {
             // A display that touches one already placed; any, if the arrangement has a gap.
-            let index = waiting.firstIndex { candidate in placed.contains { anchor(of: candidate.frame, to: $0.frame, key: $0.key, touching: true) != nil } } ?? 0
+            let index = waiting.firstIndex { candidate in placed.contains { Self.anchor(of: candidate.frame, to: $0.frame, key: $0.key, touching: true) != nil } } ?? 0
             let display = waiting.remove(at: index)
             let anchor = placed.lazy.compactMap { Self.anchor(of: display.frame, to: $0.frame, key: $0.key, touching: true) }.first
                 ?? Self.anchor(of: display.frame, to: main.frame, key: main.key, touching: false)

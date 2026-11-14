@@ -84,7 +84,7 @@ struct ArrangementView: View {
     /// main display at the origin.
     private func drop() {
         defer {
-            dragging = nil
+            self.dragging = nil
             guides = []
         }
         guard let dragging, let moved = displays.first(where: { $0.id == dragging.id }) else { return }
