@@ -145,17 +145,20 @@ final class DDCController {
     /// What a monitor is set to when it connects: asked once where it
     /// answers, otherwise what ScreenHelm last wrote.
     private func seed(_ display: DisplayInfo, profile: DisplayProfile) async {
+        let before = values[display.id] ?? [:]
         var seeded: [UInt8: VCPValue] = [:]
         for code in [VCPCode.brightness, .contrast, .volume] {
             if let value = await DDCService.shared.read(code.rawValue, from: display.id) {
                 seeded[code.rawValue] = value
             } else if let last = profile.ddcValues[code.rawValue] {
-                seeded[code.rawValue] = VCPValue(current: last, maximum: 100)
+                seeded[code.rawValue] = VCPValue(current: last, maximum: before[code.rawValue]?.maximum ?? 100)
             }
         }
         for (code, value) in profile.ddcValues where seeded[code] == nil {
-            seeded[code] = VCPValue(current: value, maximum: 100)
+            seeded[code] = VCPValue(current: value, maximum: before[code]?.maximum ?? 100)
         }
+        // A value set while the monitor was being asked is newer than its answer.
+        for (code, value) in values[display.id] ?? [:] where before[code] != value { seeded[code] = value }
         values[display.id] = seeded
     }
 

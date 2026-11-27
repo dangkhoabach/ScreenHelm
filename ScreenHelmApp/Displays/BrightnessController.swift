@@ -32,8 +32,8 @@ final class BrightnessController {
     func start() {
         guard !started else { return }
         started = true
-        DisplayManager.shared.onChange.append { [weak self] _ in self?.displaysChanged() }
-        displaysChanged()
+        DisplayManager.shared.onChange.append { [weak self] woke in self?.displaysChanged(woke: woke) }
+        displaysChanged(woke: false)
     }
 
     // MARK: - Which way
@@ -56,7 +56,7 @@ final class BrightnessController {
         switch chosen {
         case .apple where display.hasAppleBrightness: return .apple
         case .ddc where ddc: return .ddc
-        case .gamma where !display.kind.isSoftwareOnly: return .gamma
+        case .gamma where !display.kind.isSoftwareOnly && !Self.gammaHasNoEffect: return .gamma
         case .overlay: return .overlay
         default: break
         }
@@ -71,7 +71,7 @@ final class BrightnessController {
         var methods: [BrightnessMethod] = [.automatic]
         if display.hasAppleBrightness { methods.append(.apple) }
         if DDCController.shared.isAvailable(display) { methods.append(.ddc) }
-        if !display.kind.isSoftwareOnly { methods.append(.gamma) }
+        if !display.kind.isSoftwareOnly && !Self.gammaHasNoEffect { methods.append(.gamma) }
         methods.append(.overlay)
         return methods
     }
@@ -82,6 +82,12 @@ final class BrightnessController {
     func softwareMethod(for display: DisplayInfo) -> BrightnessMethod {
         if display.kind.isSoftwareOnly || Self.gammaHasNoEffect || settings.displaysPreferOverlay { return .overlay }
         return ConfigurationController.customProfile(of: display.id) == nil ? .gamma : .overlay
+    }
+
+    /// Where the software part of `method` goes: a monitor's dims the way
+    /// software does on this display, the others as chosen.
+    private func softwareTarget(for display: DisplayInfo, _ method: BrightnessMethod) -> BrightnessMethod {
+        method == .ddc ? softwareMethod(for: display) : method
     }
 
     private func usesCombined(_ display: DisplayInfo, _ method: BrightnessMethod) -> Bool {
@@ -98,7 +104,7 @@ final class BrightnessController {
     private func current(of display: DisplayInfo) -> Double {
         let method = method(for: display)
         let profile = DisplayManager.shared.profile(for: display)
-        let software = method == .overlay || softwareMethod(for: display) == .overlay
+        let software = softwareTarget(for: display, method) == .overlay
             ? DimOverlay.shared.dimming(for: display.id) : GammaController.shared.dimming(for: display.id)
         switch method {
         case .apple:
@@ -140,13 +146,14 @@ final class BrightnessController {
         case .ddc:
             let split = BrightnessCurve.split(value, hasHardware: true, combined: profile.combinedBrightness, allowBlack: profile.dimToBlack)
             DDCController.shared.setFraction(split.hardware, for: .brightness, on: display)
-            applySoftware(split.software, to: display, method: softwareMethod(for: display))
+            applySoftware(split.software, to: display, method: softwareTarget(for: display, method))
         default:
             let split = BrightnessCurve.split(value, hasHardware: false, combined: true, allowBlack: profile.dimToBlack)
             applySoftware(split.software, to: display, method: method)
         }
         XDRController.shared.setSlider(boosted, for: display)
-        values[display.id] = boosted
+        // Boost refused (a low battery, a hot Mac) leaves the slider at 100%.
+        values[display.id] = boosted > 1 && !XDRController.shared.isBoosting(display.id) ? 1 : boosted
         if display.kind == .builtIn {
             BrightnessSyncController.shared.sourceChanged()
             readPanelNitsSoon()
@@ -162,6 +169,21 @@ final class BrightnessController {
         }
         saveWork[id] = work
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
+    }
+
+    /// The slider value at which a display gives `share` of its light, as
+    /// brightness sync by nits needs: a monitor's backlight is linear in
+    /// light, the slider isn't where software dimming takes part of it.
+    func value(forLightShare share: Double, on display: DisplayInfo) -> Double {
+        let profile = DisplayManager.shared.profile(for: display)
+        switch method(for: display) {
+        case .apple: return share
+        case .ddc:
+            return BrightnessCurve.value(hardware: share, software: 1, hasHardware: true,
+                                         combined: profile.combinedBrightness, allowBlack: profile.dimToBlack)
+        default:
+            return BrightnessCurve.value(hardware: 1, software: share, hasHardware: false, combined: true, allowBlack: profile.dimToBlack)
+        }
     }
 
     /// One press of a brightness key or shortcut.
@@ -229,8 +251,9 @@ final class BrightnessController {
 
     // MARK: - Displays coming and going
 
-    private func displaysChanged() {
+    private func displaysChanged(woke: Bool) {
         let displays = DisplayManager.shared.displays
+        if woke { for display in displays { liftAfterSleep(display) } }
         let ids = Set(displays.map(\.id))
         for gone in observed.subtracting(ids) {
             DisplayPrivateAPIs.stopObservingBrightness(of: gone, observer: Unmanaged.passUnretained(self).toOpaque())
@@ -278,6 +301,18 @@ final class BrightnessController {
         }
     }
 
+    /// Software dimming below the floor, as "dim to black" allows by hand,
+    /// isn't what a display wakes up to.
+    private func liftAfterSleep(_ display: DisplayInfo) {
+        let method = method(for: display)
+        guard method != .apple else { return }
+        let target = softwareTarget(for: display, method)
+        let software = target == .overlay ? DimOverlay.shared.dimming(for: display.id) : GammaController.shared.dimming(for: display.id)
+        guard software < BrightnessCurve.softwareFloor else { return }
+        applySoftware(BrightnessCurve.softwareFloor, to: display, method: target)
+        values[display.id] = nil
+    }
+
     /// A display that connects gets its software dimming back, if the user
     /// wants settings remembered. The backlight and the monitor's own
     /// brightness are left as they are: they kept their value themselves.
@@ -297,7 +332,7 @@ final class BrightnessController {
         let split = BrightnessCurve.restorable(BrightnessCurve.split(saved, hasHardware: method == .ddc, combined: combined,
                                                                      allowBlack: profile.dimToBlack))
         guard split.software < 0.999 else { return }
-        applySoftware(split.software, to: display, method: method == .ddc ? softwareMethod(for: display) : method)
+        applySoftware(split.software, to: display, method: softwareTarget(for: display, method))
         DisplaySafety.shared.updatePanicHotKey()
     }
 }

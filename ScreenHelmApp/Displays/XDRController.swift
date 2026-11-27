@@ -99,7 +99,12 @@ final class XDRController {
     @ObservationIgnored private var overlays: [CGDirectDisplayID: EDRLayerWindow] = [:]
     @ObservationIgnored private var sliders: [CGDirectDisplayID: Double] = [:]
     @ObservationIgnored private var watch: Timer?
-    @ObservationIgnored private var pausedNightShift = false
+    /// Night Shift switched off for boost, remembered past a crash so the
+    /// next start switches it back on.
+    @ObservationIgnored private var pausedNightShift = UserDefaults.standard.bool(forKey: XDRController.pausedNightShiftKey) {
+        didSet { UserDefaults.standard.set(pausedNightShift, forKey: Self.pausedNightShiftKey) }
+    }
+    private static let pausedNightShiftKey = "displays.xdrPausedNightShift"
     @ObservationIgnored private var started = false
     @ObservationIgnored private let log = Logger(subsystem: "com.dangkhoabach.screenhelm", category: "displays")
 
@@ -110,6 +115,10 @@ final class XDRController {
     func start() {
         guard !started else { return }
         started = true
+        if pausedNightShift {
+            SystemToggles.setNightShift(true)
+            pausedNightShift = false
+        }
         DisplayManager.shared.onChange.append { [weak self] _ in self?.displaysChanged() }
         // The room a display has above white changes with its backlight
         // and with what else is on screen; macOS says so with this.
@@ -139,9 +148,14 @@ final class XDRController {
 
     func setEnabled(_ on: Bool, for display: DisplayInfo) {
         DisplayManager.shared.updateProfile(of: display) { $0.xdrBoost = on }
-        if !on { stop(display.id) }
+        if !on {
+            stop(display.id)
+            BrightnessController.shared.boostEnded()
+        }
         stopReason = nil
     }
+
+    func isBoosting(_ display: CGDirectDisplayID) -> Bool { sliders[display] != nil }
 
     /// What white shows at now, with the extended range on: the panel's
     /// peak over the room macOS gives above white. (The room it "could"
@@ -158,7 +172,12 @@ final class XDRController {
 
     /// The slider went above 1, or back under it.
     func setSlider(_ value: Double, for display: DisplayInfo) {
-        guard value > 1, isEnabled(for: display), limitReason() == nil else { return stop(display.id) }
+        guard value > 1, isEnabled(for: display) else { return stop(display.id) }
+        if let reason = limitReason() {
+            stop(display.id)
+            stopReason = reason
+            return
+        }
         sliders[display.id] = value
         if triggers[display.id] == nil, let frame = screen(for: display.id)?.frame {
             // One pixel in the top left corner, brighter than white.

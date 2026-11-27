@@ -48,14 +48,15 @@ final class LoginItemManager {
     /// Whether macOS opened the app as a login item, read once at launch.
     /// The open event says so when macOS sets it, which it doesn't always do
     /// for an `SMAppService` item; a launch within two minutes of the
-    /// console login counts too.
+    /// console login counts too, but only with the login item on: opened
+    /// by hand that soon, the app shows its window.
     static func wasOpenedAtLogin(now: Date = Date()) -> Bool {
         let event = NSAppleEventManager.shared().currentAppleEvent
         if event?.eventID == kAEOpenApplication,
            event?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem {
             return true
         }
-        guard let login = consoleLoginDate() else { return false }
+        guard shared.isEnabled, let login = consoleLoginDate() else { return false }
         return now.timeIntervalSince(login) < 120
     }
 

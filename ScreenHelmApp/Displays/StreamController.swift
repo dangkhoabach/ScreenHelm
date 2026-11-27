@@ -34,7 +34,9 @@ final class StreamController {
     func start() {
         guard !started else { return }
         started = true
-        configs = ((try? store?.load(StreamConfig.self, from: .stream)) ?? [:]).values.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        // Only what the settings could have made: an edited or imported row may not be.
+        configs = ((try? store?.load(StreamConfig.self, from: .stream)) ?? [:]).values.filter(\.isValid)
+            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
         DisplayManager.shared.onChange.append { [weak self] _ in self?.displaysChanged() }
     }
 
@@ -138,7 +140,7 @@ final class StreamController {
             var needed: [String] = []
             if case .display(let key) = session.config.source { needed.append(key) }
             if case .display(let key) = session.config.target { needed.append(key) }
-            if !needed.allSatisfy(keys.contains) { stop(id) } else { session.layout() }
+            if !needed.allSatisfy(keys.contains) { stop(id) } else { session.displaysChanged() }
         }
         updatePointer()
     }
@@ -155,6 +157,12 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
     private var closed = false
     private var sourcePixels = CGSize(width: 1920, height: 1080)
     private var captured = CGSize.zero
+    /// The window shown, when the source is one, and the size it had: a
+    /// window made larger or smaller is captured again at its new shape.
+    private var sourceWindow: (id: CGWindowID, size: CGSize)?
+    private var sourceWatch: Timer?
+    /// The source display's size when its capture started.
+    private var sourceDisplaySize = CGSize.zero
     private let onEnd: (LocalizedStringKey?) -> Void
 
     var frameCount: Int { sink.frameCount }
@@ -187,8 +195,41 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
         window.place(config: config, sourcePixels: sourcePixels)
     }
 
+    /// A source display at a new resolution or turned is measured and
+    /// captured again; a target display at a new size gets a capture to match.
+    func displaysChanged() {
+        layout()
+        if case .display(let key) = config.source, let id = DisplayManager.shared.display(key: key)?.id, stream != nil,
+           CGSize(width: CGDisplayPixelsWide(id), height: CGDisplayPixelsHigh(id)) != sourceDisplaySize {
+            return restartCapture()
+        }
+        restartIfSizeChanged()
+    }
+
+    private func restartCapture() {
+        stopCapture()
+        startCapture()
+    }
+
+    private func watchSourceWindow() {
+        sourceWatch?.invalidate()
+        guard sourceWindow != nil else { return }
+        sourceWatch = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            MainActor.assumeIsolated {
+                guard let self, let watched = self.sourceWindow, self.stream != nil else { return }
+                let info = CGWindowListCopyWindowInfo(.optionIncludingWindow, watched.id) as? [[String: Any]]
+                guard let bounds = info?.first?[kCGWindowBounds as String] as? [String: CGFloat],
+                      let width = bounds["Width"], let height = bounds["Height"] else { return }
+                if abs(width - watched.size.width) > 1 || abs(height - watched.size.height) > 1 { self.restartCapture() }
+            }
+        }
+        sourceWatch?.tolerance = 0.3
+    }
+
     func close() {
         closed = true
+        sourceWatch?.invalidate()
+        sourceWatch = nil
         stopCapture()
         window.onClose = nil
         window.orderOut(nil)
@@ -222,6 +263,8 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
                 let streamWindows = content.windows.filter { $0.owningApplication?.processID == ProcessInfo.processInfo.processIdentifier }
                     .filter { NSApp.window(withWindowNumber: Int($0.windowID)) is StreamWindow || Int($0.windowID) == own }
                 filter = SCContentFilter(display: display, excludingWindows: streamWindows)
+                sourceWindow = nil
+                sourceDisplaySize = CGSize(width: CGDisplayPixelsWide(id), height: CGDisplayPixelsHigh(id))
                 sourcePixels = CGSize(width: CGFloat(CGDisplayPixelsWide(id)) * CGFloat(filter.pointPixelScale),
                                       height: CGFloat(CGDisplayPixelsHigh(id)) * CGFloat(filter.pointPixelScale))
             case .window(let bundleID, let title):
@@ -229,6 +272,7 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
                 guard let source = candidates.first(where: { title.isEmpty || $0.title == title }) ?? candidates.first
                 else { return end("The window to show isn't open.") }
                 filter = SCContentFilter(desktopIndependentWindow: source)
+                sourceWindow = (source.windowID, source.frame.size)
                 sourcePixels = CGSize(width: source.frame.width * CGFloat(filter.pointPixelScale), height: source.frame.height * CGFloat(filter.pointPixelScale))
             }
             guard !closed else { return }
@@ -247,7 +291,7 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
             }
             configuration.width = Int(size.width)
             configuration.height = Int(size.height)
-            configuration.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(config.framesPerSecond))
+            configuration.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(clamping: max(1, config.framesPerSecond)))
             configuration.showsCursor = config.showsCursor
             configuration.queueDepth = 3
             let stream = SCStream(filter: filter, configuration: configuration, delegate: self)
@@ -263,6 +307,7 @@ final class StreamSession: NSObject, SCStreamDelegate, NSWindowDelegate {
             }
             self.stream = stream
             captured = size
+            watchSourceWindow()
         }
     }
 
@@ -480,6 +525,9 @@ final class PointerHider {
 @MainActor
 enum StreamFilterBuilder {
     private static var lutCache: [String: CIFilter] = [:]
+    /// Files that couldn't be read, by when they were last changed: tried
+    /// again only once they change, not on every redraw.
+    private static var lutFailures: [String: Date] = [:]
 
     static func filters(for settings: StreamFilters) -> [CIFilter] {
         var filters: [CIFilter] = []
@@ -509,8 +557,13 @@ enum StreamFilterBuilder {
     /// A .cube file as a colour-cube filter; read once per path.
     private static func lut(at path: String) -> CIFilter? {
         if let cached = lutCache[path] { return cached }
+        let modified = (try? FileManager.default.attributesOfItem(atPath: path)[.modificationDate]) as? Date ?? .distantPast
+        if let failed = lutFailures[path], failed == modified { return nil }
         guard let text = try? String(contentsOfFile: path, encoding: .utf8), let cube = CubeLUT(parsing: text),
-              let filter = CIFilter(name: "CIColorCubeWithColorSpace") else { return nil }
+              let filter = CIFilter(name: "CIColorCubeWithColorSpace") else {
+            lutFailures[path] = modified
+            return nil
+        }
         filter.setValue(cube.size, forKey: "inputCubeDimension")
         filter.setValue(cube.values.withUnsafeBufferPointer { Data(buffer: $0) }, forKey: "inputCubeData")
         filter.setValue(CGColorSpace(name: CGColorSpace.sRGB), forKey: "inputColorSpace")

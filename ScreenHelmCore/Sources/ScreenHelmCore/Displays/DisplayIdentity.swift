@@ -54,14 +54,18 @@ public struct DisplayIdentity: Codable, Hashable, Sendable {
     /// model and serial; two that match there also use the text serial and
     /// the manufacture date; two that still match use the port they are on.
     /// The port comes last because it is the only part that changes when a
-    /// cable moves.
+    /// cable moves. Two that match even there (no port, as behind some
+    /// docks) are numbered in the order given, so no key is used twice.
     public static func keys(for displays: [DisplayIdentity]) -> [String] {
         let modelCounts = Dictionary(grouping: displays, by: \.modelKey).mapValues(\.count)
         let datedCounts = Dictionary(grouping: displays, by: \.datedKey).mapValues(\.count)
+        var seen: [String: Int] = [:]
         return displays.map { display in
             if modelCounts[display.modelKey] == 1 { return display.modelKey }
             if datedCounts[display.datedKey] == 1 { return display.datedKey }
-            return "\(display.datedKey)@\(display.location)"
+            let key = "\(display.datedKey)@\(display.location)"
+            seen[key, default: 0] += 1
+            return seen[key] == 1 ? key : "\(key)#\(seen[key]!)"
         }
     }
 

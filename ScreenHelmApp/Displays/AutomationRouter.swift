@@ -22,17 +22,22 @@ enum AutomationRouter {
     static func run(_ command: DisplayCommand) -> AutomationReply {
         let displays = targets(of: command.target)
         log.info("command \(command.verb.rawValue, privacy: .public) for \(displays.count) displays")
+        // What one command changes on several displays is kept or undone together.
+        var problem: String?
+        let title = String(localized: "Display settings changed by a command", bundle: AppLocale.bundle)
         switch command.verb {
         case .get:
             return .done(report(command.target == .pointer ? DisplayManager.shared.displays : displays))
         case .set:
-            for (name, value) in command.values {
-                if let problem = set(name, to: value, on: displays) { return .failed(problem) }
+            DisplaySafety.shared.together(title: title) {
+                for (name, value) in command.values where problem == nil { problem = set(name, to: value, on: displays) }
             }
+            if let problem { return .failed(problem) }
         case .toggle:
-            for name in command.names {
-                if let problem = toggle(name, on: displays) { return .failed(problem) }
+            DisplaySafety.shared.together(title: title) {
+                for name in command.names where problem == nil { problem = toggle(name, on: displays) }
             }
+            if let problem { return .failed(problem) }
         case .perform:
             for name in command.names {
                 if let problem = perform(name, on: displays) { return .failed(problem) }

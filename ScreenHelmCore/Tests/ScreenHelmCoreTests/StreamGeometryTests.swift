@@ -47,6 +47,12 @@ import Testing
         // A quarter turn clockwise takes "up" to "right".
         let turned = CGPoint(x: 0, y: 1).applying(StreamGeometry.transform(rotation: 90, flipHorizontal: false, flipVertical: false))
         #expect(abs(turned.x - 1) < 1e-9 && abs(turned.y) < 1e-9)
+        // Turned and mirrored: the mirror is of the turned picture, so "up",
+        // turned to "right", is mirrored to "left", and "right" stays "down".
+        let both = StreamGeometry.transform(rotation: 90, flipHorizontal: true, flipVertical: false)
+        let up = CGPoint(x: 0, y: 1).applying(both), right = CGPoint(x: 1, y: 0).applying(both)
+        #expect(abs(up.x + 1) < 1e-9 && abs(up.y) < 1e-9)
+        #expect(abs(right.x) < 1e-9 && abs(right.y + 1) < 1e-9)
     }
 
     /// A small picture-in-picture window doesn't need the source's full resolution.
@@ -124,6 +130,8 @@ import Testing
         // Red changes fastest: the second point is pure red.
         #expect(Array(lut.values[4..<8]) == [1, 0, 0, 1])
         #expect(Array(lut.values[28..<32]) == [1, 1, 1, 1])
+        // Some tools put tabs between the numbers.
+        #expect(CubeLUT(parsing: text.replacingOccurrences(of: " ", with: "\t")) == lut)
     }
 
     @Test func whatIsNotACubeIsRefused() {

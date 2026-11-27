@@ -18,6 +18,8 @@ final class LayoutGuard {
 
     @ObservationIgnored private var attempts = DisplayProtection.Attempts()
     @ObservationIgnored private var started = false
+    /// A change the user kept is settling in: the checks leave it alone.
+    @ObservationIgnored private var adopting: DispatchWorkItem?
     @ObservationIgnored private let log = Logger(subsystem: "com.dangkhoabach.screenhelm", category: "displays")
 
     private var settings: AppSettings { SettingsViewModel.shared.settings }
@@ -61,6 +63,22 @@ final class LayoutGuard {
         log.info("layout saved for \(layout.items.count) displays")
     }
 
+    /// A change made in ScreenHelm was kept: once macOS has settled where
+    /// everything went, it is the arrangement to keep, not one to undo.
+    func adoptKeptChange() {
+        guard started else { return }
+        adopting?.cancel()
+        let work = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            adopting = nil
+            DisplayManager.shared.refresh()
+            if savedForCurrentDisplays != nil { saveCurrent() }
+        }
+        adopting = work
+        // Rotation takes effect a moment after it is asked for.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: work)
+    }
+
     func forgetCurrent() {
         let signature = currentSignature
         layouts[signature] = nil
@@ -78,6 +96,7 @@ final class LayoutGuard {
     /// still waiting to be kept or undone is left alone.
     private func check() {
         guard settings.displaysProtection.enabled, !DisplaySafety.shared.isSafeMode, !DisplaySafety.shared.hasPendingChange,
+              adopting == nil,
               let layout = savedForCurrentDisplays else { return }
         let operations = DisplayProtection.allowed(layout.operations(from: current()), by: settings.displaysProtection)
         guard !operations.isEmpty else {
@@ -147,25 +166,21 @@ final class LayoutGuard {
     /// Moves the displays to new places, the main one at the origin, and
     /// keeps the result as the arrangement for this set of displays.
     func arrange(_ origins: [CGDirectDisplayID: CGPoint]) {
+        DisplaySafety.shared.keepPending()
         let previous = Dictionary(uniqueKeysWithValues: DisplayManager.shared.displays.map { ($0.id, $0.bounds.origin) })
-        func move(_ places: [CGDirectDisplayID: CGPoint]) {
+        // For the session until kept, so a crash in the countdown doesn't keep it.
+        func move(_ places: [CGDirectDisplayID: CGPoint], permanently: Bool) {
             var config: CGDisplayConfigRef?
             guard CGBeginDisplayConfiguration(&config) == .success else { return }
             for (display, origin) in places { CGConfigureDisplayOrigin(config, display, Int32(origin.x), Int32(origin.y)) }
-            CGCompleteDisplayConfiguration(config, .permanently)
+            CGCompleteDisplayConfiguration(config, permanently ? .permanently : .forSession)
         }
-        move(origins)
+        move(origins, permanently: false)
         DisplaySafety.shared.confirm(
             title: String(localized: "The displays were rearranged", bundle: AppLocale.bundle),
             signature: "arrange:\(currentSignature):\(origins.sorted { $0.key < $1.key }.map { "\($0.key):\(Int($0.value.x)),\(Int($0.value.y))" }.joined(separator: ";"))",
-            revert: { move(previous) },
-            onKeep: { [weak self] in
-                // After macOS has settled where everything went.
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    DisplayManager.shared.refresh()
-                    if self?.savedForCurrentDisplays != nil { self?.saveCurrent() }
-                }
-            }
+            revert: { move(previous, permanently: false) },
+            onKeep: { move(origins, permanently: true) }
         )
     }
 

@@ -204,8 +204,8 @@ Development certificate also keeps the Keychain from asking for the HTTP token a
 Tests:
 
 ```zsh
-cd ScreenHelmCore && swift test   # 116 tests
-xcodebuild test -project ScreenHelm.xcodeproj -scheme ScreenHelmApp -destination 'platform=macOS'   # 72 tests
+cd ScreenHelmCore && swift test   # 117 tests
+xcodebuild test -project ScreenHelm.xcodeproj -scheme ScreenHelmApp -destination 'platform=macOS'   # 84 tests
 ```
 
 The tests that change real displays (they make virtual screens, move the brightness and put it

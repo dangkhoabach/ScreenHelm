@@ -25,6 +25,12 @@ import Testing
         #expect(ported[0] == "10ac-a0f1-00001234-ABC1-12-2023@IOService:/dispext0")
         #expect(ported[1] == "10ac-a0f1-00001234-ABC1-12-2023@IOService:/dispext1")
         #expect(Set(ported).count == 2)
+
+        // Behind a dock: same everything and no port. Still two keys.
+        var noPort = dell
+        noPort.location = ""
+        let docked = DisplayIdentity.keys(for: [noPort, noPort])
+        #expect(docked == ["10ac-a0f1-00001234-ABC1-12-2023@", "10ac-a0f1-00001234-ABC1-12-2023@#2"])
     }
 
     /// A monitor set up alone keeps its settings when a second one of the

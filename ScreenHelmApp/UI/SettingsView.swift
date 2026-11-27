@@ -117,6 +117,12 @@ struct SettingsSections: View {
                     Text("Every display").tag(DisplayKeyTarget.all)
                     Text("One display").tag(DisplayKeyTarget.fixed)
                 }
+                .onChange(of: settings.displaysKeyTarget) { _, target in
+                    // Never an empty choice: the display the pointer is on to start with.
+                    guard target == .fixed, manager.display(key: settings.displaysKeyFixedDisplay) == nil,
+                          let display = manager.displayUnderPointer() ?? manager.displays.first else { return }
+                    viewModel.settings.displaysKeyFixedDisplay = display.key
+                }
                 if settings.displaysKeyTarget == .fixed {
                     Picker("Display", selection: $viewModel.settings.displaysKeyFixedDisplay) {
                         ForEach(manager.displays) { Text(verbatim: manager.name(of: $0)).tag($0.key) }

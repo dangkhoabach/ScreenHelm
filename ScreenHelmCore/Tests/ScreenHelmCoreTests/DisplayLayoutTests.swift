@@ -163,6 +163,16 @@ private let portrait = Placed(key: "lg", frame: CGRect(x: -1080, y: -400, width:
         #expect(operations[4] == .setColorProfile("dell", path: "/Library/ColorSync/Profiles/Desk.icc"))
     }
 
+    /// A mode's size is the unturned one: a portrait display with a saved
+    /// mode is placed by its turned size, so one in its place isn't moved.
+    @Test func aTurnedDisplayWithASavedModeIsPlacedByItsTurnedSize() {
+        var turned = portrait
+        turned.resolution = DisplayResolution(width: 1920, height: 1080, isHiDPI: false)
+        turned.refreshRate = 60
+        let layout = DisplayLayout.capture([laptop, monitor, turned])
+        #expect(layout.operations(from: [laptop, monitor, turned]).isEmpty)
+    }
+
     @Test func aMirrorIsMadeAgain() {
         var mirrored = monitor
         mirrored.mirrorOf = "mac"

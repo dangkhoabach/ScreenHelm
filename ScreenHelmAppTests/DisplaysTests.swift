@@ -69,6 +69,32 @@ struct DisplaySafetyTests {
         #expect(secondReverted)
     }
 
+    /// One command changing several displays: asked about once, undone or
+    /// kept as a whole, and one already kept by itself is kept at once.
+    @Test func changesMadeTogetherAreAskedAboutOnce() {
+        let safety = DisplaySafety(defaults: memoryDefaults())
+        var order: [String] = []
+        safety.together(title: "Both") {
+            safety.confirm(title: "A", signature: "a", revert: { order.append("undo a") }, onKeep: { order.append("keep a") })
+            safety.confirm(title: "B", signature: "b", revert: { order.append("undo b") }, onKeep: { order.append("keep b") })
+        }
+        #expect(order.isEmpty && safety.hasPendingChange && safety.pendingTitle == "Both")
+        safety.revertPending()
+        #expect(order == ["undo b", "undo a"])
+
+        order = []
+        safety.together(title: "Both") {
+            safety.confirm(title: "A", signature: "a", revert: { order.append("undo a") }, onKeep: { order.append("keep a") })
+        }
+        #expect(safety.pendingTitle == "A")
+        safety.keepPending()
+        #expect(order == ["keep a"])
+        safety.together(title: "Both") {
+            safety.confirm(title: "A", signature: "a", revert: { order.append("undo a") }, onKeep: { order.append("keep a") })
+        }
+        #expect(order == ["keep a", "keep a"] && !safety.hasPendingChange)
+    }
+
     @Test func panicUndoesThePendingChangeAndRunsEveryAction() {
         let safety = DisplaySafety(defaults: memoryDefaults())
         var reverted = false, dropped = 0
@@ -324,6 +350,27 @@ struct DDCServiceTests {
         #expect(third.hotKey("brightnessUp") == nil)
     }
 
+    /// While keys are recorded none is registered, so pressing one already
+    /// in use reaches the recorder, which says so, instead of running it.
+    @Test func noShortcutIsRegisteredWhileOneIsRecorded() {
+        let manager = HotKeyManager(defaults: memoryDefaults()) { _ in }
+        manager.start(keys: ["brightnessUp"])
+        manager.update("brightnessUp", to: rare)
+        defer { manager.update("brightnessUp", to: nil) }
+        func freeToRegister() -> Bool {
+            var ref: EventHotKeyRef?
+            let done = RegisterEventHotKey(rare.keyCode, rare.carbonModifiers, EventHotKeyID(signature: 0x5445_5354, id: 1),
+                                           GetApplicationEventTarget(), 0, &ref) == noErr
+            if let ref { UnregisterEventHotKey(ref) }
+            return done
+        }
+        #expect(!freeToRegister())
+        manager.isRecording = true
+        #expect(freeToRegister())
+        manager.isRecording = false
+        #expect(!freeToRegister())
+    }
+
     @Test func thePanicShortcutCannotBeTakenByAnother() {
         let manager = HotKeyManager(defaults: memoryDefaults()) { _ in }
         #expect(manager.owner(of: DisplaySafety.panicHotKey) == DisplaySafety.panicKey)
@@ -499,6 +546,28 @@ struct DisplayChangingTests {
         for _ in 0..<DisplaySafety.confirmationSeconds { DisplaySafety.shared.tick() }
         try await Task.sleep(for: .milliseconds(700))
         #expect(controller.current(of: display.id)?.number == start.number)
+        withExtendedLifetime(object) {}
+    }
+
+    /// A second mode within the countdown settles the first before it is
+    /// written: the first one's keeping doesn't put it back on top.
+    @Test func aSecondModeInTheCountdownStays() async throws {
+        let (object, display) = try await makeVirtualDisplay(serial: 0x7E5B)
+        let controller = ModeController.shared
+        let modes = controller.modes(of: display.id)
+        let start = try #require(controller.current(of: display.id))
+        let first = try #require(modes.first { $0.width != start.width })
+        let second = try #require(modes.first { $0.width != start.width && $0.width != first.width })
+
+        #expect(controller.set(first, on: display))
+        try await Task.sleep(for: .milliseconds(700))
+        #expect(controller.set(second, on: display))
+        try await Task.sleep(for: .milliseconds(700))
+        #expect(controller.current(of: display.id)?.number == second.number)
+        // Undone, it goes back to the first, which was kept.
+        DisplaySafety.shared.revertPending()
+        try await Task.sleep(for: .milliseconds(700))
+        #expect(controller.current(of: display.id)?.number == first.number)
         withExtendedLifetime(object) {}
     }
 
@@ -841,6 +910,11 @@ struct DisplayArrangementChangingTests {
         }
         SettingsViewModel.shared.settings.displaysSyncSource = .builtIn
         SettingsViewModel.shared.settings.displaysSyncByNits = false
+        // The profile is stored: a run before this one left its offset and exclusion.
+        manager.updateProfile(of: display) {
+            $0.syncOffset = 0
+            $0.syncExcluded = false
+        }
         try await Task.sleep(for: .milliseconds(200))
         brightness.set(0.6, for: builtIn)
         try await Task.sleep(for: .milliseconds(300))
@@ -919,6 +993,13 @@ struct DisplayArrangementChangingTests {
         brightness.set(0.8, for: builtIn)
         #expect(!xdr.isActive)
         #expect(GammaController.shared.adjustment(for: builtIn.id).boost == 1)
+
+        // Switched off from the panel's quick switch, the slider comes back to 100%.
+        brightness.set(1.5, for: builtIn)
+        #expect(xdr.isActive)
+        xdr.setEnabled(false, for: builtIn)
+        #expect(!xdr.isActive)
+        #expect(brightness.value(for: builtIn) == 1)
     }
 }
 

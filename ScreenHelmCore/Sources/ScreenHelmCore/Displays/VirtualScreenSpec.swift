@@ -72,8 +72,9 @@ public struct VirtualScreen: Codable, Equatable, Identifiable, Sendable {
     }
 
     /// A serial none of the others has; macOS ignores a second screen with a serial already in use.
-    public static func nextSerial(after existing: [VirtualScreen]) -> UInt32 {
-        (existing.map(\.serial).max() ?? 0x1000) + 1
+    /// Nor one given out before, `lastUsed`: macOS still knows a deleted screen by its serial.
+    public static func nextSerial(after existing: [VirtualScreen], lastUsed: UInt32 = 0) -> UInt32 {
+        max(existing.map(\.serial).max() ?? 0x1000, lastUsed, 0x1000) + 1
     }
 
     public struct Template: Identifiable, Sendable {

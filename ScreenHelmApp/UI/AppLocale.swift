@@ -28,9 +28,8 @@ enum AppLocale: String, CaseIterable, Identifiable {
     /// `\.locale` override the views get (its `locale:` parameter only formats
     /// numbers, it does not pick the table), so anything built as a `String`
     /// (notification text, status messages, validation) goes through this.
-    /// There is no `en.lproj` (English is the source language), so for English
-    /// this falls back to the main bundle, which follows the system language:
-    /// callers that need English regardless check `selected` first.
+    /// `en.lproj` holds only the English plurals; a key it doesn't have comes
+    /// back as itself, the English text, whatever the system language is.
     static var bundle: Bundle {
         Bundle.main.path(forResource: selected.rawValue, ofType: "lproj").flatMap(Bundle.init(path:)) ?? .main
     }

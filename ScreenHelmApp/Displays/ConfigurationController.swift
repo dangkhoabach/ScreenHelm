@@ -16,7 +16,9 @@ enum ConfigurationController {
     /// way that works on Apple silicon, and takes effect a moment later.
     static func setRotation(_ degrees: Int, on display: DisplayInfo) {
         let previous = display.rotation
-        guard degrees != previous, DisplayPrivateAPIs.setRotation(degrees, of: display.id) else { return }
+        guard degrees != previous else { return }
+        DisplaySafety.shared.keepPending()
+        guard DisplayPrivateAPIs.setRotation(degrees, of: display.id) else { return }
         let id = display.id
         DisplaySafety.shared.confirm(
             title: "\(DisplayManager.shared.name(of: display)): \(degrees)°",
@@ -32,48 +34,55 @@ enum ConfigurationController {
     /// by the same amount.
     static func setMain(_ display: DisplayInfo) {
         guard !display.isMain else { return }
+        DisplaySafety.shared.keepPending()
         let all = DisplayManager.shared.displays
         let previousMain = all.first(where: \.isMain)
-        func move(originOf main: DisplayInfo) {
+        // For the session until kept, so a crash in the countdown doesn't keep it.
+        func move(originOf main: DisplayInfo, permanently: Bool) {
             var config: CGDisplayConfigRef?
             guard CGBeginDisplayConfiguration(&config) == .success else { return }
             for other in all where other.mirrorOf == nil {
                 CGConfigureDisplayOrigin(config, other.id, Int32(other.bounds.minX - main.bounds.minX), Int32(other.bounds.minY - main.bounds.minY))
             }
-            CGCompleteDisplayConfiguration(config, .permanently)
+            CGCompleteDisplayConfiguration(config, permanently ? .permanently : .forSession)
         }
-        move(originOf: display)
+        move(originOf: display, permanently: false)
         DisplaySafety.shared.confirm(
             title: String(localized: "\(DisplayManager.shared.name(of: display)) is the main display", bundle: AppLocale.bundle),
             signature: "main:\(display.key):\(all.map(\.key).sorted().joined(separator: ","))",
-            revert: { if let previousMain { move(originOf: previousMain) } }
+            revert: { if let previousMain { move(originOf: previousMain, permanently: false) } },
+            onKeep: { move(originOf: display, permanently: true) }
         )
     }
 
     /// Shows `master` on `display` as well, or stops with nil.
     static func setMirror(of display: DisplayInfo, to master: DisplayInfo?) {
         let previous = display.mirrorOf
-        func mirror(_ target: CGDirectDisplayID?) {
+        // For the session until kept, so a crash in the countdown doesn't keep it.
+        func mirror(_ target: CGDirectDisplayID?, permanently: Bool) {
             var config: CGDisplayConfigRef?
             guard CGBeginDisplayConfiguration(&config) == .success else { return }
             CGConfigureDisplayMirrorOfDisplay(config, display.id, target ?? kCGNullDirectDisplay)
-            CGCompleteDisplayConfiguration(config, .permanently)
+            CGCompleteDisplayConfiguration(config, permanently ? .permanently : .forSession)
         }
         guard previous != master?.id else { return }
-        mirror(master?.id)
+        DisplaySafety.shared.keepPending()
+        mirror(master?.id, permanently: false)
         DisplaySafety.shared.confirm(
             title: master.map { String(localized: "\(DisplayManager.shared.name(of: display)) mirrors \(DisplayManager.shared.name(of: $0))", bundle: AppLocale.bundle) }
                 ?? String(localized: "\(DisplayManager.shared.name(of: display)) no longer mirrors", bundle: AppLocale.bundle),
             signature: "mirror:\(display.key):\(master?.key ?? "none")",
-            revert: { mirror(previous) }
+            revert: { mirror(previous, permanently: false) },
+            onKeep: { mirror(master?.id, permanently: true) }
         )
     }
 
     // MARK: - HDR and presets
 
     static func setHDR(_ on: Bool, on display: DisplayInfo) {
-        guard DisplayPrivateAPIs.hasHDRModes(display.id), DisplayPrivateAPIs.prefersHDR(display.id) != on,
-              DisplayPrivateAPIs.setPrefersHDR(on, for: display.id) else { return }
+        guard DisplayPrivateAPIs.hasHDRModes(display.id), DisplayPrivateAPIs.prefersHDR(display.id) != on else { return }
+        DisplaySafety.shared.keepPending()
+        guard DisplayPrivateAPIs.setPrefersHDR(on, for: display.id) else { return }
         let id = display.id
         DisplaySafety.shared.confirm(
             title: "\(DisplayManager.shared.name(of: display)): HDR \(on ? "on" : "off")",
@@ -155,14 +164,24 @@ enum ConfigurationController {
 /// System-wide switches that sit with the display controls.
 @MainActor
 enum SystemToggles {
+    /// Posted when ScreenHelm switched one, from anywhere (XDR boost, a
+    /// shortcut, a command), and when the panel opens: what shows them reads again.
+    static let changed = Notification.Name("ScreenHelmSystemTogglesChanged")
+
     static var nightShift: Bool? { DisplayPrivateAPIs.nightShiftIsOn }
-    static func setNightShift(_ on: Bool) { DisplayPrivateAPIs.setNightShift(on) }
+    static func setNightShift(_ on: Bool) {
+        DisplayPrivateAPIs.setNightShift(on)
+        NotificationCenter.default.post(name: changed, object: nil)
+    }
     /// 0 to 1.
     static var nightShiftStrength: Double? { DisplayPrivateAPIs.nightShiftStrength }
     static func setNightShiftStrength(_ strength: Double) { DisplayPrivateAPIs.setNightShiftStrength(strength) }
 
     static var trueTone: Bool? { DisplayPrivateAPIs.trueToneIsOn }
-    static func setTrueTone(_ on: Bool) { DisplayPrivateAPIs.setTrueTone(on) }
+    static func setTrueTone(_ on: Bool) {
+        DisplayPrivateAPIs.setTrueTone(on)
+        NotificationCenter.default.post(name: changed, object: nil)
+    }
 
     static var darkMode: Bool {
         UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
@@ -174,6 +193,7 @@ enum SystemToggles {
         DispatchQueue.global(qos: .userInitiated).async {
             var error: NSDictionary?
             NSAppleScript(source: script)?.executeAndReturnError(&error)
+            DispatchQueue.main.async { NotificationCenter.default.post(name: changed, object: nil) }
         }
     }
 }

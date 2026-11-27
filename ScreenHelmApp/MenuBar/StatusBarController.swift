@@ -55,6 +55,9 @@ final class StatusBarController: NSObject, NSWindowDelegate {
         let panel = self.panel ?? makePanel()
         let anchor = buttonWindow.convertToScreen(button.convert(button.bounds, to: nil))
         let visible = (buttonWindow.screen ?? NSScreen.main)?.visibleFrame ?? anchor
+        // On a short screen the list scrolls sooner, so the footer stays on it.
+        PanelRoom.shared.height = anchor.minY - 6 - visible.minY - 8
+        NotificationCenter.default.post(name: SystemToggles.changed, object: nil)
         let size = panel.frame.size
         let x = min(max(anchor.midX - size.width / 2, visible.minX + 8), visible.maxX - size.width - 8)
         panel.setFrameOrigin(NSPoint(x: x, y: anchor.minY - size.height - 6))

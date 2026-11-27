@@ -82,6 +82,8 @@ final class ModeController {
     @discardableResult
     func set(_ mode: DisplayModeInfo, on display: DisplayInfo) -> Bool {
         guard let previous = current(of: display.id), previous.number != mode.number else { return false }
+        // Settled after this write, a change still waiting would put its own mode back on top.
+        DisplaySafety.shared.keepPending()
         let start = DispatchTime.now().uptimeNanoseconds
         guard write(mode, to: display.id, permanently: false) else {
             log.error("mode \(mode.number) not set on \(display.id)")
@@ -104,6 +106,7 @@ final class ModeController {
     @discardableResult
     func setTogether(_ changes: [(mode: DisplayModeInfo, display: DisplayInfo)], title: String, willRevert: @escaping () -> Void = {}) -> Bool {
         var done: [(previous: DisplayModeInfo, mode: DisplayModeInfo, id: CGDirectDisplayID, key: String)] = []
+        DisplaySafety.shared.keepPending()
         for change in changes {
             guard let previous = current(of: change.display.id), previous.number != change.mode.number else { continue }
             guard write(change.mode, to: change.display.id, permanently: false) else {

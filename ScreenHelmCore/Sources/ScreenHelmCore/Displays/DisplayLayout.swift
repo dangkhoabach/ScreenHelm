@@ -208,9 +208,16 @@ public struct DisplayLayout: Codable, Equatable, Sendable {
         var sizes: [String: CGSize] = [:]
         for item in items where item.mirrorOf == nil {
             guard let display = now[item.key] else { continue }
-            var size = item.resolution.map { CGSize(width: $0.width, height: $0.height) } ?? display.frame.size
             let turnsNow = display.rotation % 180 != 0, turnsThen = item.rotation % 180 != 0
-            if item.resolution == nil, turnsNow != turnsThen { size = CGSize(width: size.height, height: size.width) }
+            var size: CGSize
+            if let resolution = item.resolution {
+                // A mode's size is the unturned one.
+                size = CGSize(width: resolution.width, height: resolution.height)
+                if turnsThen { size = CGSize(width: size.height, height: size.width) }
+            } else {
+                size = display.frame.size
+                if turnsNow != turnsThen { size = CGSize(width: size.height, height: size.width) }
+            }
             sizes[item.key] = size
         }
         let wanted = origins(for: sizes)

@@ -95,7 +95,8 @@ struct ArrangementView: View {
         origins[moved.id] = placed.origin
         guard let main = displays.first(where: \.isMain), let mainOrigin = origins[main.id] else { return }
         for (id, origin) in origins { origins[id] = CGPoint(x: origin.x - mainOrigin.x, y: origin.y - mainOrigin.y) }
-        guard origins[moved.id] != moved.bounds.origin else { return }
+        // Moving the main display moves all the others instead.
+        guard displays.contains(where: { origins[$0.id] != $0.bounds.origin }) else { return }
         layout.arrange(origins)
     }
 }

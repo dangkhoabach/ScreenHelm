@@ -198,13 +198,20 @@ struct DisplaySections: View {
             if brightness.method(for: display) == .ddc {
                 Toggle("Go on dimming below the monitor's lowest brightness", isOn: Binding(
                     get: { profile.combinedBrightness },
-                    set: { on in manager.updateProfile(of: display) { $0.combinedBrightness = on } }
+                    set: { on in
+                        manager.updateProfile(of: display) { $0.combinedBrightness = on }
+                        // The level stays where it was, split anew.
+                        brightness.set(brightness.value(for: display), for: display)
+                    }
                 ))
             }
             if brightness.method(for: display) != .apple {
                 Toggle("Allow dimming all the way to black", isOn: Binding(
                     get: { profile.dimToBlack },
-                    set: { on in manager.updateProfile(of: display) { $0.dimToBlack = on } }
+                    set: { on in
+                        manager.updateProfile(of: display) { $0.dimToBlack = on }
+                        brightness.set(brightness.value(for: display), for: display)
+                    }
                 ))
                 Text("Off, software dimming stops at 15%. A display is never brought back darker than that after sleep or when ScreenHelm opens.")
                     .font(.caption).foregroundStyle(.secondary)
@@ -389,7 +396,9 @@ struct DisplaySections: View {
                     .monospaced()
             }
             if identity.year > 0 {
-                LabeledContent("Made") { Text(verbatim: identity.week > 0 ? "\(identity.year), week \(identity.week)" : "\(identity.year)") }
+                LabeledContent("Made") {
+                    if identity.week > 0 { Text("\(String(identity.year)), week \(identity.week)") } else { Text(verbatim: "\(identity.year)") }
+                }
             }
             if let width = (info["DisplayHorizontalImageSize"] as? NSNumber)?.doubleValue,
                let height = (info["DisplayVerticalImageSize"] as? NSNumber)?.doubleValue, width > 0, height > 0 {

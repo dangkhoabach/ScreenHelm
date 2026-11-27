@@ -34,6 +34,8 @@ final class DisplaySafety {
     @ObservationIgnored private var pendingRevert: (() -> Void)?
     @ObservationIgnored private var pendingKeep: (() -> Void)?
     @ObservationIgnored private var pendingSignature: String?
+    /// Changes gathered by `together`, asked about once at its end.
+    @ObservationIgnored private var collected: [(title: String, signature: String, revert: () -> Void, onKeep: () -> Void)]?
     @ObservationIgnored private var timer: Timer?
     @ObservationIgnored private var panels: [NSPanel] = []
     @ObservationIgnored private var keyMonitor: Any?
@@ -94,19 +96,47 @@ final class DisplaySafety {
     /// `revert` runs unless the user keeps the change within the countdown;
     /// `onKeep` runs when they do. A change kept once (same `signature`)
     /// isn't asked about again: `onKeep` runs at once.
+    /// A change should be made only after `keepPending()`: settled after it,
+    /// the earlier change's `onKeep` would land on top of it.
     func confirm(title: String, signature: String, revert: @escaping () -> Void, onKeep: @escaping () -> Void = {}) {
         resolvePending(keep: true) // A second change settles the first as it stands.
-        guard !Set(defaults.stringArray(forKey: Self.keptChanges) ?? []).contains(signature) else { return onKeep() }
+        guard !Set(defaults.stringArray(forKey: Self.keptChanges) ?? []).contains(signature) else {
+            onKeep()
+            LayoutGuard.shared.adoptKeptChange()
+            return
+        }
+        if collected != nil {
+            collected?.append((title, signature, revert, onKeep))
+            return
+        }
         pendingRevert = revert
         pendingKeep = onKeep
         pendingSignature = signature
         pendingTitle = title
         secondsLeft = Self.confirmationSeconds
         showPanels()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        let timer = Timer(timeInterval: 1, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
         }
+        // Common modes: the countdown goes on while a menu or an alert is open.
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
         updatePanicHotKey()
+    }
+
+    /// The changes `body` makes wait under one question and are kept or
+    /// undone together. Asked one by one, each would settle the one before
+    /// it as kept, unseen.
+    func together(title: String, _ body: () -> Void) {
+        collected = []
+        body()
+        let changes = collected ?? []
+        collected = nil
+        guard let only = changes.first else { return }
+        confirm(title: changes.count == 1 ? only.title : title,
+                signature: changes.map(\.signature).joined(separator: "|"),
+                revert: { for change in changes.reversed() { change.revert() } },
+                onKeep: { for change in changes { change.onKeep() } })
     }
 
     var hasPendingChange: Bool { pendingRevert != nil }
@@ -131,6 +161,7 @@ final class DisplaySafety {
         hidePanels()
         if keep {
             onKeep?()
+            LayoutGuard.shared.adoptKeptChange()
             if let signature = pendingSignature {
                 var kept = defaults.stringArray(forKey: Self.keptChanges) ?? []
                 if !kept.contains(signature) { kept.append(signature) }

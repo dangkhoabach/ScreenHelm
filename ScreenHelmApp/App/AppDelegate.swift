@@ -49,8 +49,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         for url in links { _ = AutomationRouter.run(url: url) }
     }
 
-    /// Displays ScreenHelm switched off come back with its quitting.
+    /// Displays ScreenHelm switched off come back with its quitting, a
+    /// change not yet kept is undone, and XDR boost gives back Night Shift.
     func applicationWillTerminate(_ notification: Notification) {
+        DisplaySafety.shared.revertPending()
+        XDRController.shared.stopAll()
         ConnectionController.shared.reconnectAll()
         ColorPauseController.shared.restore()
         DisplaySafety.shared.endLaunchGuard()

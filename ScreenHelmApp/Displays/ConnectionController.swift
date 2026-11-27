@@ -63,8 +63,12 @@ final class ConnectionController {
         if display.kind == .builtIn && !settings.displaysAdvanced {
             return "Switching the built-in display off is a risky setting: on some Macs it only comes back after a restart. Turn on the risky settings under Safety to allow it."
         }
-        // A virtual display shows nothing a person can see.
-        let others = DisplayManager.shared.displays.filter { $0.id != display.id && $0.kind != .virtual && $0.mirrorOf == nil }
+        // A virtual display shows nothing a person can see. One switched off a
+        // moment ago is listed until the displays are read again.
+        let off = Set(disconnected.map(\.id))
+        let others = DisplayManager.shared.displays.filter {
+            $0.id != display.id && $0.kind != .virtual && $0.mirrorOf == nil && !off.contains($0.id)
+        }
         if display.kind != .virtual && others.isEmpty { return "The last display stays on." }
         return nil
     }
@@ -83,7 +87,8 @@ final class ConnectionController {
     /// the user set up beforehand.
     @discardableResult
     func disconnect(_ display: DisplayInfo, confirm: Bool = true) -> Bool {
-        guard refusal(for: display) == nil else { return false }
+        guard refusal(for: display) == nil, !disconnected.contains(where: { $0.id == display.id }) else { return false }
+        if confirm { DisplaySafety.shared.keepPending() }
         let name = DisplayManager.shared.name(of: display)
         let journalID = try? store?.record(DisplayJournalEntry(kind: .disconnected, display: display.key, detail: String(display.id)))
         guard Self.setEnabled(false, display.id) else {

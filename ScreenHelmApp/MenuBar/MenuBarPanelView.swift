@@ -22,6 +22,14 @@ struct MenuBarPanelView: View {
     }
 }
 
+/// How tall the panel may be on the screen it opens on, under the menu bar.
+@MainActor
+@Observable
+final class PanelRoom {
+    static let shared = PanelRoom()
+    var height = MenuBarPanelView.maximumHeight
+}
+
 private struct MenuBarPanelContent: View {
     var body: some View {
         VStack(spacing: 0) {
@@ -36,7 +44,7 @@ private struct MenuBarPanelContent: View {
             ScrollView {
                 DisplaysPanelContent()
             }
-            .frame(maxHeight: MenuBarPanelView.maximumHeight - 90)
+            .frame(maxHeight: max(120, min(MenuBarPanelView.maximumHeight, PanelRoom.shared.height)) - 90)
             .fixedSize(horizontal: false, vertical: true)
             Divider()
             footer

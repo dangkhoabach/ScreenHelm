@@ -118,7 +118,8 @@ final class MediaKeyTap {
         case .pointer: chosen = manager.displayUnderPointer().map { [$0] } ?? []
         case .focusedWindow: chosen = Self.displayOfFrontWindow().map { [$0] } ?? manager.displayUnderPointer().map { [$0] } ?? []
         case .all: return own
-        case .fixed: chosen = manager.display(key: settings.displaysKeyFixedDisplay).map { [$0] } ?? []
+        // The display picked, or the one under the pointer while it isn't connected.
+        case .fixed: chosen = (manager.display(key: settings.displaysKeyFixedDisplay) ?? manager.displayUnderPointer()).map { [$0] } ?? []
         }
         // ⌃ with the key sends it to the other display, as macOS does for Apple's.
         if control, let first = chosen.first, !own.contains(where: { $0.id == first.id }) { return Array(own.prefix(1)) }

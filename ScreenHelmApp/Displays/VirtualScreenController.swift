@@ -24,6 +24,7 @@ final class VirtualScreenController {
     @ObservationIgnored private let log = Logger(subsystem: "com.dangkhoabach.screenhelm", category: "displays")
 
     private var settings: AppSettings { SettingsViewModel.shared.settings }
+    private static let lastSerialKey = "displays.lastVirtualSerial"
     private var store: DisplayStore? { AppDatabase.shared.map { DisplayStore(dbQueue: $0.dbQueue) } }
 
     private init() {}
@@ -44,7 +45,7 @@ final class VirtualScreenController {
 
     @discardableResult
     func add(name: String, pixelWidth: Int, pixelHeight: Int, matchedDisplay: String? = nil, connect: Bool = true) -> VirtualScreen {
-        let screen = VirtualScreen(name: name, serial: VirtualScreen.nextSerial(after: screens), pixelWidth: pixelWidth, pixelHeight: pixelHeight,
+        let screen = VirtualScreen(name: name, serial: newSerial(), pixelWidth: pixelWidth, pixelHeight: pixelHeight,
                                    matchedDisplay: matchedDisplay)
         screens.append(screen)
         save(screen)
@@ -69,9 +70,17 @@ final class VirtualScreenController {
         let wasConnected = connected[screen.id] != nil
         disconnect(screen.id, forReplacement: true)
         lingering[screen.id] = nil
-        screens[index].serial = VirtualScreen.nextSerial(after: screens)
+        screens[index].serial = newSerial()
         save(screens[index])
         if wasConnected { connect(screen.id) }
+    }
+
+    /// A serial never given out before, remembered past the screens that had it.
+    private func newSerial() -> UInt32 {
+        let lastUsed = UInt32(clamping: UserDefaults.standard.integer(forKey: Self.lastSerialKey))
+        let serial = VirtualScreen.nextSerial(after: screens, lastUsed: lastUsed)
+        UserDefaults.standard.set(Int(serial), forKey: Self.lastSerialKey)
+        return serial
     }
 
     func delete(_ id: UUID) {

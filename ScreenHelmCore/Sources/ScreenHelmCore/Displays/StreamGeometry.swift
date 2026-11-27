@@ -168,10 +168,11 @@ public enum StreamGeometry {
     }
 
     /// The turn and the flips as one transform about the picture's center.
-    /// The angle is clockwise on screen, where y goes up.
+    /// The angle is clockwise on screen, where y goes up. The flips are of
+    /// the picture as it is shown, turned: left to right stays left to right.
     public static func transform(rotation: Int, flipHorizontal: Bool, flipVertical: Bool) -> CGAffineTransform {
         CGAffineTransform(rotationAngle: -Double(rotation) * .pi / 180)
-            .scaledBy(x: flipHorizontal ? -1 : 1, y: flipVertical ? -1 : 1)
+            .concatenating(CGAffineTransform(scaleX: flipHorizontal ? -1 : 1, y: flipVertical ? -1 : 1))
     }
 
     /// The pixels to capture for a picture shown at `size` points: no more
@@ -200,7 +201,7 @@ public struct CubeLUT: Equatable, Sendable {
         for line in text.split(whereSeparator: \.isNewline) {
             let trimmed = line.trimmingCharacters(in: .whitespaces)
             guard !trimmed.isEmpty, !trimmed.hasPrefix("#") else { continue }
-            let parts = trimmed.split(separator: " ", omittingEmptySubsequences: true)
+            let parts = trimmed.split(whereSeparator: \.isWhitespace)
             if parts[0] == "LUT_3D_SIZE", parts.count == 2, let parsed = Int(parts[1]) {
                 size = parsed
             } else if parts[0] == "LUT_1D_SIZE" {

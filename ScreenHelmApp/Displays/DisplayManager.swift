@@ -51,6 +51,8 @@ final class DisplayManager {
     @ObservationIgnored private var started = false
     @ObservationIgnored private var pendingRefresh: DispatchWorkItem?
     @ObservationIgnored private var wokeSinceRefresh = false
+    /// After waking, no refresh comes sooner than this, whatever else arrives.
+    @ObservationIgnored private var wakeSettles: DispatchTime?
     @ObservationIgnored private let log = Logger(subsystem: "com.dangkhoabach.screenhelm", category: "displays")
 
     private var store: DisplayStore? { AppDatabase.shared.map { DisplayStore(dbQueue: $0.dbQueue) } }
@@ -71,9 +73,15 @@ final class DisplayManager {
             MainActor.assumeIsolated {
                 // Displays come back one after another for a moment after waking.
                 DisplayManager.shared.wokeSinceRefresh = true
+                DisplayManager.shared.wakeSettles = .now() + 1.5
                 DisplayManager.shared.scheduleRefresh(after: 1.5)
             }
         }
+    }
+
+    /// The profiles as stored, after an import wrote them.
+    func reloadProfiles() {
+        profiles = (try? store?.load(DisplayProfile.self, from: .profile)) ?? [:]
     }
 
     /// One rebuild for a burst of notifications: macOS sends several for a
@@ -84,11 +92,12 @@ final class DisplayManager {
             guard let self else { return }
             let woke = wokeSinceRefresh
             wokeSinceRefresh = false
+            wakeSettles = nil
             refresh()
             for listener in onChange { listener(woke) }
         }
         pendingRefresh = work
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: work)
+        DispatchQueue.main.asyncAfter(deadline: max(.now() + delay, wakeSettles ?? .now()), execute: work)
     }
 
     func refresh() {

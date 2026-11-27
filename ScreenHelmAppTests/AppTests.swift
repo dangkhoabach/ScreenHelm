@@ -66,3 +66,33 @@ import Testing
         #expect(panel.frame.maxY == top && panel.frame.height == height)
     }
 }
+
+@MainActor
+@Suite(.serialized) struct DisplaySettingsArchiveTests {
+    /// An export from another Mac brings its settings, but can't turn on
+    /// what lets commands in from outside, nor the risky settings.
+    @Test func anImportLeavesAutomationAndRiskySettingsAsTheyAre() throws {
+        let viewModel = SettingsViewModel.shared
+        viewModel.loadIfNeeded()
+        let before = viewModel.settings
+        let original = try DisplaySettingsArchive.export()
+        defer {
+            _ = DisplaySettingsArchive.import(original)
+            viewModel.settings = before
+        }
+        var object = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
+        var settings = object["settings"] as? [String: String] ?? [:]
+        settings["displays_automation"] = before.displaysAutomation ? "0" : "1"
+        settings["displays_http_enabled"] = before.displaysHTTPEnabled ? "0" : "1"
+        settings["displays_advanced"] = before.displaysAdvanced ? "0" : "1"
+        settings["displays_osd"] = before.displaysOSD ? "0" : "1"
+        object["settings"] = settings
+        #expect(DisplaySettingsArchive.import(try JSONSerialization.data(withJSONObject: object)))
+
+        let after = viewModel.settings
+        #expect(after.displaysAutomation == before.displaysAutomation)
+        #expect(after.displaysHTTPEnabled == before.displaysHTTPEnabled)
+        #expect(after.displaysAdvanced == before.displaysAdvanced)
+        #expect(after.displaysOSD != before.displaysOSD)
+    }
+}

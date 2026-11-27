@@ -68,12 +68,34 @@
         }
       }
     },
+    "%@, week %lld": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, tuần %lld"
+          }
+        }
+      }
+    },
     "%lld sizes, from %@ to %@": {
       "localizations": {
         "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld sizes, from %2$@ to %3$@"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld size, from %@ to %@"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sizes, from %@ to %@"
+                }
+              }
+            }
           }
         },
         "vi": {
@@ -1104,6 +1126,16 @@
         }
       }
     },
+    "Display settings changed by a command": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt màn hình đã được đổi bằng lệnh"
+          }
+        }
+      }
+    },
     "Displays": {
       "localizations": {
         "vi": {
@@ -1509,6 +1541,24 @@
     },
     "Going back in %lld seconds": {
       "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Going back in %lld second"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Going back in %lld seconds"
+                }
+              }
+            }
+          }
+        },
         "vi": {
           "stringUnit": {
             "state": "translated",
@@ -1749,6 +1799,24 @@
     },
     "Installed: %lld sizes in the file.": {
       "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Installed: %lld size in the file."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Installed: %lld sizes in the file."
+                }
+              }
+            }
+          }
+        },
         "vi": {
           "stringUnit": {
             "state": "translated",

@@ -70,6 +70,7 @@ struct HotKeyRecorderView: View {
 
     private func start() {
         recording = true
+        manager.isRecording = true
         takenBy = nil
         monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             if event.keyCode == 53 { // Escape
@@ -96,6 +97,7 @@ struct HotKeyRecorderView: View {
     }
 
     private func stop() {
+        if recording { manager.isRecording = false }
         recording = false
         if let monitor { NSEvent.removeMonitor(monitor) }
         monitor = nil

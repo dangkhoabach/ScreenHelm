@@ -88,7 +88,8 @@ final class BrightnessSyncController {
             if let nits {
                 // A monitor's lowest setting is taken as a tenth of its brightest.
                 let peak = Double(profile.peakNits)
-                target = BrightnessSync.target(for: BrightnessSync.target(forNits: nits, minimumNits: peak * 0.1, maximumNits: peak),
+                let share = BrightnessSync.target(forNits: nits, minimumNits: peak * 0.1, maximumNits: peak)
+                target = BrightnessSync.target(for: BrightnessController.shared.value(forLightShare: share, on: display),
                                                offset: profile.syncOffset)
             } else {
                 target = BrightnessSync.target(for: value, offset: profile.syncOffset)

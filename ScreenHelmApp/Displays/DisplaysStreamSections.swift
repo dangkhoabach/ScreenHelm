@@ -92,8 +92,12 @@ private struct StreamSection: View {
             if case .display(let key) = config.source, let display = manager.display(key: key) {
                 HStack {
                     Button("Choose the Part on Screen…") {
+                        let id = config.id
                         AreaPicker.pick(on: display.id) { crop in
-                            if let crop { change { $0.crop = crop } }
+                            // The stream as it is when the area is chosen: edits made meanwhile stay.
+                            guard let crop, var current = controller.configs.first(where: { $0.id == id }) else { return }
+                            current.crop = crop
+                            controller.update(current)
                         }
                     }
                     if config.crop != .whole {

@@ -54,6 +54,8 @@ import Testing
         var second = screen
         second.serial = 0x1007
         #expect(VirtualScreen.nextSerial(after: [screen, second]) == 0x1008)
+        // A deleted screen's serial isn't given out again.
+        #expect(VirtualScreen.nextSerial(after: [screen], lastUsed: 0x1009) == 0x100A)
     }
 
     @Test func templatesAreValidScreens() {

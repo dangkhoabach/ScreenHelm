@@ -145,6 +145,12 @@ final class HotKeyManager {
         syncRegistrations()
     }
 
+    /// While a shortcut is being recorded none is registered: Carbon would
+    /// take a combination already in use before the recorder saw it.
+    var isRecording = false {
+        didSet { if isRecording != oldValue { syncRegistrations() } }
+    }
+
     func hotKey(_ key: String) -> HotKey? {
         hotKeys[key]
     }
@@ -170,12 +176,13 @@ final class HotKeyManager {
     /// Carbon's registrations made to match `hotKeys`: changed ones again,
     /// a combination another app refused not retried until it changes.
     private func syncRegistrations() {
-        for (key, registration) in registrations where hotKeys[key] != registration.hotKey {
+        let wanted = isRecording ? [:] : hotKeys
+        for (key, registration) in registrations where wanted[key] != registration.hotKey {
             UnregisterEventHotKey(registration.ref)
             registrations[key] = nil
         }
         var failed = self.failed.filter { hotKeys[$0.key] == $0.value }
-        for (key, hotKey) in hotKeys where registrations[key] == nil && failed[key] == nil {
+        for (key, hotKey) in wanted where registrations[key] == nil && failed[key] == nil {
             let carbonID = carbonIDs[key] ?? {
                 defer { nextCarbonID += 1 }
                 carbonIDs[key] = nextCarbonID

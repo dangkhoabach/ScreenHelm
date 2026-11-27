@@ -97,28 +97,46 @@ final class AutomationServer {
         unlink(Self.socketPath)
     }
 
-    /// One request per connection: a JSON array of words, a newline; then the reply.
+    /// One request per connection: a JSON array of words, a newline; then
+    /// the reply. Reading waits on the client, so it is done off the main
+    /// thread; only the command runs on it.
     private func acceptSocketClient() {
         let client = accept(socketDescriptor, nil, nil)
         guard client >= 0 else { return }
-        defer { close(client) }
-        var timeout = timeval(tv_sec: 2, tv_usec: 0)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let request = Self.readRequest(from: client)
+            Task { @MainActor in
+                let reply: AutomationReply
+                if let arguments = try? JSONDecoder().decode([String].self, from: request) {
+                    reply = AutomationRouter.run(arguments: arguments)
+                } else {
+                    reply = .failed("the request could not be read")
+                }
+                let line = (reply.ok ? "OK\n" : "ERROR\n") + reply.text + "\n"
+                DispatchQueue.global(qos: .userInitiated).async {
+                    _ = line.withCString { write(client, $0, strlen($0)) }
+                    close(client)
+                }
+            }
+        }
+    }
+
+    /// Up to a newline, 64 KB or five seconds, whichever comes first.
+    nonisolated private static func readRequest(from client: Int32) -> Data {
+        var timeout = timeval(tv_sec: 1, tv_usec: 0)
         setsockopt(client, SOL_SOCKET, SO_RCVTIMEO, &timeout, socklen_t(MemoryLayout<timeval>.size))
+        let deadline = Date().addingTimeInterval(5)
         var request = Data()
         var buffer = [UInt8](repeating: 0, count: 4096)
-        while request.count < 65536, !request.contains(0x0A) {
+        while request.count < 65536, !request.contains(0x0A), Date() < deadline {
             let count = read(client, &buffer, buffer.count)
-            guard count > 0 else { break }
-            request.append(contentsOf: buffer[0..<count])
+            if count > 0 {
+                request.append(contentsOf: buffer[0..<count])
+            } else if count == 0 || (errno != EAGAIN && errno != EINTR) {
+                break
+            }
         }
-        let reply: AutomationReply
-        if let arguments = try? JSONDecoder().decode([String].self, from: request) {
-            reply = AutomationRouter.run(arguments: arguments)
-        } else {
-            reply = .failed("the request could not be read")
-        }
-        let line = (reply.ok ? "OK\n" : "ERROR\n") + reply.text + "\n"
-        _ = line.withCString { write(client, $0, strlen($0)) }
+        return request
     }
 
     // MARK: - HTTP
@@ -135,16 +153,41 @@ final class AutomationServer {
         }
         listener.newConnectionHandler = { connection in
             connection.start(queue: .main)
-            connection.receive(minimumIncompleteLength: 1, maximumLength: 16384) { data, _, _, _ in
-                MainActor.assumeIsolated {
-                    let response = AutomationServer.respond(to: data.map { String(decoding: $0, as: UTF8.self) } ?? "", token: AutomationToken.current())
-                    connection.send(content: Data(response.utf8), completion: .contentProcessed { _ in connection.cancel() })
-                }
-            }
+            // One that never finishes its request is closed after a few seconds.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { connection.cancel() }
+            AutomationServer.receiveRequest(on: connection, buffer: Data())
+        }
+        // A port another program holds: the listener fails, and is let go so
+        // that it isn't taken for listening; a change of port tries again.
+        listener.stateUpdateHandler = { state in
+            guard case .failed(let error) = state else { return }
+            MainActor.assumeIsolated { AutomationServer.shared.httpFailed(error) }
         }
         listener.start(queue: .main)
         self.listener = listener
         listeningPort = settings.displaysHTTPPort
+    }
+
+    private func httpFailed(_ error: NWError) {
+        log.error("HTTP listener on port \(self.listeningPort) failed: \(String(describing: error), privacy: .public)")
+        listener?.cancel()
+        listener = nil
+        listeningPort = 0
+    }
+
+    /// The request as it arrives, in as many parts as it comes in, up to
+    /// the end of its headers.
+    nonisolated private static func receiveRequest(on connection: NWConnection, buffer: Data) {
+        connection.receive(minimumIncompleteLength: 1, maximumLength: 16384) { data, _, isComplete, error in
+            var buffer = buffer
+            if let data { buffer.append(data) }
+            let ended = buffer.range(of: Data("\r\n\r\n".utf8)) != nil || isComplete || error != nil || buffer.count >= 16384
+            guard ended else { return receiveRequest(on: connection, buffer: buffer) }
+            MainActor.assumeIsolated {
+                let response = AutomationServer.respond(to: String(decoding: buffer, as: UTF8.self), token: AutomationToken.current())
+                connection.send(content: Data(response.utf8), completion: .contentProcessed { _ in connection.cancel() })
+            }
+        }
     }
 
     private func stopHTTP() {

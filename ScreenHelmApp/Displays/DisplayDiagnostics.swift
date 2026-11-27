@@ -18,6 +18,9 @@ enum DisplaySettingsArchive {
 
     /// The `app_settings` keys that belong to Displays.
     private static let keyPrefixes = ["displays_", "display_", "keep_awake_displays"]
+    /// Never taken from a file: letting commands in from outside, and the
+    /// risky settings, are turned on by the user on this Mac only.
+    private static let keptOnThisMac: Set = ["displays_automation", "displays_http_enabled", "displays_http_port", "displays_advanced"]
     private static var database: AppDatabase? { AppDatabase.shared }
 
     static func export() throws -> Data {
@@ -47,18 +50,20 @@ enum DisplaySettingsArchive {
         let store = DisplayStore(dbQueue: database.dbQueue)
         do {
             try database.dbQueue.write { db in
-                for (key, value) in archive.settings where keyPrefixes.contains(where: key.hasPrefix) {
+                for (key, value) in archive.settings where keyPrefixes.contains(where: key.hasPrefix) && !keptOnThisMac.contains(key) {
                     try AppSettingsStore.set(db, key: key, value: value)
                 }
             }
             for (key, value) in archive.profiles { try store.save(value, key: key, in: .profile) }
             for (key, value) in archive.layouts { try store.save(value, key: key, in: .layout) }
             for (key, value) in archive.virtualScreens { try store.save(value, key: key, in: .virtualScreen) }
-            for (key, value) in archive.streams { try store.save(value, key: key, in: .stream) }
+            for (key, value) in archive.streams where value.isValid { try store.save(value, key: key, in: .stream) }
         } catch {
             return false
         }
         if let loaded = try? SettingsRepository(dbQueue: database.dbQueue).load() { SettingsViewModel.shared.settings = loaded }
+        // Until the restart, a change to a display saves its profile: it starts from the imported one.
+        DisplayManager.shared.reloadProfiles()
         return true
     }
 }

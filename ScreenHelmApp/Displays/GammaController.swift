@@ -34,13 +34,13 @@ final class GammaController {
     func start() {
         guard !started else { return }
         started = true
-        DisplayManager.shared.onChange.append { [weak self] _ in self?.reapplyAfterReset() }
+        DisplayManager.shared.onChange.append { [weak self] _ in self?.reapplyAfterReset(profileChanged: false) }
         // A colour profile chosen in System Settings replaces the table.
         // The name is the value of `kColorSyncDisplayDeviceProfilesNotification`.
         DistributedNotificationCenter.default().addObserver(
             forName: NSNotification.Name("com.apple.ColorSync.DisplayProfileNotification"), object: nil, queue: .main
         ) { _ in
-            MainActor.assumeIsolated { GammaController.shared.reapplyAfterReset() }
+            MainActor.assumeIsolated { GammaController.shared.reapplyAfterReset(profileChanged: true) }
         }
     }
 
@@ -81,6 +81,7 @@ final class GammaController {
         boosts = [:]
         written = [:]
         bases = [:]
+        conflict = false
         pendingReapply?.cancel()
         CGDisplayRestoreColorSyncSettings()
         enforcer?.orderOut(nil)
@@ -92,6 +93,7 @@ final class GammaController {
         if wanted.isNeutral {
             guard written[display] != nil else { return }
             written[display] = nil
+            if written.isEmpty { conflict = false }
             // The only call that gives a table back restores every display,
             // so the others are written again.
             CGDisplayRestoreColorSyncSettings()
@@ -124,19 +126,16 @@ final class GammaController {
         return GammaTable.Channels(red: Array(red.prefix(n)), green: Array(green.prefix(n)), blue: Array(blue.prefix(n)))
     }
 
-    /// After displays changed, the Mac woke or a profile was chosen, macOS
-    /// has put its own tables back. They are read again as the new starting
-    /// point a second later, once things have settled, and ScreenHelm's
-    /// adjustments go on top.
-    private func reapplyAfterReset() {
-        guard !written.isEmpty else { return }
-        // A table that is neither macOS's nor ours was written by someone else.
-        conflict = written.contains { display, table in
-            guard let now = Self.readTable(of: display), let base = bases[display] else { return false }
-            // A table read back never goes above 1, whatever was written.
-            let clipped = GammaTable.Channels(red: table.red.map { min(1, $0) }, green: table.green.map { min(1, $0) },
-                                              blue: table.blue.map { min(1, $0) })
-            return !GammaTable.matches(now, clipped) && !GammaTable.matches(now, base)
+    /// After displays changed or the Mac woke, macOS may have put its own
+    /// tables back; ScreenHelm's adjustments go on top again a second later,
+    /// once things have settled. A table that is neither macOS's nor
+    /// ScreenHelm's was written by another app and is left to it. A colour
+    /// profile chosen in System Settings brings a new table of macOS's own:
+    /// then every table is read again as the new starting point.
+    private func reapplyAfterReset(profileChanged: Bool) {
+        guard !written.isEmpty else {
+            conflict = false
+            return
         }
         pendingReapply?.cancel()
         let work = DispatchWorkItem { [weak self] in
@@ -147,11 +146,34 @@ final class GammaController {
                 dimming[gone] = nil
                 pictures[gone] = nil
                 boosts[gone] = nil
+                written[gone] = nil
+                bases[gone] = nil
             }
-            written = [:]
-            bases = [:]
-            CGDisplayRestoreColorSyncSettings()
-            for display in wanted.intersection(displays) { write(adjustment(for: display), to: display) }
+            if profileChanged {
+                written = [:]
+                bases = [:]
+                conflict = false
+                CGDisplayRestoreColorSyncSettings()
+                for display in wanted.intersection(displays) { write(adjustment(for: display), to: display) }
+                return
+            }
+            var foreign = false
+            for (display, table) in written {
+                guard let now = Self.readTable(of: display), let base = bases[display] else { continue }
+                // A table read back never goes above 1, whatever was written.
+                let clipped = GammaTable.Channels(red: table.red.map { min(1, $0) }, green: table.green.map { min(1, $0) },
+                                                  blue: table.blue.map { min(1, $0) })
+                if GammaTable.matches(now, clipped) { continue }
+                if GammaTable.matches(now, base) {
+                    write(adjustment(for: display), to: display)
+                } else {
+                    // Moving ScreenHelm's slider again puts its part on top of the other app's table.
+                    foreign = true
+                    written[display] = nil
+                    bases[display] = nil
+                }
+            }
+            conflict = foreign
         }
         pendingReapply = work
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: work)
@@ -224,6 +246,10 @@ final class DimOverlay {
 
     /// Windows made, moved or closed to match `levels` and the screens there are now.
     private func layout() {
+        // Gone, a display's level goes too: coming back, it gets what is
+        // remembered for it, never darker than the floor.
+        let online = Set(DisplayManager.onlineDisplays())
+        levels = levels.filter { online.contains($0.key) }
         for (display, window) in windows where levels[display] == nil || screen(for: display) == nil {
             window.orderOut(nil)
             windows[display] = nil

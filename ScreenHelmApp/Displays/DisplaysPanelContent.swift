@@ -12,68 +12,70 @@ struct DisplaysPanelContent: View {
     @State private var nightShiftStrength = SystemToggles.nightShiftStrength
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
-                ForEach(manager.displays) { display in
-                    DisplayPanelBlock(display: display)
-                    Divider()
-                }
-                HStack(spacing: 14) {
-                    if let nightShift {
-                        Toggle("Night Shift", isOn: Binding(get: { nightShift }, set: { on in
-                            SystemToggles.setNightShift(on)
-                            self.nightShift = on
-                        }))
-                    }
-                    if let trueTone {
-                        Toggle("True Tone", isOn: Binding(get: { trueTone }, set: { on in
-                            SystemToggles.setTrueTone(on)
-                            self.trueTone = on
-                        }))
-                    }
-                    Toggle("Dark Mode", isOn: Binding(get: { darkMode }, set: { on in
-                        SystemToggles.setDarkMode(on)
-                        darkMode = on
-                    }))
-                    Spacer()
-                }
-                .toggleStyle(.checkbox)
-                .font(.caption)
-                if nightShift == true, let nightShiftStrength {
-                    HStack(spacing: 10) {
-                        Image(systemName: "moon").foregroundStyle(.secondary)
-                        Slider(value: Binding(get: { nightShiftStrength }, set: { value in
-                            SystemToggles.setNightShiftStrength(value)
-                            self.nightShiftStrength = value
-                        }), in: 0...1)
-                        Image(systemName: "moon.fill").foregroundStyle(.secondary)
-                    }
-                    .font(.caption)
-                    .controlSize(.small)
-                    .help(Text("How warm Night Shift makes the screen"))
-                }
-                if manager.displays.count > 1 {
-                    Picker("Other displays follow", selection: $viewModel.settings.displaysSyncSource) {
-                        Text("Off").tag(BrightnessSyncSource.off)
-                        Text("The built-in display").tag(BrightnessSyncSource.builtIn)
-                        Text("The light in the room").tag(BrightnessSyncSource.ambientLight)
-                    }
-                    .font(.caption)
-                    .controlSize(.small)
-                    .fixedSize()
-                }
-                if !ConnectionController.shared.disconnected.isEmpty {
-                    Button("Switch Every Display Back On") { ConnectionController.shared.reconnectAll() }.controlSize(.small)
-                }
+        // The panel scrolls the whole of this; a scroll view here as well would take the scrolling from it.
+        VStack(alignment: .leading, spacing: 12) {
+            ForEach(manager.displays) { display in
+                DisplayPanelBlock(display: display)
+                Divider()
             }
-            .padding(14)
+            HStack(spacing: 14) {
+                if let nightShift {
+                    Toggle("Night Shift", isOn: Binding(get: { nightShift }, set: { on in
+                        SystemToggles.setNightShift(on)
+                        self.nightShift = on
+                    }))
+                }
+                if let trueTone {
+                    Toggle("True Tone", isOn: Binding(get: { trueTone }, set: { on in
+                        SystemToggles.setTrueTone(on)
+                        self.trueTone = on
+                    }))
+                }
+                Toggle("Dark Mode", isOn: Binding(get: { darkMode }, set: { on in
+                    SystemToggles.setDarkMode(on)
+                    darkMode = on
+                }))
+                Spacer()
+            }
+            .toggleStyle(.checkbox)
+            .font(.caption)
+            if nightShift == true, let nightShiftStrength {
+                HStack(spacing: 10) {
+                    Image(systemName: "moon").foregroundStyle(.secondary)
+                    Slider(value: Binding(get: { nightShiftStrength }, set: { value in
+                        SystemToggles.setNightShiftStrength(value)
+                        self.nightShiftStrength = value
+                    }), in: 0...1)
+                    Image(systemName: "moon.fill").foregroundStyle(.secondary)
+                }
+                .font(.caption)
+                .controlSize(.small)
+                .help(Text("How warm Night Shift makes the screen"))
+            }
+            if manager.displays.count > 1 {
+                Picker("Other displays follow", selection: $viewModel.settings.displaysSyncSource) {
+                    Text("Off").tag(BrightnessSyncSource.off)
+                    Text("The built-in display").tag(BrightnessSyncSource.builtIn)
+                    Text("The light in the room").tag(BrightnessSyncSource.ambientLight)
+                }
+                .font(.caption)
+                .controlSize(.small)
+                .fixedSize()
+            }
+            if !ConnectionController.shared.disconnected.isEmpty {
+                Button("Switch Every Display Back On") { ConnectionController.shared.reconnectAll() }.controlSize(.small)
+            }
         }
-        .onAppear {
-            nightShift = SystemToggles.nightShift
-            trueTone = SystemToggles.trueTone
-            darkMode = SystemToggles.darkMode
-            nightShiftStrength = SystemToggles.nightShiftStrength
-        }
+        .padding(14)
+        .onAppear(perform: readToggles)
+        .onReceive(NotificationCenter.default.publisher(for: SystemToggles.changed)) { _ in readToggles() }
+    }
+
+    private func readToggles() {
+        nightShift = SystemToggles.nightShift
+        trueTone = SystemToggles.trueTone
+        darkMode = SystemToggles.darkMode
+        nightShiftStrength = SystemToggles.nightShiftStrength
     }
 }
 
