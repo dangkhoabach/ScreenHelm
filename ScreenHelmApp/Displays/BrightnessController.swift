@@ -15,6 +15,10 @@ final class BrightnessController {
     private(set) var values: [CGDirectDisplayID: Double] = [:]
     /// Displays on a reference preset that holds their brightness in place.
     private(set) var locked: Set<CGDirectDisplayID> = []
+    /// What the built-in panel puts out, in nits. Its framebuffer reports a
+    /// new level some 20 ms after the backlight is set, so this is read a
+    /// moment after each change, not when the figure is drawn.
+    private(set) var panelNits: Double?
 
     @ObservationIgnored private var started = false
     @ObservationIgnored private var observed: Set<CGDirectDisplayID> = []
@@ -120,6 +124,7 @@ final class BrightnessController {
     /// XDR boost switched itself off: the slider comes back to 100%.
     func boostEnded() {
         for (display, value) in values where value > 1 { values[display] = 1 }
+        readPanelNitsSoon()
     }
 
     func set(_ value: Double, for display: DisplayInfo) {
@@ -142,7 +147,10 @@ final class BrightnessController {
         }
         XDRController.shared.setSlider(boosted, for: display)
         values[display.id] = boosted
-        if display.kind == .builtIn { BrightnessSyncController.shared.sourceChanged() }
+        if display.kind == .builtIn {
+            BrightnessSyncController.shared.sourceChanged()
+            readPanelNitsSoon()
+        }
         DisplaySafety.shared.updatePanicHotKey()
         // Saved once the dragging stops, not on every step of it.
         // XDR boost isn't saved: it is never on by itself after a restart.
@@ -201,7 +209,22 @@ final class BrightnessController {
     func nits(for display: DisplayInfo) -> Double? {
         // While boosted the framebuffer reports the backlight's peak, not white.
         if let boosted = XDRController.shared.nits(for: display) { return boosted }
-        return display.kind == .builtIn && !XDRController.shared.isActive ? DisplayPrivateAPIs.builtInNits() : nil
+        return display.kind == .builtIn && !XDRController.shared.isActive ? panelNits : nil
+    }
+
+    /// Reads the built-in panel's nits once it has taken the new level; a
+    /// changed figure goes on to the displays following it by nits and to
+    /// the on-screen display, if that shows the panel's brightness.
+    private func readPanelNitsSoon() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self else { return }
+            let nits = DisplayPrivateAPIs.builtInNits()
+            guard nits != panelNits else { return }
+            panelNits = nits
+            guard let builtIn = DisplayManager.shared.displays.first(where: { $0.kind == .builtIn }) else { return }
+            BrightnessSyncController.shared.sourceChanged()
+            if DisplayOSD.shared.brightnessDisplay == builtIn.id { DisplayShortcuts.showBrightnessOSD(for: builtIn) }
+        }
     }
 
     // MARK: - Displays coming and going
@@ -217,6 +240,7 @@ final class BrightnessController {
         locked = locked.intersection(ids)
         for display in displays where !observed.contains(display.id) {
             observed.insert(display.id)
+            if display.kind == .builtIn { readPanelNitsSoon() }
             if display.hasAppleBrightness {
                 observe(display.id)
                 // Asking for the presets is slow the first time; not in the way of launch.
@@ -240,6 +264,7 @@ final class BrightnessController {
     }
 
     private func appleBrightnessChanged() {
+        readPanelNitsSoon()
         for display in DisplayManager.shared.displays where method(for: display) == .apple {
             guard let value = DisplayPrivateAPIs.brightness(of: display.id) else { continue }
             let shown = values[display.id] ?? -1

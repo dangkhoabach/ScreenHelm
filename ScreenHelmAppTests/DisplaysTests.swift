@@ -548,6 +548,26 @@ struct DisplayChangingTests {
         #expect(abs(brightness.value(for: builtIn) - target) < 0.01)
     }
 
+    /// The panel takes a new level some 20 ms after it is set, so the figure
+    /// in nits drawn with the slider is read again once it has: it says it
+    /// changed and ends on what the panel puts out.
+    @Test func theNitsFigureFollowsThePanelAfterAChange() async throws {
+        let manager = DisplayManager.shared
+        manager.refresh()
+        guard let builtIn = manager.displays.first(where: { $0.kind == .builtIn }) else { return }
+        let brightness = BrightnessController.shared
+        let start = try #require(DisplayPrivateAPIs.brightness(of: builtIn.id))
+        defer { DisplayPrivateAPIs.setBrightness(start, of: builtIn.id) }
+
+        brightness.set(start > 0.5 ? start - 0.3 : start + 0.3, for: builtIn)
+        let changed = OSAllocatedUnfairLock(initialState: false)
+        withObservationTracking { _ = brightness.nits(for: builtIn) } onChange: { changed.withLock { $0 = true } }
+        try await Task.sleep(for: .milliseconds(400))
+        #expect(changed.withLock { $0 })
+        let panel = try #require(DisplayPrivateAPIs.builtInNits())
+        #expect(brightness.nits(for: builtIn) == panel)
+    }
+
     /// The colour table written, read back, and given back.
     @Test func softwareDimmingWritesTheColorTable() async throws {
         let manager = DisplayManager.shared

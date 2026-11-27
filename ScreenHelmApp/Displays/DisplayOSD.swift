@@ -31,6 +31,7 @@ final class DisplayOSD {
     private let model = Model()
     private var panel: NSPanel?
     private var hide: DispatchWorkItem?
+    private var shownOn: CGDirectDisplayID?
 
     private init() {}
 
@@ -43,6 +44,7 @@ final class DisplayOSD {
         model.kind = kind
         model.value = value
         model.detail = detail ?? "\(Int((value * 100).rounded()))%"
+        shownOn = display.id
 
         let panel = panel ?? makePanel()
         self.panel = panel
@@ -66,6 +68,9 @@ final class DisplayOSD {
     }
 
     var isVisible: Bool { panel?.isVisible == true && panel?.alphaValue == 1 }
+
+    /// The display whose brightness is on screen now, if any.
+    var brightnessDisplay: CGDirectDisplayID? { isVisible && model.kind == .brightness ? shownOn : nil }
 
     private func makePanel() -> NSPanel {
         let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 260, height: 52), styleMask: [.nonactivatingPanel, .borderless],
